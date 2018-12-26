@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Candidate from '../elements/Candidate'
 import axios from 'axios'
 
 class Voting extends Component {
@@ -27,9 +28,9 @@ class Voting extends Component {
   }
 
   render() {
-    const candidates = this.state.candidates.map((candidate) => <li key={candidate.id} style={{color: `#${candidate.party.color}`}}>{ candidate.name } @ { candidate.party.name }</li>)
+    const candidates = this.state.candidates.map((candidate) => <Candidate key={candidate.id} name={candidate.name} party={candidate.party.name} color={candidate.party.color} />)
     return (
-      <div>{ candidates }</div>
+      <section>{ candidates }</section>
     )
   }
 }
