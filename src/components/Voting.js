@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Candidate from '../elements/Candidate'
+import Candidate from './elements/Candidate'
 import axios from 'axios'
 
 class Voting extends Component {
@@ -21,7 +21,6 @@ class Voting extends Component {
         name: response.data.name,
         candidates: response.data.candidates
       })
-      console.log(response)
     }).catch( error => {
       console.error(error)
     })

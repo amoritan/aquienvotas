@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getToken } from '../../redux/selectors'
 
 class Candidate extends Component {
   constructor(props) {
@@ -8,7 +10,11 @@ class Candidate extends Component {
   }
 
   voteCandidate() {
-    console.log(`Voted for ${this.props.name}!`)
+    if (this.props.token) {
+      console.log(`Voted for ${this.props.name}!`)
+    } else {
+      console.log('Not authenticated yet!')
+    }
   }
 
   render() {
@@ -22,4 +28,4 @@ class Candidate extends Component {
   }
 }
 
-export default Candidate
+export default connect(state => ({ token: getToken(state) }))(Candidate)
