@@ -16,25 +16,6 @@ const user = (state = initialState, action) => {
         user: action.payload.user
       }
     }
-    // case FETCH_USER: {
-    //   axios.get('/authentication/fetch', { headers: {'Authorization': `Bearer ${state.token}`} }).then(response => {
-    //     axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`
-    //     return {
-    //       ...state,
-    //       user: response.data
-    //     }
-    //   }).catch( error => {
-    //     if (error.response.status === 401) {
-    //       return {
-    //         token: null,
-    //         user: {}
-    //       }
-    //     } else {
-    //       console.error(error)
-    //       return state
-    //     }
-    //   })
-    // }
     default: {
       return state
     }
