@@ -1,8 +1,9 @@
-import { SET_USER } from './actionTypes'
+import { AUTHENTICATE } from './actionTypes'
 
-export const setUser = token => ({
-  type: SET_USER,
+export const authenticate = authentication => ({
+  type: AUTHENTICATE,
   payload: {
-    token: token
+    token: authentication.token,
+    user: authentication.user
   }
 })
