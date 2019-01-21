@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="84px" height="150px" viewBox="0 0 84 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="carets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <path d="M16.0371663,12 L67.9628337,12 C71.5550485,12 73.351156,16.3344204 70.8083522,18.8745924 L44.855609,44.8206345 C43.2814924,46.3931218 40.7185076,46.3931218 39.144391,44.8206345 L13.1916478,18.8745924 C10.648844,16.3344204 12.4449515,12 16.0371663,12 Z" id="Path" fill="#FEFEFE" opacity="0">
+      <animate
+        attributeName="opacity"
+        values="0;1;0" dur="1.5s" begin="0s"
+        repeatCount="indefinite"
+      />
+    </path>
+    <path d="M16.0371663,58 L67.9628337,58 C71.5550485,58 73.351156,62.3344204 70.8083522,64.8745924 L44.855609,90.8206345 C43.2814924,92.3931218 40.7185076,92.3931218 39.144391,90.8206345 L13.1916478,64.8745924 C10.648844,62.3344204 12.4449515,58 16.0371663,58 Z" id="Path" fill="#FEFEFE" opacity="0">
+      <animate
+        attributeName="opacity"
+        values="0;1;0" dur="1.5s" begin=".5s"
+        repeatCount="indefinite"
+      />
+    </path>
+    <path d="M16.0371663,104 L67.9628337,104 C71.5550485,104 73.351156,108.33442 70.8083522,110.874592 L44.855609,136.820634 C43.2814924,138.393122 40.7185076,138.393122 39.144391,136.820634 L13.1916478,110.874592 C10.648844,108.33442 12.4449515,104 16.0371663,104 Z" id="Path" fill="#FEFEFE" opacity="0">
+      <animate
+        attributeName="opacity"
+        values="0;1;0" dur="1.5s" begin="1s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+</svg>
