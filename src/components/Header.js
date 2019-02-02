@@ -9,6 +9,7 @@ const Container = styled.header`
   background-size: 16em;
   padding: 1em;
   transition: all 1s;
+  margin-bottom: 3em;
   div {
     display: flex;
     justify-content: center;
@@ -44,14 +45,15 @@ const Container = styled.header`
   }
   ${props => props.small && css`
     background-image: none;
-    max-width: 10em;
+    width: fit-content;
     padding: .5em 2em;
-    margin: 0 auto;
+    margin: 0 auto 3em auto;
     border-radius: 0 0 1em 1em;
     cursor: pointer;
     div {
+      width: fit-content;
       font-size: .5em;
-      margin: 0;
+      margin: 0 auto;
     }
     p, button {
       display: none;
