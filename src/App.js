@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
-import Header from './components/Header'
-import Voting from './components/Voting'
-import Authentication from './components/Authentication'
 import { connect } from 'react-redux'
+import axios from 'axios'
+
+import Header from './components/Header'
+import Voting from './components/sections/Voting'
+// import Authentication from './components/Authentication'
+
 import { authenticate } from './redux/actions'
 import { getToken } from './redux/selectors'
-import axios from 'axios'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCaretDown } from '@fortawesome/pro-solid-svg-icons'
-
-library.add(faCaretDown)
 
 class App extends Component {
   constructor(props) {
@@ -44,10 +42,10 @@ class App extends Component {
       <main>
         <Header closed={ Boolean(this.state.token) }></Header>
         <Voting name="Elección nacional" endpoint="national" />
-        { this.props.token ? '' : <Authentication />}
       </main>
     )
   }
+  // { this.props.token ? '' : <Authentication />}
 }
 
 export default connect(state => ({ token: getToken(state) }), { authenticate })(App)

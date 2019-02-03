@@ -9,7 +9,6 @@ const Container = styled.header`
   background-size: 16em;
   padding: 1em;
   transition: all 1s;
-  margin-bottom: 3em;
   div {
     display: flex;
     justify-content: center;
@@ -78,7 +77,7 @@ class Header extends Component {
 
   render() {
     return (
-      <Container small={ this.state.closed } onClick={ this.state.closed ? this.handleClick : false }>
+      <Container small={ this.state.closed } onClick={ this.state.closed ? this.handleClick : undefined }>
         <div>
           <img src="./images/icon.svg" alt="Logotipo de #AQuienVotas" width="980" height="980" />
           <h1>#AQuienVotas</h1>
