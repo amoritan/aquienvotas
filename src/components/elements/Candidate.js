@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { darken } from 'polished'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faVoteYea } from '@fortawesome/pro-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import VotingButton from './VotingButton';
+library.add(faVoteYea)
 
 const Container = styled.article`
   display: flex;
@@ -42,17 +45,47 @@ const Container = styled.article`
     border-radius: 100%;
     flex-shrink: 2;
   }
+  button {
+    margin-top: 1em;
+    color: #fefefe;
+    background: ${ props => props.color };
+    border: .125em solid ${ props => props.color };
+    border-radius: 2em;
+    font-size: 1em;
+    font-weight: 700;
+    padding: .5em;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: all .25s;
+    &:hover {
+      background: none;
+      color: ${ props => props.color };
+    }
+  }
 `
 
-function Candidate(props) {
-  return (
-    <Container color={ `#${ props.data.color || props.data.party.color }` }>
-      <h3>{ props.data.name }</h3>
-      <h4>{ props.data.party.name }</h4>
-      <img src="https://via.placeholder.com/240" alt={ props.data.name } width="120" height="120" />
-      <VotingButton candidate={ props.data.id } color={ `#${ props.data.color || props.data.party.color }` } percentage={ 42.3 } />
-    </Container>
-  )
+class Candidate extends Component {
+  constructor(props) {
+    super(props)
+
+    this.handleVote = this.handleVote.bind(this)
+  }
+
+  handleVote() {
+    this.props.voteHandler(this.props.data.id)
+  }
+
+  render() {
+    return (
+      <Container color={ `#${ this.props.data.color || this.props.data.party.color }` }>
+        <h3>{ this.props.data.name }</h3>
+        <h4>{ this.props.data.party.name }</h4>
+        <img src="https://via.placeholder.com/240" alt={ this.props.data.name } width="120" height="120" />
+        <button onClick={ this.handleVote }><FontAwesomeIcon icon="vote-yea" /> Votar</button>
+      </Container>
+    )
+  }
 }
 
 Candidate.propTypes = {
@@ -67,7 +100,8 @@ Candidate.propTypes = {
       description: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired,
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  voteHandler: PropTypes.func.isRequired
 }
 
 export default Candidate

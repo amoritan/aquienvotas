@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import styled from 'styled-components'
 
+import { getToken } from '../../redux/selectors'
+
+import Authentication from '../elements/Authentication'
 import Candidate from '../elements/Candidate'
 import Section from '../styled/Section'
 
@@ -30,13 +34,21 @@ class Voting extends Component {
     this.state = {
       id: null,
       name: this.props.name,
-      candidates: []
+      candidates: [],
+      voted: null,
+      authenticate: false,
+      share: false
     }
+
+    this.handleVote = this.handleVote.bind(this)
+
+    this.handleClose = this.handleClose.bind(this)
+    this.handleAuthenticated = this.handleAuthenticated.bind(this)
   }
 
   componentDidMount() {
     const _this = this
-    axios.get(`/ballots/${_this.props.endpoint}`).then( response => {
+    axios.get(`/ballots${ _this.props.endpoint ? `/${_this.props.endpoint}` : '' }`).then( response => {
       _this.setState({
         id: response.data.id,
         name: response.data.name,
@@ -47,11 +59,47 @@ class Voting extends Component {
     })
   }
 
+  handleVote(candidateId) {
+    if (this.props.token) {
+      axios.post(`/ballots/${this.state.id}/vote`, {
+        candidate_id: candidateId
+      }).then(response => {
+        this.setState({
+          share: true,
+          voted: candidateId
+        })
+        alert('Voted!')
+      }).catch(error => {
+        console.error(error)
+        alert('Ha ocurrido un error al enviar tu voto. Vuelve a intentarlo en unos minutos.')
+      })
+    } else {
+      this.setState({
+        authenticate: true,
+        voted: candidateId
+      })
+    }
+  }
+
+  handleClose() {
+    this.setState({
+      authenticate: false,
+      share: false
+    })
+  }
+  handleAuthenticated() {
+    this.setState({
+      authenticate: false
+    })
+    this.handleVote(this.state.voted)
+  }
+
   render() {
     return (
       <Section>
+        { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
         <Title>{ this.props.name }</Title>
-        <Candidates>{ this.state.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } />) }</Candidates>
+        <Candidates>{ this.state.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ this.handleVote } />) }</Candidates>
       </Section>
     )
   }
@@ -59,7 +107,7 @@ class Voting extends Component {
 
 Voting.propTypes = {
   name: PropTypes.string.isRequired,
-  endpoint: PropTypes.string.isRequired
+  endpoint: PropTypes.string
 }
 
-export default Voting
+export default connect(state => ({ token: getToken(state) }))(Voting)

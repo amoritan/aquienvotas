@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 const Button = styled.button`
-  color: #fefefe;
+  color: ${ props => props.primaryColor || '#fefefe' };
   background: none;
-  border: .125em solid #fefefe;
+  border: .125em solid ${ props => props.primaryColor || '#fefefe' };
   border-radius: 2em;
   font-size: 1em;
   font-weight: 700;
@@ -13,8 +13,8 @@ const Button = styled.button`
   cursor: pointer;
   transition: all .25s;
   &:hover {
-    background: #fefefe;
-    color: #0095d5;
+    background: ${ props => props.primaryColor || '#fefefe' };
+    color: ${ props => props.secondaryColor || '#0095d5' };
   }
 `
 

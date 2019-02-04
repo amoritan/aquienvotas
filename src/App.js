@@ -4,7 +4,6 @@ import axios from 'axios'
 
 import Header from './components/Header'
 import Voting from './components/sections/Voting'
-// import Authentication from './components/Authentication'
 
 import { authenticate } from './redux/actions'
 import { getToken } from './redux/selectors'
@@ -41,11 +40,10 @@ class App extends Component {
     return (
       <main>
         <Header closed={ Boolean(this.state.token) }></Header>
-        <Voting name="Elección nacional" endpoint="national" />
+        <Voting name="Elección nacional" />
       </main>
     )
   }
-  // { this.props.token ? '' : <Authentication />}
 }
 
 export default connect(state => ({ token: getToken(state) }), { authenticate })(App)
