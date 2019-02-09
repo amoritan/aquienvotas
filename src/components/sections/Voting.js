@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import { getToken } from '../../redux/selectors'
 
 import Authentication from '../elements/Authentication'
+import Share from '../elements/Share'
 import Candidate from '../elements/Candidate'
 import Section from '../styled/Section'
 
@@ -68,7 +69,6 @@ class Voting extends Component {
           share: true,
           voted: candidateId
         })
-        alert('Voted!')
       }).catch(error => {
         console.error(error)
         alert('Ha ocurrido un error al enviar tu voto. Vuelve a intentarlo en unos minutos.')
@@ -98,6 +98,7 @@ class Voting extends Component {
     return (
       <Section>
         { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
+        { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
         <Title>{ this.props.name }</Title>
         <Candidates>{ this.state.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ this.handleVote } />) }</Candidates>
       </Section>
