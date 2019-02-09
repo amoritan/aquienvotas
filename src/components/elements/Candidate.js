@@ -94,6 +94,7 @@ Candidate.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     color: PropTypes.string,
+    result: PropTypes.number,
     party: PropTypes.exact({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
