@@ -1,3 +1,9 @@
+# AQuienVotas
+
+AQuienVotas es una plataforma de encuestas **abierta, masiva, representativa y en tiempo real** de opinión pública en Argentina. 
+
+Reúne información sobre la **intención de voto** y **postura sobre temas de debate público** de la población argentina. Una vez que las personas votan, **permite visualizar los resultados ponderados en tiempo real**.  
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
