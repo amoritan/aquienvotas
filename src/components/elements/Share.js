@@ -44,20 +44,6 @@ const Container = styled.div`
       }
     }
   }
-  a {
-    display: block;
-    padding: .5em 1em;
-    color: #fefefe;
-    text-decoration: none;
-    text-align: center;
-    border-radius: .25em;
-    margin: .25em 0;
-    svg {
-      color: #fefefe;
-      margin-right: .5em;
-      font-size: 1.25em;
-    }
-  }
   button {
     width: 100%;
     display: block;
@@ -70,6 +56,25 @@ const Container = styled.div`
     margin: .25em 0;
     background: ${ lighten(.6, '#1e1e1e') }
     cursor: pointer;
+    svg {
+      color: #fefefe;
+      margin-right: .5em;
+      font-size: 1.25em;
+    }
+    a {
+      width: 0;
+      height: 0;
+      margin: 0;
+    }
+    &#twitter {
+      background: #00aced;
+    }
+    &#facebook {
+      background: #3b5998;
+    }
+    &#whatsapp {
+      background: #25d366;
+    }
   }
   svg {
     color: #0095d5;
@@ -83,16 +88,34 @@ class Share extends Component {
   constructor(props) {
     super(props)
     
-    this.facebookShare = this.facebookShare.bind(this)
+    this.handleShare = this.handleShare.bind(this)
   }
 
-  facebookShare(event) {
-    event.preventDefault()
+  handleShare(event) {
+    const link = document.createElement('a')
 
-    window.FB.ui({
-      method: 'share',
-      href: 'https://www.aquienvotas.com'
-    }, function(response){})
+    switch (event.target.id) {
+      case 'twitter':
+        link.setAttribute('href', 'https://twitter.com/intent/tweet?text=%C2%A1Estoy%20formando%20parte%20de%20la%20estad%C3%ADstica%20transparente%20para%20las%20%23Elecciones2019%20m%C3%A1s%20grande%20de%20la%20Argentina!&url=https://www.aquienvotas.com&hashtags=AQuienVotas&related=aquienvotas')
+        event.target.appendChild(link)
+        link.click()
+        event.target.removeChild(link)
+        break
+      case 'facebook':
+        window.FB.ui({
+          method: 'share',
+          href: 'https://www.aquienvotas.com'
+        }, function(response){})
+        break
+      case 'whatsapp':
+        link.setAttribute('href', 'whatsapp://send?text=%C2%A1Estoy%20formando%20parte%20de%20*%23AQuienVotas*%2C%20la%20estad%C3%ADstica%20transparente%20para%20las%20elecciones%202019%20m%C3%A1s%20grande%20de%20la%20Argentina!%20https%3A%2F%2Fwww.aquienvotas.com')
+        event.target.appendChild(link)
+        link.click()
+        event.target.removeChild(link)
+        break
+      default:
+        break
+    }
 
     this.props.closeHandler()
   }
@@ -105,11 +128,11 @@ class Share extends Component {
           <h3>Gracias por votar</h3>
           <p>¡Ya sos parte de la encuesta transparente más grande de la Argentina! Ayudanos a que más gente se sume a esta estadística abierta y permanente.</p>
           
-          { /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? <a style={ { background: '#25d366' } } onClick={ this.props.closeHandler } href="whatsapp://send?text=%C2%A1Estoy%20formando%20parte%20de%20*%23AQuienVotas*%2C%20la%20estad%C3%ADstica%20transparente%20para%20las%20elecciones%202019%20m%C3%A1s%20grande%20de%20la%20Argentina!%20https%3A%2F%2Fwww.aquienvotas.com"><FontAwesomeIcon icon={['fab', 'whatsapp']} /> Compartir en WhatsApp</a> : '' } 
-          <a style={ { background: '#00aced' } } onClick={ this.props.closeHandler } href="https://twitter.com/intent/tweet?text=%C2%A1Estoy%20formando%20parte%20de%20la%20estad%C3%ADstica%20transparente%20para%20las%20%23Elecciones2019%20m%C3%A1s%20grande%20de%20la%20Argentina!&url=https://www.aquienvotas.com&hashtags=AQuienVotas&related=aquienvotas"><FontAwesomeIcon icon={['fab', 'twitter']} /> Compartir en Twitter</a>
-          <a style={ { background: '#3b5998' } } href="#" onClick={ this.facebookShare }><FontAwesomeIcon icon={['fab', 'facebook']} /> Compartir en Facebook</a>
-          <button onClick={ this.facebookShare }>Saltar a los resultados</button>
-          
+          <button id="twitter" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'twitter']} /> Compartir en Twitter</button>
+          <button id="facebook" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'facebook']} /> Compartir en Facebook</button>
+          { /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? <button id="whatsapp" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'whatsapp']} /> Compartir en WhatsApp</button> : '' } 
+          <button onClick={ this.props.closeHandler }>Saltar a los resultados</button>
+
           <ul>
             <li><FontAwesomeIcon icon="user-secret" /> <span><strong>Privado</strong> Nuestro servidor no recibe ni almacena los datos de tus redes sociales.</span></li>
             <li><FontAwesomeIcon icon="lock" /> <span><strong>Secreto</strong> Al compartir no estás mostrando tu voto, sólo la encuesta de #AQuienVotas.</span></li>
