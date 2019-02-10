@@ -100,6 +100,7 @@ Candidate.propTypes = {
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired,
+      result: PropTypes.number
     }).isRequired
   }).isRequired,
   voteHandler: PropTypes.func.isRequired

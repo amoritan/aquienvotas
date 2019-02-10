@@ -12,23 +12,30 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      ready: false
+    }
 
     this.checkAuthentication = this.checkAuthentication.bind(this)
   }
 
   checkAuthentication() {
+    let _this = this
     const token = window.localStorage.getItem('authentication_token')
     if (token) {
       axios.get('/authentication/fetch', { headers: {'Authorization': `Bearer ${token}`} }).then(response => {
-        this.props.authenticate({ token: token, user: response.data })
+        _this.props.authenticate({ token: token, user: response.data })
+        _this.setState({ ready: true })
       }).catch( error => {
         if (error.response.status === 401) {
           window.localStorage.removeItem('authentication_token')
+          _this.setState({ ready: true })
         } else {
           console.error(error)
         }
       })
+    } else {
+      _this.setState({ ready: true })
     }
   }
 
@@ -37,12 +44,16 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <main>
-        <Header closed={ Boolean(this.state.token) }></Header>
-        <Voting name="Elección nacional" />
-      </main>
-    )
+    if (this.state.ready) {
+      return (
+        <main>
+          <Header closed={ Boolean(this.props.token) }></Header>
+          <Voting name="Elección nacional" />
+        </main>
+      )
+    } else {
+      return ''
+    }
   }
 }
 

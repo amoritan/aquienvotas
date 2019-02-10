@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import { getToken } from '../../redux/selectors'
+import { getToken, getUser } from '../../redux/selectors'
 
 import Authentication from '../elements/Authentication'
 import Share from '../elements/Share'
 import Candidate from '../elements/Candidate'
 import Section from '../styled/Section'
+import PartyResult from '../elements/PartyResult'
 
 const Title = styled.h2`
   font-size: 2em;
@@ -27,6 +28,12 @@ const Candidates = styled.div`
     margin: .5rem;
   }
 `
+const Results = styled.div`
+  margin: 0 .5rem;
+  border-radius: .5em;
+  background: #fefefe;
+  padding: .5em .5em 0 .5em;
+`
 
 class Voting extends Component {
   constructor(props) {
@@ -36,24 +43,30 @@ class Voting extends Component {
       id: null,
       name: this.props.name,
       candidates: [],
+      results: [],
       voted: null,
       authenticate: false,
       share: false
     }
 
+    this.fetchVoting = this.fetchVoting.bind(this)
     this.handleVote = this.handleVote.bind(this)
-
     this.handleClose = this.handleClose.bind(this)
     this.handleAuthenticated = this.handleAuthenticated.bind(this)
   }
 
   componentDidMount() {
+    this.fetchVoting(this.props.endpoint)
+  }
+
+  fetchVoting(id) {
     const _this = this
-    axios.get(`/ballots${ _this.props.endpoint ? `/${_this.props.endpoint}` : '' }`).then( response => {
+    axios.get(`/ballots${ id ? `/${id}` : '' }`).then( response => {
       _this.setState({
         id: response.data.id,
         name: response.data.name,
-        candidates: response.data.candidates
+        candidates: response.data.candidates || [],
+        results: response.data.candidates_with_results || []
       })
     }).catch( error => {
       console.error(error)
@@ -69,6 +82,7 @@ class Voting extends Component {
           share: true,
           voted: candidateId
         })
+        this.fetchVoting(this.state.id)
       }).catch(error => {
         console.error(error)
         alert('Ha ocurrido un error al enviar tu voto. Vuelve a intentarlo en unos minutos.')
@@ -100,7 +114,11 @@ class Voting extends Component {
         { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
         { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
         <Title>{ this.props.name }</Title>
-        <Candidates>{ this.state.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ this.handleVote } />) }</Candidates>
+        { this.state.results.length ? (
+          <Results>{ this.state.results.map((result) => <PartyResult key={ result.id } data={ result } />) }</Results>
+        ) : (
+          <Candidates>{ this.state.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ this.handleVote } />) }</Candidates>
+        ) }
       </Section>
     )
   }
@@ -111,4 +129,4 @@ Voting.propTypes = {
   endpoint: PropTypes.string
 }
 
-export default connect(state => ({ token: getToken(state) }))(Voting)
+export default connect(state => ({ token: getToken(state), user: getUser(state) }))(Voting)
