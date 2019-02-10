@@ -6,7 +6,7 @@ Reúne información sobre la intención de voto en elecciones ejecutivas y la po
 
 El objetivo de este proyecto es representar la opinión de la población argentina y sus variaciones según provincia, género y rango etáreo. Apuntamos a colaborar al debate público usando datos representativos mediante una herramienta **transparente, accesible y neutral**.
 
-## QueVotas
+# QueVotas
 
 Las opciones de voto varían según el calendario electoral y las agenda pública a nivel nacional en Argentina.
 
@@ -16,7 +16,7 @@ Las opciones de voto varían según el calendario electoral y las agenda públic
 
 **[CHEQUEAR ESTO]** Para ofrecer un panorama realista y representativo de la opinión pública argentina, se pedirá a los usuarios de AQuienVotas que ingresen su provincia, género y edad. Esta información se usa para ponderar los resultados y asegurar representatividad estadística. 
 
-### Votaciones electorales
+**[SACAR ESTO DE ACA]** ### Votaciones electorales
 
 1. **Espacio político**: Antes de la definición de listas, AQuienVotas te va a permitir elegir tu espacio político de preferencia. Los espacios políticos son una aproximación de cómo se está configurando los partidos políticos o alianzas de cara a las elecciones. Se determinan según un análisis deductivo desde la ciencia política basado en las declaraciones públicas de los actores políticos. Para saber más sobre cómo definimos esto, podés leer [acá][**PONER LINK A WIKI O POST**] 
 2. **Pre-candidatos a elecciones ejecutivas nacionales y provinciales**: Una vez publicadas las listas oficiales, y en aquellos distritos electorales con elecciones primarias (PASO), AQuienVotas te permite seleeccionar el candidato que querés votar. Tanto en elecciones nacionales como provinciales, se mostrarán todos los candidatos y partidos políticos oficiales. La fecha de apertura de las encuestas a gobernadores dependerá del calendario electoral de cada provincia.
@@ -27,13 +27,13 @@ Las opciones de voto varían según el calendario electoral y las agenda públic
 
 - **Opinión sobre la Ley de Interrupción Voluntaria del Embarazo**
 
-## ComoVotas
+# ComoVotas
 
 La plataforma consiste en una interfaz simple que permite seleccionar, entre opciones finitas, la intención de voto para las elecciones presidenciales de 2019 en Argentina. Esta opción 
 
-## Compartinos
+# Compartinos
 
-## Más información
+# Más información
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
