@@ -1,8 +1,40 @@
 # AQuienVotas
 
-AQuienVotas es una plataforma de encuestas **abierta, masiva, representativa y en tiempo real** de opinión pública en Argentina. 
+AQuienVotas es una plataforma online de encuestas **abierta, masiva y representativa con resultados en tiempo real**. 
 
-Reúne información sobre la **intención de voto** y **postura sobre temas de debate público** de la población argentina. Una vez que las personas votan, **permite visualizar los resultados ponderados en tiempo real**.  
+Reúne información sobre la intención de voto en elecciones ejecutivas y la postura sobre temas de debate público en Argentina y devuelve los resultados ponderados en tiempo real. 
+
+El objetivo de este proyecto es representar la opinión de la población argentina y sus variaciones según provincia, género y rango etáreo. Apuntamos a colaborar al debate público usando datos representativos mediante una herramienta **transparente, accesible y neutral**.
+
+## QueVotas
+
+Las opciones de voto varían según el calendario electoral y las agenda pública a nivel nacional en Argentina.
+
+- Para las elecciones nacionales, cualquier residente de Argentina puede seleccionar su intención de voto en relación a las elecciones presidenciales de 2019.
+- Para las elecciones provinciales, solo podrán participar en las encuestas quienes voten en esa provincia en 2019. 
+- En cuanto al debate de opinión pública, se abrirán encuestas en torno a discusiones presentes en la agenda pública en temas relacionados a economía, educación y salud.
+
+**[CHEQUEAR ESTO]** Para ofrecer un panorama realista y representativo de la opinión pública argentina, se pedirá a los usuarios de AQuienVotas que ingresen su provincia, género y edad. Esta información se usa para ponderar los resultados y asegurar representatividad estadística. 
+
+### Votaciones electorales
+
+1. **Espacio político**: Antes de la definición de listas, AQuienVotas te va a permitir elegir tu espacio político de preferencia. Los espacios políticos son una aproximación de cómo se está configurando los partidos políticos o alianzas de cara a las elecciones. Se determinan según un análisis deductivo desde la ciencia política basado en las declaraciones públicas de los actores políticos. Para saber más sobre cómo definimos esto, podés leer [acá][**PONER LINK A WIKI O POST**] 
+2. **Pre-candidatos a elecciones ejecutivas nacionales y provinciales**: Una vez publicadas las listas oficiales, y en aquellos distritos electorales con elecciones primarias (PASO), AQuienVotas te permite seleeccionar el candidato que querés votar. Tanto en elecciones nacionales como provinciales, se mostrarán todos los candidatos y partidos políticos oficiales. La fecha de apertura de las encuestas a gobernadores dependerá del calendario electoral de cada provincia.
+3. **Candidatos a elecciones ejecutivas nacionales y provinciales**: 
+4. **Candidatos en ballotage**:
+
+### Encuestas de opinión pública
+
+- **Opinión sobre la Ley de Interrupción Voluntaria del Embarazo**
+
+## ComoVotas
+
+La plataforma consiste en una interfaz simple que permite seleccionar, entre opciones finitas, la intención de voto para las elecciones presidenciales de 2019 en Argentina. Esta opción 
+
+## Compartinos
+
+## Más información
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
