@@ -9,15 +9,11 @@ import { getToken, getUser } from '../../redux/selectors'
 import Authentication from '../elements/Authentication'
 import Share from '../elements/Share'
 import Candidate from '../elements/Candidate'
-import Section from '../styled/Section'
 import PartyResult from '../elements/PartyResult'
 
-const Title = styled.h2`
-  font-size: 2em;
-  font-weight: 700;
-  color: #fefefe;
-  margin: 1rem;
-`
+import Section from '../styled/Section'
+import SectionTitle from '../styled/SectionTitle'
+
 const Candidates = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -113,7 +109,7 @@ class Voting extends Component {
       <Section>
         { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
         { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
-        <Title>{ this.props.name }</Title>
+        <SectionTitle>{ this.props.name }</SectionTitle>
         { this.state.results.length ? (
           <Results>{ this.state.results.map((result) => <PartyResult key={ result.id } data={ result } />) }</Results>
         ) : (

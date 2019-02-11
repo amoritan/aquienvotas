@@ -4,9 +4,10 @@ import axios from 'axios'
 
 import Header from './components/Header'
 import Voting from './components/sections/Voting'
+import Province from './components/sections/Province'
 
 import { authenticate } from './redux/actions'
-import { getToken } from './redux/selectors'
+import { getUser } from './redux/selectors'
 
 class App extends Component {
   constructor(props) {
@@ -47,8 +48,9 @@ class App extends Component {
     if (this.state.ready) {
       return (
         <main>
-          <Header closed={ Boolean(this.props.token) }></Header>
+          <Header closed={ Boolean(this.props.user) }></Header>
           <Voting name="Elección nacional" />
+          { this.props.user && this.props.user.location ? <Voting name="Elección provincial" /> : <Province /> }
         </main>
       )
     } else {
@@ -57,4 +59,4 @@ class App extends Component {
   }
 }
 
-export default connect(state => ({ token: getToken(state) }), { authenticate })(App)
+export default connect(state => ({ user: getUser(state) }), { authenticate })(App)

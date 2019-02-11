@@ -1,4 +1,4 @@
-import { AUTHENTICATE } from '../actionTypes'
+import { AUTHENTICATE, UPDATE } from '../actionTypes'
 import axios from 'axios'
 
 const initialState = {
@@ -13,6 +13,11 @@ const user = (state = initialState, action) => {
       window.localStorage.setItem('authentication_token', action.payload.token)
       return {
         token: action.payload.token,
+        user: action.payload.user
+      }
+    }
+    case UPDATE: {
+      return {
         user: action.payload.user
       }
     }
