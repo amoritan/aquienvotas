@@ -49,8 +49,8 @@ class App extends Component {
       return (
         <main>
           <Header closed={ Boolean(this.props.user) }></Header>
-          <Voting name="Elección nacional" />
-          { this.props.user && this.props.user.location ? <Voting name="Elección provincial" /> : <Province /> }
+          <Voting name="Elección nacional" endpoint="national" />
+          { this.props.user && this.props.user.location ? <Voting name="Elección provincial" endpoint="local" /> : <Province /> }
         </main>
       )
     } else {

@@ -142,7 +142,6 @@ class Province extends Component {
         this.setState({
           province: province
         })
-        console.log(province)
         if (province.locations.length > 1) {
           this.setState({
             locationOptions: province.locations.map((location) => { return { value: location.id, title: location.name } } )
