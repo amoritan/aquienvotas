@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
-import Header from './components/Header'
+import Header from './components/sections/Header'
 import Voting from './components/sections/Voting'
 import Province from './components/sections/Province'
 

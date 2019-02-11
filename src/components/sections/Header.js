@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import styled, { css } from 'styled-components'
-import Button from './styled/Button'
+import { transparentize } from 'polished'
+
+import Button from '../styled/Button'
 
 const Container = styled.header`
   color: #fefefe;
   background: #0095d5;
-  background-image: linear-gradient(rgba(0, 149, 213, .8), rgba(0, 149, 213, .8)), url('./images/background.svg');
+  background-image: linear-gradient(${transparentize(.2, '#0095d5')}, ${transparentize(.2, '#0095d5')}), url('./images/background.svg');
   background-size: 16em;
   padding: 1em;
   transition: all 1s;
@@ -36,22 +38,14 @@ const Container = styled.header`
     display: block;
     margin 1.5em auto;
   }
-  hr {
-    border: none;
-    height: 2em;
-    background: url('./images/carets.svg') no-repeat center;
-    background-size: contain;
-  }
   ${props => props.small && css`
-    background-image: none;
-    width: fit-content;
+    background: #0095d5;
     padding: .5em 2em;
     margin: 0 auto 3em auto;
-    border-radius: 0 0 1em 1em;
     cursor: pointer;
     div {
       width: fit-content;
-      font-size: .5em;
+      font-size: .75em;
       margin: 0 auto;
     }
     p, button {

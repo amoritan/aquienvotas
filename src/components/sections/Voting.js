@@ -25,10 +25,10 @@ const Candidates = styled.div`
   }
 `
 const Results = styled.div`
-  margin: 0 .5rem;
+  margin: 0 1rem;
   border-radius: .5em;
   background: #fefefe;
-  padding: .5em .5em 0 .5em;
+  padding: 2em 1em 1.5em 1em;
 `
 
 class Voting extends Component {

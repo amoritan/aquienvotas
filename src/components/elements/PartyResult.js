@@ -1,33 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { transparentize } from 'polished'
 
 import CandidateResult from '../elements/CandidateResult'
 
 const Container = styled.article`
-  margin: .5em 0;
   header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    margin: 0;
-    padding: .25em 0;
-    border-bottom: .0625em solid ${ props => props.color };
+    margin: 0 0 .25em 0;
+    padding: .25em 0 0 0;
+    border-bottom: .0625em solid ${ props => transparentize(.6, props.color) };
+    position: relative;
+    color: ${ props => transparentize(.2, props.color) };
     h3 {
-      font-size: .95em;
+      font-size: .8em;
       font-weight: 400;
-      color: ${ props => props.color };
       text-transform: uppercase;
       margin: 0;
+      position: absolute;
+      top: -.75em;
     }
     strong {
-      font-size: .95em;
-      color: ${ props => props.color };
+      font-size: .8em;
       font-weight: 600;
+      position: absolute;
+      bottom: -1.125em;
     }
-  }
-  main {
-    padding: .5em 0;
   }
 `
 // border: .0625em solid ${ props => props.color };
