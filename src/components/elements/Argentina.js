@@ -5,11 +5,9 @@ import { lighten } from 'polished'
 
 const Container = styled.svg`
   g {
-    opacity: 1;
     transition: all .25s;
     cursor: pointer;
     &#Argentina, &#Details {
-      opacity: 1;
       cursor: normal;
       &:hover {
         fill: none;

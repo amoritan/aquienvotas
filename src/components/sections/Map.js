@@ -38,7 +38,7 @@ class Map extends Component {
     super(props)
 
     this.state = {
-      locations: {},
+      locations: [],
       activeLocation: undefined
     }
 
@@ -54,7 +54,8 @@ class Map extends Component {
     const _this = this
     axios.get('/users/locations').then( response => {
       _this.setState({
-        locations: response.data
+        locations: response.data,
+        activeLocation: response.data[0]
       })
     }).catch( error => {
       console.error(error)
@@ -62,8 +63,7 @@ class Map extends Component {
   }
 
   handleClick(event) {
-    let activeLocation = this.state.locations[event.target.parentNode.id]
-    activeLocation['code'] = event.target.parentNode.id
+    let activeLocation = this.state.locations.find( locations => locations.code === event.target.parentNode.id )
     this.setState({
       activeLocation: activeLocation
     })
