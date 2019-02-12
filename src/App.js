@@ -5,6 +5,7 @@ import axios from 'axios'
 import Header from './components/sections/Header'
 import Voting from './components/sections/Voting'
 import Province from './components/sections/Province'
+import Map from './components/sections/Map'
 
 import { authenticate } from './redux/actions'
 import { getUser } from './redux/selectors'
@@ -51,6 +52,7 @@ class App extends Component {
           <Header closed={ Boolean(this.props.user) }></Header>
           <Voting name="Elección nacional" endpoint="national" />
           { this.props.user && this.props.user.location ? <Voting name="Elección provincial" endpoint="local" /> : <Province /> }
+          <Map />
         </main>
       )
     } else {
