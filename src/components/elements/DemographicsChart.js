@@ -78,11 +78,14 @@ const Block = styled.li`
   height: 2em;
   color: ${ transparentize(.6, '#1e1e1e') };
   strong {
-    width: 100%;
-    right: 0; left: 0;
+    width: calc(100% - 1em);
+    right: .5em; left: .5em;
   }
   ${props => props.female && css`
     justify-content: flex-end;
+    strong {
+      text-align: left;
+    }
     &::after {
       content: '';
       display: block;
@@ -100,6 +103,9 @@ const Block = styled.li`
   `};
   ${props => props.male && css`
     justify-content: flex-start;
+    strong {
+      text-align: right;
+    }
     &::before {
       content: '';
       display: block;
