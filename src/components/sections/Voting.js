@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import { getToken, getUser } from '../../redux/selectors'
+import { getUser } from '../../redux/selectors'
 
 import Authentication from '../elements/Authentication'
 import Share from '../elements/Share'
@@ -70,7 +70,7 @@ class Voting extends Component {
   }
 
   handleVote(candidateId) {
-    if (this.props.token) {
+    if (this.props.user) {
       axios.post(`/ballots/${this.state.id}/vote`, {
         candidate_id: candidateId
       }).then(response => {
@@ -101,7 +101,15 @@ class Voting extends Component {
     this.setState({
       authenticate: false
     })
-    this.handleVote(this.state.voted)
+    if (this.props.user.votes.find( vote => vote.voting_id === this.state.id )) {
+      if (window.confirm('Ya habías votado en esta elección, ¿Te gustaria reemplazar tu voto?')) {
+        this.handleVote(this.state.voted)
+      } else {
+        this.fetchVoting(this.state.id)
+      }
+    } else {
+      this.handleVote(this.state.voted)
+    }
   }
 
   render() {
@@ -125,4 +133,4 @@ Voting.propTypes = {
   endpoint: PropTypes.string
 }
 
-export default connect(state => ({ token: getToken(state), user: getUser(state) }))(Voting)
+export default connect(state => ({ user: getUser(state) }))(Voting)
