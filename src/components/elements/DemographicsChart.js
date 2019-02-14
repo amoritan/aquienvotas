@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, keyframes } from 'styled-components'
 import { darken, transparentize } from 'polished'
@@ -22,8 +22,7 @@ const Container = styled.article`
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.5em;
-    margin: 1rem 0 0 0;
+    margin: .5em 0 0 0;
   }
 `
 
@@ -40,23 +39,22 @@ const RowContainer = styled.div`
     color: ${ darken(.2, '#fefefe') };
     margin: 0 0 .125em 0;
   }
-  strong {
-    display: block;
-    width: 100%;
-    font-weight: 600;
-    font-size: 1.5em;
-    line-height: 2rem;
-    color: ${ transparentize(.4, '#fefefe') };
-    position: absolute;
-    z-index: 5;
-    transition: all .5s;
-    white-space: nowrap;
-  }
-  &:hover, &:active {
-    strong {
-      opacity: 0;
-    }
-  }
+`
+const Percentage = styled.strong`
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1.5em;
+  line-height: 2rem;
+  color: ${ transparentize(.4, '#fefefe') };
+  position: absolute;
+  z-index: 5;
+  transition: all .5s;
+  white-space: nowrap;
+  opacity: 0;
+  ${props => props.active && css`
+    opacity: 1;
+  `};
 `
 const Row = styled.ul`
   list-style: none;
@@ -80,13 +78,8 @@ const Block = styled.li`
   height: 2em;
   color: ${ transparentize(.6, '#1e1e1e') };
   strong {
-    width: fit-content;
-    opacity: 0;
-  }
-  &:hover, &:active {
-    strong {
-      opacity: 1;
-    }
+    width: 100%;
+    right: 0; left: 0;
   }
   ${props => props.female && css`
     justify-content: flex-end;
@@ -99,19 +92,11 @@ const Block = styled.li`
       border-radius: .25em 0 0 .25em;
       animation: ${grow} 1s ease;
     }
-    strong {
-      text-align: right;
-      padding-right: .125em;
-    }
   `};
   ${props => props.other && css`
     width: ${ props => props.percentage * 2 }%;
     background: #d500b8;
-    position: relative;
     animation: ${grow} 1s ease;
-    strong {
-      width: 100%;
-    }
   `};
   ${props => props.male && css`
     justify-content: flex-start;
@@ -124,36 +109,84 @@ const Block = styled.li`
       border-radius: 0 .25em .25em 0;
       animation: ${grow} 1s ease;
     }
-    strong {
-      text-align: left;
-      padding-left: .125em;
-    }
   `};
 `
 
-function DemographicsChart(props) {
-  const biggestGroup = props.demographics.length ? props.demographics.reduce((max, group) => group.total > max.total ? group : max ) : undefined
+const GenderButton = styled.button`
+  width: fit-content;
+  background: none;
+  border: none;
+  font-size: 2em;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  opacity: .5;
+  transition: all .5s;
+  &#female {
+    color: #00d569;
+  }
+  &#other {
+    color: #d500b8;
+  }
+  &#male {
+    color: #d56c00;
+  }
+  ${props => props.active && css`
+    opacity: 1;
+  `};
+`
 
-  return (
-    <Container>
-      { props.demographics.map((group, index) => (
-        <RowContainer key={ group.code } percentage={ group.total } max={ biggestGroup.total }>
-          <h3>{ group.code.replace('from', 'De ').replace('to', ' a ').replace('plus', 'Mayor de ') }</h3>
-          <strong>{ group.total } %</strong>
-          <Row>
-            <Block percentage={ group.genders[0].group } female><strong>{ group.genders[0].total } %</strong></Block>
-            <Block percentage={ group.genders[2].group } other><strong>{ group.genders[2].total } %</strong></Block>
-            <Block percentage={ group.genders[1].group } male><strong>{ group.genders[1].total } %</strong></Block>
-          </Row>
-        </RowContainer>
-      ) ) }
-      <aside>
-        <FontAwesomeIcon icon="venus" style={ { color: '#00d569' } } />
-        <FontAwesomeIcon icon="genderless" style={ { color: '#d500b8' } } />
-        <FontAwesomeIcon icon="mars" style={ { color: '#d56c00' } } />
-      </aside>
-    </Container>
-  )
+class DemographicsChart extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      gender: ''
+    }
+
+    this.pickGender = this.pickGender.bind(this)
+  }
+
+  pickGender(event) {
+    const gender = event.currentTarget.id
+    console.log(gender)
+    this.setState((state) => {
+      return {
+        gender: state.gender === gender ? '' : gender
+      }
+    })
+  }
+
+  render () {
+    const biggestGroup = this.props.demographics.length ? this.props.demographics.reduce((max, group) => group.total > max.total ? group : max ) : undefined
+
+    return (
+      <Container>
+        { this.props.demographics.map((group, index) => (
+          <RowContainer key={ group.code } percentage={ group.total } max={ biggestGroup.total }>
+            <h3>{ group.code.replace('from', 'De ').replace('to', ' a ').replace('plus', 'Mayor de ') }</h3>
+            <Percentage active={ this.state.gender === '' }>{ group.total } %</Percentage>
+            <Row>
+              <Block percentage={ group.genders[0].group } female><Percentage active={ this.state.gender === 'female' }>{ group.genders[0].total } %</Percentage></Block>
+              <Block percentage={ group.genders[2].group } other><Percentage active={ this.state.gender === 'other' }>{ group.genders[2].total } %</Percentage></Block>
+              <Block percentage={ group.genders[1].group } male><Percentage active={ this.state.gender === 'male' }>{ group.genders[1].total } %</Percentage></Block>
+            </Row>
+          </RowContainer>
+        ) ) }
+        <aside>
+          <GenderButton id="female" onClick={ this.pickGender } active={ this.state.gender === 'female' || this.state.gender === '' }>
+            <FontAwesomeIcon icon="venus" />
+          </GenderButton>
+          <GenderButton id="other" onClick={ this.pickGender } active={ this.state.gender === 'other' || this.state.gender === '' }>
+            <FontAwesomeIcon icon="genderless" />
+          </GenderButton>
+          <GenderButton id="male" onClick={ this.pickGender } active={ this.state.gender === 'male' || this.state.gender === '' }>
+            <FontAwesomeIcon icon="mars" />
+          </GenderButton>
+        </aside>
+      </Container>
+    )
+  }
 }
 
 DemographicsChart.propTypes = {
