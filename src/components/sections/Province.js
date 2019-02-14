@@ -11,7 +11,7 @@ import Candidate from '../elements/Candidate'
 
 import Section from '../styled/Section'
 import SectionTitle from '../styled/SectionTitle'
-import Question from '../styled/Question'
+import BlurredQuestion from '../styled/BlurredQuestion'
 
 import Select from '../inputs/Select'
 import Submit from '../inputs/Submit'
@@ -86,20 +86,6 @@ const Candidates = styled.div`
     box-sizing: border-box;
     margin: .5rem;
   }
-`
-
-const Container = styled.div`
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 1em;
 `
 
 class Province extends Component {
@@ -181,14 +167,20 @@ class Province extends Component {
       <Section>
         <SectionTitle>Elección provincial</SectionTitle>
         <Candidates aria-hidden="true">{ placeholderCandidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ function() {} } />) }</Candidates>
-        <Container>
-          <Question>¿Dónde votas?</Question>
-          <form onSubmit={ this.handleSubmit }>
-            <Select placeholder="Elige una provincia" options={ this.state.provinceOptions } selected={ this.state.province.id } changeHandler={ this.handleChange } name="province" required disabled={ !Boolean(this.props.user) } />
-            { this.state.locationOptions.length ? <Select placeholder="Elige una opción" options={ this.state.locationOptions } selected={ this.state.location.id } changeHandler={ this.handleChange } name="location" required /> : '' }
-            { this.state.location.id ? <Submit title="Guardar" /> : '' }
-          </form>
-        </Container>
+        { this.props.user ? (
+          <BlurredQuestion>
+            <h3>¿Dónde votas?</h3>
+            <form onSubmit={ this.handleSubmit }>
+              <Select placeholder="Elige una provincia" options={ this.state.provinceOptions } selected={ this.state.province.id } changeHandler={ this.handleChange } name="province" required />
+              { this.state.locationOptions.length ? <Select placeholder="Elige una opción" options={ this.state.locationOptions } selected={ this.state.location.id } changeHandler={ this.handleChange } name="location" required /> : '' }
+              { this.state.location.id ? <Submit title="Guardar" /> : '' }
+            </form>
+          </BlurredQuestion>
+        ) : (
+          <BlurredQuestion>
+            <p>Para poder ver esta sección, primero debes votar en la <button onClick={ () => { window.scrollTo(0, 0) } }>elección nacional</button>.</p>
+          </BlurredQuestion>
+        ) }
       </Section>
     )
   }

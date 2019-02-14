@@ -21,7 +21,7 @@ const Container = styled.select`
 function Select(props) {
   return (
     <Container value={ props.selected } onChange={ props.changeHandler } name={ props.name }  required={ props.required } disabled={ props.disabled }>
-      <option value={ undefined } disabled>{ props.placeholder }</option>
+      <option value={ undefined } disabled={ Boolean(props.selected) }>{ props.placeholder }</option>
       { props.options.map((option) => <option key={ option.value } value={ option.value }>{ option.title }</option>) }
     </Container>
   )
