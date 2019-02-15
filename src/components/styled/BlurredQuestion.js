@@ -24,12 +24,10 @@ const BlurredQuestion = styled.div`
   p {
     text-align: center;
     font-size: 1.5em;
-    button {
-      appearance: none;
-      background: none;
-      border: none;
-      cursor: pointer;
+    a {
+      text-decoration: none;
       color: #0095d5;
+      cursor: pointer;
     }
   }
 `

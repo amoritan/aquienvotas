@@ -114,7 +114,7 @@ class Voting extends Component {
 
   render() {
     return (
-      <Section>
+      <Section id={ this.props.endpoint }>
         { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
         { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
         <SectionTitle>{ this.props.name }</SectionTitle>

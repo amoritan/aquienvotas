@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 import axios from 'axios'
 import styled, { css } from 'styled-components'
+import { Link } from 'react-scroll'
 
 import { update } from '../../redux/actions'
 import { getUser } from '../../redux/selectors'
@@ -232,7 +233,7 @@ class Province extends Component {
             </BlurredQuestion>
           ) : (
             <BlurredQuestion>
-              <p>Para poder ver esta sección, primero debes votar en la <button onClick={ () => { window.scrollTo(0, 0) } }>elección provincial</button>.</p>
+              <p>Para poder ver esta sección, primero debes votar en la <Link to="local" smooth={ true } duration={ 500 }>elección provincial</Link>.</p>
             </BlurredQuestion>
           )
         ) : '' }

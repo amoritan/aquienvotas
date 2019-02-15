@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 // import PropTypes from 'prop-types'
 import axios from 'axios'
 import styled from 'styled-components'
+import { Link } from 'react-scroll'
 
 import { update } from '../../redux/actions'
 import { getUser } from '../../redux/selectors'
@@ -164,7 +165,7 @@ class Province extends Component {
 
   render() {
     return (
-      <Section>
+      <Section id="local">
         <SectionTitle>Elección provincial</SectionTitle>
         <Candidates aria-hidden="true">{ placeholderCandidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ function() {} } />) }</Candidates>
         { this.props.user ? (
@@ -178,7 +179,7 @@ class Province extends Component {
           </BlurredQuestion>
         ) : (
           <BlurredQuestion>
-            <p>Para poder ver esta sección, primero debes votar en la <button onClick={ () => { window.scrollTo(0, 0) } }>elección nacional</button>.</p>
+            <p>Para poder ver esta sección, primero debes votar en la <Link to="national" smooth={ true } duration={ 500 }>elección nacional</Link>.</p>
           </BlurredQuestion>
         ) }
       </Section>
