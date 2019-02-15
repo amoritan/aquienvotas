@@ -17,6 +17,12 @@ const Container = styled.article`
   max-width: 12em;
   padding: 1em .5em;
   height: 18em;
+  width: calc(50% - 1rem);
+  box-sizing: border-box;
+  margin: .5rem;
+  @media (min-width: 48rem) {
+    width: calc(25% - 1rem);
+  }
   h3, h4 {
     margin: 0 0 .5rem 0;
     height: 2em;

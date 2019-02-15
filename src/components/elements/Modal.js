@@ -28,7 +28,7 @@ const Close = styled.button`
 const Container = styled.div`
   margin: 2em auto;
   width: calc(100% - 6em);
-  max-width: 32em;
+  max-width: 24em;
   background: #fefefe;
   padding: 1em;
   border-radius: .5em;

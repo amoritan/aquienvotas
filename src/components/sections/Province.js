@@ -82,11 +82,6 @@ const Candidates = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 .5rem;
-  article {
-    width: calc(50% - 1rem);
-    box-sizing: border-box;
-    margin: .5rem;
-  }
 `
 
 class Province extends Component {

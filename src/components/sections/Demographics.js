@@ -67,6 +67,15 @@ const placeholderDemographics = [
 ]
 
 const Data = styled.div`
+  @media (min-width: 48rem) {
+    display: flex;
+    & > div {
+      width: 50%;
+    }
+    & > article {
+      width: 50%;
+    }
+  }
   ${props => props.locked && css`
     filter: blur(.5em);
     opacity: .25;

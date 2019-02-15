@@ -45,7 +45,7 @@ const Percentage = styled.strong`
   width: 100%;
   font-weight: 600;
   font-size: 1.5em;
-  line-height: 2rem;
+  line-height: 1.25em;
   color: ${ transparentize(.4, '#fefefe') };
   position: absolute;
   z-index: 5;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import axios from 'axios'
 
 import Header from './components/sections/Header'
@@ -9,6 +10,15 @@ import Demographics from './components/sections/Demographics'
 
 import { authenticate } from './redux/actions'
 import { getUser } from './redux/selectors'
+
+const MainContainer = styled.main`
+  @media (min-width: 64rem) {
+    font-size 1.25em;
+  }
+  @media (min-width: 96rem) {
+    font-size 1.5em;
+  }
+`
 
 class App extends Component {
   constructor(props) {
@@ -48,14 +58,14 @@ class App extends Component {
   render() {
     if (this.state.ready) {
       return (
-        <main>
+        <MainContainer>
           <Header closed={ Boolean(this.props.user) }></Header>
           <Voting name="Elección nacional" endpoint="national" />
           { this.props.user && this.props.user.location ? (
             <Voting name="Elección provincial" endpoint="local" />
           ) : <Province /> }
           <Demographics />
-        </main>
+        </MainContainer>
       )
     } else {
       return ''
