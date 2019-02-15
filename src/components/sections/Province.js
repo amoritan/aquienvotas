@@ -28,7 +28,7 @@ const placeholderCandidates = [
       id: 'a',
       name: 'Partido de Ejemplo',
       description: 'Partido de Ejemplo',
-      color: '999',
+      color: 'fcb813',
       result: null
     }
   },
@@ -42,7 +42,7 @@ const placeholderCandidates = [
       id: 'b',
       name: 'Partido de Ejemplo',
       description: 'Partido de Ejemplo',
-      color: '999',
+      color: '009cde',
       result: null
     }
   },
@@ -56,7 +56,7 @@ const placeholderCandidates = [
       id: 'c',
       name: 'Partido de Ejemplo',
       description: 'Partido de Ejemplo',
-      color: '999',
+      color: '007da6',
       result: null
     }
   },
@@ -70,7 +70,7 @@ const placeholderCandidates = [
       id: 'd',
       name: 'Partido de Ejemplo',
       description: 'Partido de Ejemplo',
-      color: '999',
+      color: 'f92906',
       result: null
     }
   }

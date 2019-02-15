@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { transparentize } from 'polished'
 
 const BlurredQuestion = styled.div`
   position: absolute;
@@ -29,6 +30,11 @@ const BlurredQuestion = styled.div`
       color: #0095d5;
       cursor: pointer;
     }
+  }
+  p, form {
+    background: ${ transparentize(.6, '#1e1e1e') };
+    box-shadow: 0 0 2em 4em ${ transparentize(.6, '#1e1e1e') };
+    border-radius: 4em;
   }
 `
 
