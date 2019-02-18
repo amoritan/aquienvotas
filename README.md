@@ -24,7 +24,7 @@ La principal función de AQuienVotas es que los usuarios puedan seleccionar, ent
 
 Luego de votar en las elecciones presidenciales, cada persona puede elegir su provincia y votar para gobernadores. También podrán elegir su opinión en temas de debate público, por ejemplo sobre la Ley de Interrupción Voluntaria del Embarazo (legalización del aborto). Para acceder a las elecciones provinciales y de debate público los usuarios deberán ingresar sus datos demográficos.
 
-> **Validación de votantes**: Para ver los resulados y sumar el voto a la ponderación general, cada usuario deberá ser validado como único. Para esto, usamos Accountkit de Facebook que envía un código único a través de mensaje de texto **sin guardar los datos de cada votante**. Con esta herramienta confirmamos cada persona votó solo una vez, y permitirá acceder directamente a los resultados la próxima vez que ingrese a la plataforma. Para más información, podés leer en detalle [cómo validamos los votos][PONER LINK].
+> Validación de votantes<br> Para ver los resulados y sumar el voto a la ponderación general, cada usuario deberá ser validado como único. Para esto, usamos Accountkit de Facebook que envía un código único a través de mensaje de texto sin guardar los datos de cada votante.Para más información, podés leer en detalle [cómo validamos los votos][aquienvotas/about/validacion-votantes.md].
 
 
 # Más información [PONER LINKS]
