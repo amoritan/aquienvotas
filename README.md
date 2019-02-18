@@ -31,9 +31,10 @@ Luego de votar en las elecciones presidenciales, cada persona puede elegir su pr
 Estamos creando una estadística abierta y transparente. Si te interesa el proyecto, podés escribirnos a hola@aquienvotas.com.
 
 Enterate de todas las actualizaciones y noticias siguiendonos en las redes: 
-https://twitter.com/aquienvotas
-https://www.instagram.com/aquienvotasOK/
-https://www.facebook.com/aquienvotascom
+
+![Twitter](https://github.com/andresmoritan/aquienvotas/blob/master/logos/twitter.png) https://twitter.com/aquienvotas <br>
+![Instagram](https://github.com/andresmoritan/aquienvotas/blob/master/logos/instagram.png) https://www.instagram.com/aquienvotasOK/  <br>
+![Facebook](https://github.com/andresmoritan/aquienvotas/blob/master/logos/facebook.png) https://www.facebook.com/aquienvotascom
 
 # Más información
 
