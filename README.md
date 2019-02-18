@@ -14,9 +14,9 @@ Las opciones de voto varían según el calendario electoral y las agenda públic
 
 - **Elecciones presidenciales 2019**: Cualquier residente de Argentina puede seleccionar su intención de voto en las elecciones ejecutivas nacionales de 2019.
 - **Elecciones a gobernadores 2019**: Cada votante podrá seleccionar la provincia en la que vota y elegir sus preferencias para las elecciones ejecutivas provinciales de 2019.
-- **Opinión pública**: En cuanto al debate de **opinión pública**, se abrirán encuestas en torno a discusiones presentes en la agenda pública en temas relacionados a economía, educación y salud.
+- **Opinión pública**: Se abrirán encuestas en torno a discusiones presentes en la agenda pública de Argentina en temas relacionados a economía, educación y salud.
 
-> Para ofrecer un panorama realista y representativo de la opinión pública argentina, se pedirá a los usuarios de AQuienVotas que ingresen su provincia, género y edad. Esta información se usa para ponderar los resultados y asegurar representatividad estadística. 
+> Se pedirá a los usuarios de AQuienVotas que ingresen su provincia, género y edad. Esta información se usa para ponderar los resultados y asegurar representatividad estadística. 
 
 ## ComoVotas
 
@@ -24,14 +24,16 @@ La principal función de AQuienVotas es que los usuarios puedan seleccionar, ent
 
 Luego de votar en las elecciones presidenciales, cada persona puede elegir su provincia y votar para gobernadores. También podrán elegir su opinión en temas de debate público, por ejemplo sobre la Ley de Interrupción Voluntaria del Embarazo (legalización del aborto). Para acceder a las elecciones provinciales y de debate público los usuarios deberán ingresar sus datos demográficos.
 
-> Validación de votantes<br> Para ver los resulados y sumar el voto a la ponderación general, cada usuario deberá ser validado como único. Para esto, usamos Accountkit de Facebook que envía un código único a través de mensaje de texto sin guardar los datos de cada votante.Para más información, podés leer en detalle [cómo validamos los votos][aquienvotas/about/validacion-votantes.md].
+> Validación de votantes
+> Para ver los resulados y sumar el voto a la ponderación general, cada usuario deberá ser validado como único. Para esto usamos Accountkit de Facebook, que envía un código único a través de mensaje de texto sin guardar los datos de cada votante.
+> Para más información, podés leer en detalle [cómo validamos los votos][https://github.com/andresmoritan/aquienvotas/blob/master/about/validacion-votantes.md].
 
 
-# Más información [PONER LINKS]
+# Más información
 
-- Sobre el proyecto AQuienVotas
-- Cronograma de votaciones
-- Preguntas frecuentes 
+- [Sobre el proyecto AQuienVotas][https://github.com/andresmoritan/aquienvotas/blob/master/about/el-proyecto.md]
+- [Cronograma de votaciones][https://github.com/andresmoritan/aquienvotas/blob/master/about/cronograma-votaciones.md]
+- [Preguntas frecuentes][https://github.com/andresmoritan/aquienvotas/blob/master/about/preguntas-frecuentes.md] 
 
 # Sumate
 
