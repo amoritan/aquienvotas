@@ -24,17 +24,19 @@ La principal función de AQuienVotas es que los usuarios puedan seleccionar, ent
 
 Luego de votar en las elecciones presidenciales, cada persona puede elegir su provincia y votar para gobernadores. También podrán elegir su opinión en temas de debate público, por ejemplo sobre la Ley de Interrupción Voluntaria del Embarazo (legalización del aborto). Para acceder a las elecciones provinciales y de debate público los usuarios deberán ingresar sus datos demográficos.
 
-> Validación de votantes
-> Para ver los resulados y sumar el voto a la ponderación general, cada usuario deberá ser validado como único. Para esto usamos Accountkit de Facebook, que envía un código único a través de mensaje de texto sin guardar los datos de cada votante.
-> Para más información, podés leer en detalle [cómo validamos los votos][https://github.com/andresmoritan/aquienvotas/blob/master/about/validacion-votantes.md].
+> Cada usuario de aQuienVotas deberá ser validado como único. Para esto usamos Accountkit de Facebook, que envía un código por SMS o WhatsApp sin guardar los datos de los usuarios. Podés leer en detalle cómo validamos los votos [en este documento][https://github.com/andresmoritan/aquienvotas/blob/master/about/validacion-votantes.md].
 
+# Sumate
+
+Estamos creando una estadística abierta y transparente. Si te interesa el proyecto, podés escribirnos a hola@aquienvotas.com.
+
+Enterate de todas las actualizaciones y noticias siguiendonos en las redes: 
+https://twitter.com/aquienvotas
+https://www.instagram.com/aquienvotasOK/
+https://www.facebook.com/aquienvotascom
 
 # Más información
 
 - [Sobre el proyecto AQuienVotas][https://github.com/andresmoritan/aquienvotas/blob/master/about/el-proyecto.md]
 - [Cronograma de votaciones][https://github.com/andresmoritan/aquienvotas/blob/master/about/cronograma-votaciones.md]
-- [Preguntas frecuentes][https://github.com/andresmoritan/aquienvotas/blob/master/about/preguntas-frecuentes.md] 
-
-# Sumate
-
-Queremos crear una encuesta masiva que sea abierta y transparente. 
+- [Preguntas frecuentes][https://github.com/andresmoritan/aquienvotas/blob/master/about/preguntas-frecuentes.md]
