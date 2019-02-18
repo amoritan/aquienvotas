@@ -5,6 +5,7 @@ import styled from 'styled-components'
 const Container = styled.input`
   display: block;
   width: 100%;
+  max-width: 32em;
   font-size: 1em;
   font-weight: 600;
   padding: 1em;
@@ -13,7 +14,7 @@ const Container = styled.input`
   background: #fefefe;
   color: #1e1e1e;
   appearance: none;
-  margin: .25em 0;
+  margin: .25em auto;
   text-align: center;
   cursor: pointer;
   transition: all .25s;

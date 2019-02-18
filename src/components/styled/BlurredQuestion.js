@@ -18,6 +18,7 @@ const BlurredQuestion = styled.div`
     margin: 3rem 1rem;
     font-size: 2em;
     text-align: center;
+    z-index: 2;
   }
   form {
     width: calc(100% - 2em);
