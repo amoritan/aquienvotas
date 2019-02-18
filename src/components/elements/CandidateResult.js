@@ -16,6 +16,7 @@ const Container = styled.div`
     border-radius: 100%;
     position: relative;
     z-index: 2;
+    background: ${ props => props.color };
   }
   div {
     width: 100%;
@@ -64,7 +65,7 @@ const Progress = styled.i`
 function CandidateResult(props) {
   return (
     <Container color={ `#${ props.data.color || props.partyColor }` } percentage={ props.data.result }>
-      <img src="https://via.placeholder.com/240" alt={ props.data.name } width="120" height="120" />
+      <img src={ props.data.avatar || '/images/avatar.png' } alt={ props.data.name } width="120" height="120" />
       <div>
         <h4>{ props.data.name }</h4>
         <Progress percentage={ props.data.result }>{ props.data.result } %</Progress>
@@ -77,9 +78,10 @@ CandidateResult.propTypes = {
   data: PropTypes.exact({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
     color: PropTypes.string,
     result: PropTypes.number.isRequired,
+    avatar:  PropTypes.string,
   }).isRequired,
   partyColor: PropTypes.string.isRequired
 }

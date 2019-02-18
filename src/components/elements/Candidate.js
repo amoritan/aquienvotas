@@ -30,6 +30,7 @@ const Container = styled.article`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
   h3 {
     font-size: 1em;
@@ -50,6 +51,8 @@ const Container = styled.article`
     height: auto;
     border-radius: 100%;
     flex-shrink: 2;
+    border: .25em solid ${ props => props.color };
+    background: ${ props => props.color };
   }
   button {
     margin-top: 1em;
@@ -87,7 +90,7 @@ class Candidate extends Component {
       <Container color={ `#${ this.props.data.color || this.props.data.party.color }` }>
         <h3>{ this.props.data.name }</h3>
         <h4>{ this.props.data.party.name }</h4>
-        <img src="https://via.placeholder.com/240" alt={ this.props.data.name } width="120" height="120" />
+        <img src={ this.props.data.avatar || '/images/avatar.png' } alt={ this.props.data.name } width="120" height="120" />
         <button onClick={ this.handleVote }><FontAwesomeIcon icon="vote-yea" /> Votar</button>
       </Container>
     )
@@ -98,13 +101,14 @@ Candidate.propTypes = {
   data: PropTypes.exact({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
     color: PropTypes.string,
     result: PropTypes.number,
+    avatar:  PropTypes.string,
     party: PropTypes.exact({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
+      description: PropTypes.string,
       color: PropTypes.string.isRequired,
       result: PropTypes.number
     }).isRequired

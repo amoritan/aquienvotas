@@ -112,7 +112,7 @@ class Voting extends Component {
       <Section id={ this.props.endpoint }>
         { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
         { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
-        <SectionTitle>{ this.props.name }</SectionTitle>
+        <SectionTitle>{ this.state.name }</SectionTitle>
         { this.state.results.length ? (
           <Results>{ this.state.results.map((result) => <PartyResult key={ result.id } data={ result } />) }</Results>
         ) : (
