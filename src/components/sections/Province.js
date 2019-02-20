@@ -126,7 +126,8 @@ class Province extends Component {
         })
         if (province.locations.length > 1) {
           this.setState({
-            locationOptions: province.locations.map((location) => { return { value: location.id, title: location.name } } )
+            locationOptions: province.locations.map((location) => { return { value: location.id, title: location.name } } ),
+            location: { id: undefined }
           })
         } else {
           this.setState({
