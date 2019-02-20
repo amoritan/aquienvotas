@@ -13,6 +13,7 @@ import PartyResult from '../elements/PartyResult'
 
 import Section from '../styled/Section'
 import SectionTitle from '../styled/SectionTitle'
+import BlurredQuestion from '../styled/BlurredQuestion'
 
 const Candidates = styled.div`
   display: flex;
@@ -24,6 +25,10 @@ const Results = styled.div`
   border-radius: .5em;
   background: #fefefe;
   padding: 2em 1em 1.5em 1em;
+`
+const Placeholder = styled.div`
+  margin: 0 1rem;
+  height: 12em;
 `
 
 class Voting extends Component {
@@ -116,7 +121,15 @@ class Voting extends Component {
         { this.state.results.length ? (
           <Results>{ this.state.results.map((result) => <PartyResult key={ result.id } data={ result } />) }</Results>
         ) : (
-          <Candidates>{ this.state.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ this.handleVote } />) }</Candidates>
+          this.state.candidates.length ? (
+            <Candidates>{ this.state.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ this.handleVote } />) }</Candidates>
+          ) : (
+            <Placeholder>
+              <BlurredQuestion>
+                <p>No hay elecciones activas por el momento.</p>
+              </BlurredQuestion>
+            </Placeholder>
+          )
         ) }
       </Section>
     )
