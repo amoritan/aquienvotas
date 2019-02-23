@@ -165,21 +165,17 @@ class Authentication extends Component {
       <Modal closeHandler={ this.props.closeHandler }>
         <Container>
           <FontAwesomeIcon icon="shield-check" />
-          <h3>Verifiquemos tu voto</h3>
-          <p>¡Gracias por enviar tu voto! Para poder sumarlo tenemos que verificar que sea único e irrepetible.</p>
+          <p>Recibí en tu celular un código único para asegurar la veracidad de tu voto.</p>
           <form onSubmit={this.handleSubmit}>
             <div>
               <input type="text" value={this.state.code} disabled required />
               <input type="phone" value={this.state.phone} onChange={this.handleChange} placeholder="1144445555" required />
             </div>
-            <input type="submit" value="Verificar" />
+            <input type="submit" value="Verificar mi voto" />
           </form>
-          <small>Ingresa tu número de télefono celular sin espacios ni guiones y recibirás un mensaje de texto con un código para verificar tu voto.</small>
+          <small>Ingresa tu número de télefono celular con código de área sin espacios ni guiones.</small>
           <ul>
-            <li><FontAwesomeIcon icon="user-secret" /> <span><strong>Privado</strong> Nuestro servidor no recibe ni almacena tu número de télefono.</span></li>
-            <li><FontAwesomeIcon icon="money-bill-wave" /> <span><strong>Gratuito</strong> El servicio de verificación no tiene ningún costo para el usuario.</span></li>
-            <li><FontAwesomeIcon icon="ad" /> <span><strong>Libre</strong> Luego de completar la verificación, no recibirás más mensajes de nuestra parte.</span></li>
-            <li><FontAwesomeIcon icon="lock" /> <span><strong>Seguro</strong> Tus datos viajan por una red cifrada con SSL directamente al servicio.</span></li>
+            <li><FontAwesomeIcon icon="user-secret" /> <span><strong>Nuestro servidor no guarda tu número de teléfono.</strong> Usamos el código de verificación para construir un sistema seguro y resultados confiables.</span></li>
           </ul>
         </Container>
       </Modal>

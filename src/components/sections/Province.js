@@ -175,7 +175,7 @@ class Province extends Component {
           </BlurredQuestion>
         ) : (
           <BlurredQuestion>
-            <p>Para poder ver esta sección, primero debes votar en la <Link to="national" smooth={ true } duration={ 500 }>elección nacional</Link>.</p>
+            <p>Para poder ver esta sección, primero tenes que votar en la <Link to="national" smooth={ true } duration={ 500 }>elección nacional</Link>.</p>
           </BlurredQuestion>
         ) }
       </Section>

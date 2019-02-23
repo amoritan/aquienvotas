@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled, { css } from 'styled-components'
 import { transparentize } from 'polished'
+import { Link } from 'react-scroll'
 
 import Button from '../styled/Button'
 
@@ -36,7 +37,16 @@ const Container = styled.header`
   }
   button {
     display: block;
-    margin 1.5em auto;
+    margin 1.5em auto .75em auto;
+  }
+  a {
+    text-decoration: underline;
+    color: #fefefe;
+    cursor: pointer;
+    display: block;
+    width: fit-content;
+    margin 0 auto 1.5rem auto;
+    font-size: .85em;
   }
   ${props => props.small && css`
     background: #0095d5;
@@ -48,7 +58,7 @@ const Container = styled.header`
       font-size: .75em;
       margin: 0 auto;
     }
-    p, button {
+    p, button, a {
       display: none;
     }
   `};
@@ -76,8 +86,9 @@ class Header extends Component {
           <img src="./images/icon.svg" alt="Logotipo de #AQuienVotas" width="980" height="980" />
           <h1>#AQuienVotas</h1>
         </div>
-        <p>¡Estamos creando una estadística transparente para las <strong>Elecciones 2019</strong> en Argentina!</p>
-        <Button onClick={ this.handleClick }>¿Te sumás?</Button>
+        <p>Sumate a la primera encuesta abierta, masiva y representativa de las <strong>Elecciones en Argentina 2019</strong></p>
+        <Button onClick={ this.handleClick }>Votá</Button>
+        <Link to="about" smooth={ true } duration={ 500 }>Más información</Link>
       </Container>
     )
   }

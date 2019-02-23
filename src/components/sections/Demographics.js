@@ -13,6 +13,7 @@ import Argentina from '../elements/Argentina'
 
 import Section from '../styled/Section'
 import SectionTitle from '../styled/SectionTitle'
+import SectionDescription from '../styled/SectionDescription'
 import BlurredQuestion from '../styled/BlurredQuestion'
 
 import Select from '../inputs/Select'
@@ -217,7 +218,8 @@ class Province extends Component {
   render() {
     return (
       <Section>
-        <SectionTitle>Acerca de los participantes</SectionTitle>
+        <SectionTitle>La comunidad de #AQuienVotas</SectionTitle>
+        <SectionDescription>{ this.canView() ? 'Explorá los gráficos para conocer la población de esta encuesta.' : 'Ayudanos a construir una estadística representativa de la población argentina.' }</SectionDescription>
         <Data locked={ !this.canView() } aria-hidden={ !this.canView() }>
           <MapContainer>
             <Argentina clickHandler={ this.handleMapClick } active={ this.state.activeLocation ? this.state.activeLocation.code : '' } />
@@ -233,16 +235,16 @@ class Province extends Component {
         { !this.canView() ? (
           this.props.user && this.props.user.location ? (
             <BlurredQuestion>
-              <h3>Acerca de vos...</h3>
+              <h3>Contanos de vos</h3>
               <form onSubmit={ this.handleSubmit }>
-                <Select placeholder="Elige un rango etáreo" options={ this.state.ageOptions } selected={ this.state.age } changeHandler={ this.handleChange } name="age" required />
-                <Select placeholder="Elige un género" options={ this.state.genderOptions } selected={ this.state.gender } changeHandler={ this.handleChange } name="gender" required />
+                <Select placeholder="Edad" options={ this.state.ageOptions } selected={ this.state.age } changeHandler={ this.handleChange } name="age" required />
+                <Select placeholder="Género" options={ this.state.genderOptions } selected={ this.state.gender } changeHandler={ this.handleChange } name="gender" required />
                 { this.state.age && this.state.gender ? <Submit title="Guardar" /> : '' }
               </form>
             </BlurredQuestion>
           ) : (
             <BlurredQuestion>
-              <p>Para poder ver esta sección, primero debes votar en la <Link to="local" smooth={ true } duration={ 500 }>elección provincial</Link>.</p>
+              <p>Para poder ver esta sección, primero tenes que votar en la <Link to="local" smooth={ true } duration={ 500 }>elección provincial</Link>.</p>
             </BlurredQuestion>
           )
         ) : '' }

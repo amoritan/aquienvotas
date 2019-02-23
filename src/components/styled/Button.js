@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 const Button = styled.button`
-  color: ${ props => props.primaryColor || '#fefefe' };
-  background: none;
+  color: ${ props => props.primaryColor || '#0095d5' };
+  background: ${ props => props.primaryColor || '#fefefe' };
   border: .125em solid ${ props => props.primaryColor || '#fefefe' };
   border-radius: 2em;
   font-size: 1em;
@@ -13,8 +13,8 @@ const Button = styled.button`
   cursor: pointer;
   transition: all .25s;
   &:hover {
-    background: ${ props => props.primaryColor || '#fefefe' };
-    color: ${ props => props.secondaryColor || '#0095d5' };
+    background: none;
+    color: ${ props => props.primaryColor || '#fefefe' };
   }
 `
 

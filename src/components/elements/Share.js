@@ -126,17 +126,13 @@ class Share extends Component {
         <Container>
           <FontAwesomeIcon icon="heart" />
           <h3>Gracias por votar</h3>
-          <p>¡Ya sos parte de la encuesta transparente más grande de la Argentina! Ayudanos a que más gente se sume a esta estadística abierta y permanente.</p>
+          <p>¡Difundí esta encuesta! Hagamos que los resultados representen la opinión de la Argentina.</p>
           
           <button id="twitter" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'twitter']} /> Compartir en Twitter</button>
           <button id="facebook" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'facebook']} /> Compartir en Facebook</button>
           { /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? <button id="whatsapp" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'whatsapp']} /> Compartir en WhatsApp</button> : '' } 
           <button onClick={ this.props.closeHandler }>Saltar a los resultados</button>
 
-          <ul>
-            <li><FontAwesomeIcon icon="user-secret" /> <span><strong>Privado</strong> Nuestro servidor no recibe ni almacena los datos de tus redes sociales.</span></li>
-            <li><FontAwesomeIcon icon="lock" /> <span><strong>Secreto</strong> Al compartir no estás mostrando tu voto, sólo la encuesta de #AQuienVotas.</span></li>
-          </ul>
         </Container>
       </Modal>
     )

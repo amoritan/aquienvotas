@@ -60,9 +60,9 @@ class App extends Component {
       return (
         <MainContainer>
           <Header closed={ Boolean(this.props.user) }></Header>
-          <Voting name="Elección nacional" endpoint="national" />
+          <Voting name="Presidente" endpoint="national" />
           { this.props.user && this.props.user.location ? (
-            <Voting name="Elección provincial" endpoint="local" />
+            <Voting name="Gobernador/a" endpoint="local" />
           ) : <Province /> }
           <Demographics />
         </MainContainer>
