@@ -7,6 +7,8 @@ import Header from './components/sections/Header'
 import Voting from './components/sections/Voting'
 import Province from './components/sections/Province'
 import Demographics from './components/sections/Demographics'
+import About from './components/sections/About'
+import Footer from './components/sections/Footer'
 
 import { authenticate } from './redux/actions'
 import { getUser } from './redux/selectors'
@@ -65,6 +67,8 @@ class App extends Component {
             <Voting name="Gobernador/a" endpoint="local" />
           ) : <Province /> }
           <Demographics />
+          <About />
+          <Footer />
         </MainContainer>
       )
     } else {
