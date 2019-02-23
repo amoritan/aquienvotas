@@ -153,6 +153,7 @@ class Province extends Component {
     axios.put(`/users/${ this.props.user.id }`, {
       location_id: _this.state.location.id
     }).then( response => {
+      window.ga('send', 'event', 'User', 'Location submitted')
       _this.props.update({ user: response.data })
     }).catch( error => {
       console.error(error)

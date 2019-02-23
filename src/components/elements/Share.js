@@ -117,6 +117,8 @@ class Share extends Component {
         break
     }
 
+    window.ga('send', 'social', event.target.id.charAt(0).toUpperCase(), 'Share', 'https://www.aquienvotas.com')
+
     this.props.closeHandler()
   }
 

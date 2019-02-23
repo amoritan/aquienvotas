@@ -61,8 +61,18 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script type="text/javascript" src="https://sdk.accountkit.com/es_LA/sdk.js"></script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-35586377-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-35586377-3');
+    </script>
+
+    <script type="text/javascript" src="https://sdk.accountkit.com/es_LA/sdk.js"></script>
     <script type="text/javascript">
       window.fbAsyncInit = function() {
         FB.init({

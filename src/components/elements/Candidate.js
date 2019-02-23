@@ -82,6 +82,7 @@ class Candidate extends Component {
   }
 
   handleVote() {
+    window.ga('send', 'event', 'Voting', 'Vote', `${this.props.data.party.name}/${this.props.data.name}`)
     this.props.voteHandler(this.props.data.id)
   }
 

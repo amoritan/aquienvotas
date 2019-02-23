@@ -113,10 +113,12 @@ class Authentication extends Component {
       {countryCode: _this.state.code, phoneNumber: _this.state.phone},
       _this.loginCallback
     )
+    window.ga('send', 'event', 'Authentication', 'Submitted')
   }
 
   componentDidMount() {
     this.initializeAccountKit()
+    window.ga('send', 'event', 'Authentication', 'Started')
   }
 
   initializeAccountKit() {
@@ -140,6 +142,7 @@ class Authentication extends Component {
           code: response.code
         }).then(response => {
           this.props.authenticate(response.data)
+          window.ga('send', 'event', 'Authentication', 'Validated')
           this.props.successHandler()
         }).catch(error => {
           console.error(error)

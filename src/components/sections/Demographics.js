@@ -209,6 +209,7 @@ class Province extends Component {
       age: _this.state.age,
       gender: _this.state.gender
     }).then( response => {
+      window.ga('send', 'event', 'User', 'Demographics submitted')
       _this.props.update({ user: response.data })
     }).catch( error => {
       console.error(error)
