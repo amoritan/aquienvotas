@@ -114,6 +114,7 @@ class Province extends Component {
       })
     }).catch( error => {
       console.error(error)
+      window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 
@@ -153,10 +154,11 @@ class Province extends Component {
     axios.put(`/users/${ this.props.user.id }`, {
       location_id: _this.state.location.id
     }).then( response => {
-      window.ga('send', 'event', 'User', 'Location submitted')
+      window.gtag('event', 'location_submitted', { event_category: 'user_info' })
       _this.props.update({ user: response.data })
     }).catch( error => {
       console.error(error)
+      window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 

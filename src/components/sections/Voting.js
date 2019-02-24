@@ -67,6 +67,7 @@ class Voting extends Component {
       })
     }).catch( error => {
       console.error(error)
+      window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 
@@ -82,6 +83,7 @@ class Voting extends Component {
         this.fetchVoting(this.state.id)
       }).catch(error => {
         console.error(error)
+        window.gtag('event', 'api', { event_category: 'error', event_label: error })
         alert('Ha ocurrido un error al enviar tu voto. Vuelve a intentarlo en unos minutos.')
       })
     } else {

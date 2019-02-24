@@ -175,6 +175,7 @@ class Province extends Component {
       })
     }).catch( error => {
       console.error(error)
+      window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 
@@ -186,6 +187,7 @@ class Province extends Component {
       })
     }).catch( error => {
       console.error(error)
+      window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 
@@ -209,10 +211,11 @@ class Province extends Component {
       age: _this.state.age,
       gender: _this.state.gender
     }).then( response => {
-      window.ga('send', 'event', 'User', 'Demographics submitted')
+      window.gtag('event', 'demographics_submitted', { event_category: 'user_info' })
       _this.props.update({ user: response.data })
     }).catch( error => {
       console.error(error)
+      window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 

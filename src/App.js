@@ -46,6 +46,7 @@ class App extends Component {
           _this.setState({ ready: true })
         } else {
           console.error(error)
+          window.gtag('event', 'api', { event_category: 'error', event_label: error })
         }
       })
     } else {

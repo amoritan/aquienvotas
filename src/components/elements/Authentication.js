@@ -110,11 +110,11 @@ class Authentication extends Component {
       {countryCode: _this.state.code, phoneNumber: _this.state.phone},
       _this.loginCallback
     )
-    window.ga('send', 'event', 'Authentication', 'Submitted')
+    window.gtag('event', 'submitted', { event_category: 'authentication' })
   }
 
   componentDidMount() {
-    window.ga('send', 'event', 'Authentication', 'Started')
+    window.gtag('event', 'started', { event_category: 'authentication' })
   }
 
   loginCallback(response) {
@@ -123,11 +123,12 @@ class Authentication extends Component {
         code: response.code
       }).then(response => {
         this.props.authenticate(response.data)
-        window.ga('send', 'event', 'Authentication', 'Validated')
+        window.gtag('event', 'validated', { event_category: 'authentication' })
         this.props.successHandler()
       }).catch(error => {
         console.error(error)
         alert('Ha ocurrido un error al verificar tu voto. Vuelve a intentarlo en unos minutos.')
+        window.gtag('event', 'api', { event_category: 'error', event_label: error })
         this.props.closeHandler()
       })
     }
