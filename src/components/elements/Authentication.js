@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { parsePhoneNumberFromString } from 'libphonenumber-js/mobile'
 import styled from 'styled-components'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faShieldCheck, faUserSecret, faMoneyBillWave, faLock, faAd } from '@fortawesome/pro-solid-svg-icons'
@@ -32,7 +33,7 @@ const Container = styled.div`
     input {
       padding: .5em;
       box-sizing: border-box;
-      &[type=text], &[type=phone] {
+      &[type=text], &[type=tel] {
         background: none;
         color: #1e1e1e;
         border: .0625em solid ${ lighten(.8, '#1e1e1e') };
@@ -43,7 +44,7 @@ const Container = styled.div`
         border-right: none;
         background: ${ lighten(.8, '#1e1e1e') };
       }
-      &[type=phone] {
+      &[type=tel] {
         width: 80%;
       }
       &[type=submit] {
@@ -99,18 +100,29 @@ class Authentication extends Component {
   }
 
   handleChange(event) {
-    this.setState({phone: event.target.value})
+    const numbers = /^[0-9\b]+$/
+    if ((event.target.value === '' || numbers.test(event.target.value)) && event.target.value.length <= 12) {
+      this.setState({phone: event.target.value})
+    }
   }
 
   handleSubmit(event) {
     event.preventDefault()
     const _this = this
-    window.AccountKit.login(
-      'PHONE', 
-      {countryCode: _this.state.code, phoneNumber: _this.state.phone},
-      _this.loginCallback
-    )
-    window.gtag('event', 'submitted', { event_category: 'authentication' })
+
+    const phoneNumber = _this.state.phone.charAt(0) === '9' ? _this.state.phone : `9${_this.state.phone}`
+    const phoneNumberParse = parsePhoneNumberFromString(phoneNumber, 'AR')
+
+    if (phoneNumberParse && phoneNumberParse.isValid() && phoneNumberParse.getType() === 'MOBILE') {
+      window.AccountKit.login(
+        'PHONE', 
+        {countryCode: _this.state.code, phoneNumber: phoneNumber},
+        _this.loginCallback
+      )
+      window.gtag('event', 'submitted', { event_category: 'authentication' })
+    } else {
+      alert('Revisá que tu número de télefono celular tenga el código de área sin el cero y sin el quince.')
+    }
   }
 
   componentDidMount() {
@@ -153,11 +165,11 @@ class Authentication extends Component {
           <form onSubmit={this.handleSubmit}>
             <div>
               <input type="text" value={this.state.code} disabled required />
-              <input type="phone" value={this.state.phone} onChange={this.handleChange} placeholder="1144445555" required />
+              <input type="tel" value={this.state.phone} onChange={this.handleChange} placeholder="1144445555" required />
             </div>
             <input type="submit" value="Verificar mi voto" />
           </form>
-          <small>Ingresa tu número de télefono celular con código de área sin espacios ni guiones.</small>
+          <small>Ingresa tu número de télefono celular con código de área sin el cero y sin el quince. Tampoco tiene que tener espacios o guiones.</small>
           <ul>
             <li><FontAwesomeIcon icon="user-secret" /> <span><strong>Nuestro servidor no guarda tu número de teléfono.</strong> Usamos el código de verificación para construir un sistema seguro y resultados confiables.</span></li>
           </ul>
