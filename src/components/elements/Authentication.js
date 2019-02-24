@@ -16,7 +16,6 @@ library.add(faShieldCheck, faUserSecret, faMoneyBillWave, faLock, faAd)
 
 const Container = styled.div`
   max-height: calc(100vh - 6em);
-  overflow: scroll;
   & > svg {
     display: block;
     font-size: 3em;
@@ -91,13 +90,11 @@ class Authentication extends Component {
 
     this.state = {
       code: '+54',
-      phone: '',
-      csrf: Math.random().toString(36).substr(2, 10)
+      phone: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.initializeAccountKit = this.initializeAccountKit.bind(this)
     this.loginCallback = this.loginCallback.bind(this)
   }
 
@@ -117,39 +114,22 @@ class Authentication extends Component {
   }
 
   componentDidMount() {
-    this.initializeAccountKit()
     window.ga('send', 'event', 'Authentication', 'Started')
-  }
-
-  initializeAccountKit() {
-    const _this = this
-    // window.AccountKit_OnInteractive = function(){
-      window.AccountKit.init(
-        {
-          appId: process.env.REACT_APP_ACCOUNT_KIT_APP_ID,
-          state: _this.state.csrf, 
-          version: 'v1.1',
-          fbAppEventsEnabled: true
-        }
-      )
-    // }
   }
 
   loginCallback(response) {
     if (response.status === 'PARTIALLY_AUTHENTICATED') {
-      if (response.state === this.state.csrf) {
-        axios.post('/authentication/authenticate', {
-          code: response.code
-        }).then(response => {
-          this.props.authenticate(response.data)
-          window.ga('send', 'event', 'Authentication', 'Validated')
-          this.props.successHandler()
-        }).catch(error => {
-          console.error(error)
-          alert('Ha ocurrido un error al verificar tu voto. Vuelve a intentarlo en unos minutos.')
-          this.props.closeHandler()
-        })
-      }
+      axios.post('/authentication/authenticate', {
+        code: response.code
+      }).then(response => {
+        this.props.authenticate(response.data)
+        window.ga('send', 'event', 'Authentication', 'Validated')
+        this.props.successHandler()
+      }).catch(error => {
+        console.error(error)
+        alert('Ha ocurrido un error al verificar tu voto. Vuelve a intentarlo en unos minutos.')
+        this.props.closeHandler()
+      })
     }
     else if (response.status === 'NOT_AUTHENTICATED') {
       console.error(response)

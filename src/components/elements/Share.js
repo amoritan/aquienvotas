@@ -14,7 +14,6 @@ library.add(faTwitter, faFacebook, faWhatsapp)
 
 const Container = styled.div`
   max-height: calc(100vh - 6em);
-  overflow: scroll;
   & > svg {
     display: block;
     font-size: 3em;

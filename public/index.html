@@ -74,6 +74,19 @@
 
     <script type="text/javascript" src="https://sdk.accountkit.com/es_LA/sdk.js"></script>
     <script type="text/javascript">
+      window.AccountKit_OnInteractive = function(){
+        window.AccountKit.init(
+          {
+            appId: 204521433832223,
+            state: Math.random().toString(36).substr(2, 10), 
+            version: 'v1.1',
+            fbAppEventsEnabled: true
+          }
+        )
+      }
+    </script>
+
+    <script type="text/javascript">
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '1505765556114571',

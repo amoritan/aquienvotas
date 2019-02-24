@@ -31,6 +31,9 @@ const Input = styled.select`
   &:disabled {
     opacity: .6;
   }
+  &:active {
+    color: #1e1e1e;
+  }
 `
 
 function Select(props) {

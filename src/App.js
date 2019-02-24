@@ -41,7 +41,7 @@ class App extends Component {
         _this.props.authenticate({ token: token, user: response.data })
         _this.setState({ ready: true })
       }).catch( error => {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
           window.localStorage.removeItem('authentication_token')
           _this.setState({ ready: true })
         } else {
