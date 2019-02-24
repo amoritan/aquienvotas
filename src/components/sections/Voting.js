@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import styled from 'styled-components'
+import { animateScroll } from 'react-scroll'
 
 import { getUser } from '../../redux/selectors'
 
@@ -81,6 +82,7 @@ class Voting extends Component {
           voted: candidateId
         })
         this.fetchVoting(this.state.id)
+        animateScroll.scrollTo(document.getElementById(this.props.endpoint).offsetTop, { duration: 500, smooth: true })
       }).catch(error => {
         console.error(error)
         window.gtag('event', 'api', { event_category: 'error', event_label: error })
@@ -121,7 +123,7 @@ class Voting extends Component {
         { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
         { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
         <SectionTitle>{ this.state.results.length ? `Resultados para ${this.state.name}` : `¿A quién votás para ${this.state.name}?` }</SectionTitle>
-        <SectionDescription>{ this.props.endpoint === 'national' ? 'Elegí el espacio político que querés votar. El 12 de junio cierran las listas y vas a poder elegir el candidato.' : 'Si no ves candidatos es porque en tu provincia no se presentaron oficialmente. Mientras los candidatos se deciden, elegí el espacio político que querés votar.' }</SectionDescription>
+        { this.state.candidates.length ? <SectionDescription>{ this.props.endpoint === 'national' ? 'Elegí el espacio político que querés votar. El 12 de junio cierran las listas y vas a poder elegir el candidato.' : 'Si no ves candidatos es porque en tu provincia no se presentaron oficialmente. Mientras los candidatos se deciden, elegí el espacio político que querés votar.' }</SectionDescription> : '' }
         { this.state.results.length ? (
           <Results>{ this.state.results.map((result) => <PartyResult key={ result.id } data={ result } />) }</Results>
         ) : (

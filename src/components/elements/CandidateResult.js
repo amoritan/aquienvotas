@@ -38,7 +38,7 @@ const Container = styled.div`
 
 const grow = keyframes`
   from { width: 0; }
-  to { width: ${ props => props.percentage * 2 }%; }
+  to { width: ${ props => props.percentage }%; }
 `;
 
 const Progress = styled.i`
@@ -51,11 +51,11 @@ const Progress = styled.i`
   ::before {
     content: '';
     display: block;
-    width: ${ props => props.percentage * 2 }%;
+    width: ${ props => props.percentage }%;
     height: .5em;
     border: .125em solid;
     border-radius: .5em;
-    padding: 0 1em;
+    padding: 0 .25em;
     box-sizing: border-box;
     margin 0 .25em 0 0;
     animation: ${grow} 1s ease;
