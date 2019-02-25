@@ -74,12 +74,10 @@ class Voting extends Component {
 
   handleVote(candidate) {
     if (this.props.user) {
-      axios.post(`/ballots/${this.state.id}/vote`, {
-        candidate_id: candidate.id
-      }).then(response => {
+      axios.post(`/ballots/${this.state.id}/vote`, { candidate_id: candidate.id }).then(response => {
         this.setState({
           share: true,
-          voted: candidate.id
+          voted: candidate
         })
         this.fetchVoting(this.state.id)
         animateScroll.scrollTo(document.getElementById(this.props.endpoint).offsetTop, { duration: 500, smooth: true })
@@ -92,7 +90,7 @@ class Voting extends Component {
     } else {
       this.setState({
         authenticate: true,
-        voted: candidate.id
+        voted: candidate
       })
       window.gtag('event', 'started', { event_category: 'voting', event_label: `${this.state.name}/${candidate.party.name}/${candidate.name}` })
     }
