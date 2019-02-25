@@ -82,8 +82,7 @@ class Candidate extends Component {
   }
 
   handleVote() {
-    window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${this.props.data.party.name}/${this.props.data.name}` })
-    this.props.voteHandler(this.props.data.id)
+    this.props.voteHandler(this.props.data)
   }
 
   render() {

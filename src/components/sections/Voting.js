@@ -72,17 +72,18 @@ class Voting extends Component {
     })
   }
 
-  handleVote(candidateId) {
+  handleVote(candidate) {
     if (this.props.user) {
       axios.post(`/ballots/${this.state.id}/vote`, {
-        candidate_id: candidateId
+        candidate_id: candidate.id
       }).then(response => {
         this.setState({
           share: true,
-          voted: candidateId
+          voted: candidate.id
         })
         this.fetchVoting(this.state.id)
         animateScroll.scrollTo(document.getElementById(this.props.endpoint).offsetTop, { duration: 500, smooth: true })
+        window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${this.state.name}/${candidate.party.name}/${candidate.name}` })
       }).catch(error => {
         console.error(error)
         window.gtag('event', 'api', { event_category: 'error', event_label: error })
@@ -91,8 +92,9 @@ class Voting extends Component {
     } else {
       this.setState({
         authenticate: true,
-        voted: candidateId
+        voted: candidate.id
       })
+      window.gtag('event', 'started', { event_category: 'voting', event_label: `${this.state.name}/${candidate.party.name}/${candidate.name}` })
     }
   }
 
