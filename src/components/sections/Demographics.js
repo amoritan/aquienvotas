@@ -221,7 +221,7 @@ class Province extends Component {
 
   render() {
     return (
-      <Section>
+      <Section id="demographics">
         <SectionTitle>La comunidad de #AQuienVotas</SectionTitle>
         <SectionDescription>{ this.canView() ? 'Explorá los gráficos para conocer la población de esta encuesta.' : 'Ayudanos a construir una estadística representativa de la población argentina.' }</SectionDescription>
         <Data locked={ !this.canView() } aria-hidden={ !this.canView() }>

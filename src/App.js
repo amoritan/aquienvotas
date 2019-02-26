@@ -10,6 +10,8 @@ import Demographics from './components/sections/Demographics'
 import About from './components/sections/About'
 import Footer from './components/sections/Footer'
 
+import NextStepIndicator from './components/elements/NextStepIndicator'
+
 import { authenticate } from './redux/actions'
 import { getUser } from './redux/selectors'
 
@@ -70,6 +72,13 @@ class App extends Component {
           <Demographics />
           <About />
           <Footer />
+          { this.props.user && this.props.user.votes.length === 1 ? (
+            <NextStepIndicator action="¡Ya podes votar en la elección provincial!" destination="local" />
+          ) : (
+            this.props.user && this.props.user.votes.length === 2 && !this.props.user.age ? (
+              <NextStepIndicator action="¡Ahora podes conocer a la comunidad de #AQuienVotas!" destination="demographics" />
+            ) : ''
+          ) }
         </MainContainer>
       )
     } else {

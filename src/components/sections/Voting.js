@@ -5,6 +5,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { animateScroll } from 'react-scroll'
 
+import { update } from '../../redux/actions'
 import { getUser } from '../../redux/selectors'
 
 import Authentication from '../elements/Authentication'
@@ -74,14 +75,16 @@ class Voting extends Component {
 
   handleVote(candidate) {
     if (this.props.user) {
-      axios.post(`/ballots/${this.state.id}/vote`, { candidate_id: candidate.id }).then(response => {
-        this.setState({
+      const _this = this
+      axios.post(`/ballots/${_this.state.id}/vote`, { candidate_id: candidate.id }).then(response => {
+        _this.setState({
           share: true,
           voted: candidate
         })
-        this.fetchVoting(this.state.id)
-        animateScroll.scrollTo(document.getElementById(this.props.endpoint).offsetTop, { duration: 500, smooth: true })
-        window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${this.state.name}/${candidate.party.name}/${candidate.name}` })
+        _this.props.update({ user: response.data })
+        _this.fetchVoting(_this.state.id)
+        animateScroll.scrollTo(document.getElementById(_this.props.endpoint).offsetTop, { duration: 500, smooth: true })
+        window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${_this.state.name}/${candidate.party.name}/${candidate.name}` })
       }).catch(error => {
         console.error(error)
         window.gtag('event', 'api', { event_category: 'error', event_label: error })
@@ -147,4 +150,4 @@ Voting.propTypes = {
   endpoint: PropTypes.string
 }
 
-export default connect(state => ({ user: getUser(state) }))(Voting)
+export default connect(state => ({ user: getUser(state) }), { update })(Voting)
