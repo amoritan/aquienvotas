@@ -161,7 +161,7 @@ class Authentication extends Component {
       <Modal closeHandler={ this.props.closeHandler }>
         <Container>
           <FontAwesomeIcon icon="shield-check" />
-          <p>Recibí gratis en tu celular un código único para asegurar la veracidad de tu voto.</p>
+          <p>Para poder sumar tu voto tenemos que verificar que sea único enviando gratis un código a tu celular.</p>
           <form onSubmit={this.handleSubmit}>
             <div>
               <input type="text" value={this.state.code} disabled required />
