@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, keyframes } from 'styled-components'
 import { darken, transparentize } from 'polished'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faVenus, faGenderless, faMars } from '@fortawesome/pro-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-library.add(faVenus, faGenderless, faMars)
 
 const Container = styled.article`
   display: flex;
@@ -27,7 +22,7 @@ const Container = styled.article`
 `
 
 const RowContainer = styled.div`
-  width: ${ props => props.percentage * 100 / props.max }%;
+  width: ${ props => (props.percentage * 80 / props.max) + 20 }%;
   text-align: center;
   position: relative;
   margin: .25em;
@@ -38,6 +33,7 @@ const RowContainer = styled.div`
     text-transform: uppercase;
     color: ${ darken(.2, '#fefefe') };
     margin: 0 0 .125em 0;
+    white-space: nowrap;
   }
 `
 const Percentage = styled.strong`
@@ -122,7 +118,9 @@ const GenderButton = styled.button`
   width: fit-content;
   background: none;
   border: none;
-  font-size: 2em;
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
   padding: 0;
   margin: 0;
   cursor: pointer;
@@ -180,15 +178,9 @@ class DemographicsChart extends Component {
           </RowContainer>
         ) ) }
         <aside>
-          <GenderButton id="female" onClick={ this.pickGender } active={ this.state.gender === 'female' || this.state.gender === '' }>
-            <FontAwesomeIcon icon="venus" />
-          </GenderButton>
-          <GenderButton id="other" onClick={ this.pickGender } active={ this.state.gender === 'other' || this.state.gender === '' }>
-            <FontAwesomeIcon icon="genderless" />
-          </GenderButton>
-          <GenderButton id="male" onClick={ this.pickGender } active={ this.state.gender === 'male' || this.state.gender === '' }>
-            <FontAwesomeIcon icon="mars" />
-          </GenderButton>
+          <GenderButton id="female" onClick={ this.pickGender } active={ this.state.gender === 'female' || this.state.gender === '' }>Femenino</GenderButton>
+          <GenderButton id="other" onClick={ this.pickGender } active={ this.state.gender === 'other' || this.state.gender === '' }>Otro</GenderButton>
+          <GenderButton id="male" onClick={ this.pickGender } active={ this.state.gender === 'male' || this.state.gender === '' }>Masculino</GenderButton>
         </aside>
       </Container>
     )
