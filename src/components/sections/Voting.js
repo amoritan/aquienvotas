@@ -12,6 +12,7 @@ import Authentication from '../elements/Authentication'
 import Share from '../elements/Share'
 import Candidate from '../elements/Candidate'
 import PartyResult from '../elements/PartyResult'
+import VotingSelect from '../elements/VotingSelect'
 
 import Section from '../styled/Section'
 import SectionTitle from '../styled/SectionTitle'
@@ -39,19 +40,22 @@ class Voting extends Component {
     super(props)
 
     this.state = {
-      id: null,
+      id: undefined,
       name: this.props.name,
       candidates: [],
       results: [],
-      voted: null,
+      voted: undefined,
       authenticate: false,
-      share: false
+      share: false,
+      provinces: []
     }
 
     this.fetchVoting = this.fetchVoting.bind(this)
+    this.fetchProvinces = this.fetchProvinces.bind(this)
     this.handleVote = this.handleVote.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleAuthenticated = this.handleAuthenticated.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -66,6 +70,21 @@ class Voting extends Component {
         name: response.data.name,
         candidates: response.data.candidates || [],
         results: response.data.candidates_with_results || []
+      })
+      if (response.data.candidates_with_results && this.props.endpoint === 'local') {
+        _this.fetchProvinces()
+      }
+    }).catch( error => {
+      console.error(error)
+      window.gtag('event', 'api', { event_category: 'error', event_label: error })
+    })
+  }
+
+  fetchProvinces() {
+    const _this = this
+    axios.get('/provinces').then( response => {
+      _this.setState({
+        provinces: response.data
       })
     }).catch( error => {
       console.error(error)
@@ -120,12 +139,25 @@ class Voting extends Component {
     }
   }
 
+  handleChange(event) {
+    const province = this.state.provinces.find( province => province.ballot && province.ballot.id === event.target.value )
+    this.setState({
+      id: province.ballot.id,
+      name: province.ballot.name,
+      results: province.ballot.candidates_with_results
+    })
+  }
+
   render() {
     return (
       <Section id={ this.props.endpoint }>
         { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
         { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
-        <SectionTitle>{ this.state.results.length ? `Resultados para ${this.state.name}` : `¿A quién votás para ${this.state.name}?` }</SectionTitle>
+        { (this.props.endpoint === 'national' || this.state.candidates.length) ? (
+          <SectionTitle>{ this.state.results.length ? `Resultados para ${this.state.name}` : `¿A quién votás para ${this.state.name}?` }</SectionTitle>
+        ) : (
+          <SectionTitle>{ `Resultados para ${this.state.name}` }<VotingSelect selected={ this.state.id } provinces={ this.state.provinces } changeHandler={ this.handleChange } /></SectionTitle>
+        )}
         { this.state.candidates.length ? <SectionDescription>{ this.props.endpoint === 'national' ? 'Elegí el espacio político que querés votar. El 12 de junio cierran las listas y vas a poder elegir el candidato.' : 'Si no ves candidatos es porque en tu provincia no se presentaron oficialmente. Mientras los candidatos se deciden, elegí el espacio político que querés votar.' }</SectionDescription> : '' }
         { this.state.results.length ? (
           <Results>{ this.state.results.map((result) => <PartyResult key={ result.id } data={ result } />) }</Results>
