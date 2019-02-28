@@ -1,5 +1,5 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -47,6 +47,12 @@ function VotingSelect(props) {
       </Input>
     </Container>
   )
+}
+
+VotingSelect.propTypes = {
+  selected: PropTypes.string,
+  provinces: PropTypes.array.isRequired,
+  changeHandler: PropTypes.func.isRequired
 }
 
 export default VotingSelect
