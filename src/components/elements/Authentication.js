@@ -54,6 +54,10 @@ const Container = styled.div`
         color: #fefefe;
         font-weight: 700;
         cursor: pointer;
+        &:disabled {
+          opacity: .5;
+          cursor: not-allowed;
+        }
       }
     }
   }
@@ -91,7 +95,8 @@ class Authentication extends Component {
 
     this.state = {
       code: '+54',
-      phone: ''
+      phone: '',
+      submitted: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -114,6 +119,7 @@ class Authentication extends Component {
     const phoneNumberParse = parsePhoneNumberFromString(phoneNumber, 'AR')
 
     if (phoneNumberParse && phoneNumberParse.isValid() && phoneNumberParse.getType() === 'MOBILE') {
+      _this.setState({ submitted: true })
       window.AccountKit.login(
         'PHONE', 
         {countryCode: _this.state.code, phoneNumber: phoneNumber},
@@ -167,7 +173,7 @@ class Authentication extends Component {
               <input type="text" value={this.state.code} disabled required />
               <input type="tel" value={this.state.phone} onChange={this.handleChange} placeholder="1144445555" required />
             </div>
-            <input type="submit" value="Verificar mi voto" />
+            <input type="submit" value="Verificar mi voto" disabled={ this.state.submitted } />
           </form>
           <small>Ingresa tu número de télefono celular con código de área sin el cero y sin el quince. Tampoco tiene que tener espacios o guiones.</small>
           <ul>
