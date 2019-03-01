@@ -24,8 +24,7 @@ const Container = styled.div`
 const Input = styled.select`
   font-size: 1em;
   font-weight: 400;
-  color: #fefefe;
-  background: #1e1e1e;
+  color: #1e1e1e;
   border: .125em solid #fefefe;
   border-radius: .25em;
   background: none;
