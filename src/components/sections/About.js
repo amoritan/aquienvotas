@@ -16,7 +16,7 @@ const Container = styled.div`
   position: relative;
   max-width: 48em;
   color: #fefefe;
-  padding: .0625em 0;
+  padding: 1em 0 .0625em 0;
   div {
     @media (min-width: 48rem) {
       display: flex;
