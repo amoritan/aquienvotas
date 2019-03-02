@@ -14,6 +14,7 @@ library.add(faTwitter, faFacebook, faWhatsapp)
 
 const Container = styled.div`
   max-height: calc(100vh - 6em);
+  color: #1e1e1e;
   & > svg {
     display: block;
     font-size: 3em;
@@ -126,8 +127,8 @@ class Share extends Component {
       <Modal closeHandler={ this.props.closeHandler }>
         <Container>
           <FontAwesomeIcon icon="heart" />
-          <h3>Gracias por votar</h3>
-          <p>¡Difundí esta encuesta! Hagamos que los resultados representen la opinión de la Argentina.</p>
+          <h3>{ this.props.title }</h3>
+          <p>¡Difundí la encuesta! Ayudanos a que los resultados sean cada vez más representativos.</p>
           
           <button id="twitter" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'twitter']} /> Compartir en Twitter</button>
           <button id="facebook" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'facebook']} /> Compartir en Facebook</button>
@@ -141,7 +142,12 @@ class Share extends Component {
 }
 
 Share.propTypes = {
+  title: PropTypes.string,
   closeHandler: PropTypes.func.isRequired
+}
+
+Share.defaultProps = {
+  title: 'Gracias por votar'
 }
 
 export default Share

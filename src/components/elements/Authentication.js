@@ -17,6 +17,7 @@ library.add(faShieldCheck, faUserSecret, faMoneyBillWave, faLock, faAd)
 
 const Container = styled.div`
   max-height: calc(100vh - 6em);
+  color: #1e1e1e;
   & > svg {
     display: block;
     font-size: 3em;
