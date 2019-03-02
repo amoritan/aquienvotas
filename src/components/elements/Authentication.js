@@ -167,7 +167,7 @@ class Authentication extends Component {
       <Modal closeHandler={ this.props.closeHandler }>
         <Container>
           <FontAwesomeIcon icon="shield-check" />
-          <p>Para poder sumar tu voto tenemos que verificar que sea único enviando gratis un código a tu celular.</p>
+          <p>Antes de sumar tu voto tenemos que verificar que sea único enviando gratis un código a tu celular.</p>
           <form onSubmit={this.handleSubmit}>
             <div>
               <input type="text" value={this.state.code} disabled required />
@@ -177,7 +177,7 @@ class Authentication extends Component {
           </form>
           <small>Ingresa tu número de télefono celular con código de área sin el cero y sin el quince. Tampoco tiene que tener espacios o guiones.</small>
           <ul>
-            <li><FontAwesomeIcon icon="user-secret" /> <span><strong>Nuestro servidor no recibe ni guarda tu número de teléfono.</strong> Usamos el código de verificación para construir un sistema seguro y resultados confiables.</span></li>
+            <li><FontAwesomeIcon icon="user-secret" /> <span><strong>No recibimos ni guardamos tu número de teléfono.</strong> Usamos el código de verificación para construir un sistema anónimo, seguro y con resultados confiables.</span></li>
           </ul>
         </Container>
       </Modal>
