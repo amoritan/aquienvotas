@@ -90,7 +90,7 @@ class Candidate extends Component {
       <Container color={ `#${ this.props.data.color || this.props.data.party.color }` }>
         <h3>{ this.props.data.name }</h3>
         <h4>{ this.props.data.party.name }</h4>
-        <img src={ this.props.data.avatar || '/images/avatar.png' } alt={ this.props.data.name } width="120" height="120" />
+        <img src={ this.props.data.avatar || '/images/avatar.png' } alt={ this.props.data.name } width="240" height="240" />
         <button onClick={ this.handleVote }><FontAwesomeIcon icon="vote-yea" /> Votar</button>
       </Container>
     )

@@ -65,7 +65,7 @@ const Progress = styled.i`
 function CandidateResult(props) {
   return (
     <Container color={ `#${ props.data.color || props.partyColor }` } percentage={ props.data.result }>
-      <img src={ props.data.avatar || '/images/avatar.png' } alt={ props.data.name } width="120" height="120" />
+      <img src={ props.data.avatar || '/images/avatar.png' } alt={ props.data.name } width="240" height="240" />
       <div>
         <h4>{ props.data.name }</h4>
         <Progress percentage={ props.data.result }>{ props.data.result } %</Progress>
