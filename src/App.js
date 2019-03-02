@@ -8,6 +8,7 @@ import Voting from './components/sections/Voting'
 import Province from './components/sections/Province'
 import Demographics from './components/sections/Demographics'
 import About from './components/sections/About'
+import FrequentlyAskedQuestions from './components/sections/FrequentlyAskedQuestions'
 import Footer from './components/sections/Footer'
 
 import NextStepIndicator from './components/elements/NextStepIndicator'
@@ -71,6 +72,7 @@ class App extends Component {
           ) : <Province /> }
           <Demographics />
           <About />
+          <FrequentlyAskedQuestions />
           <Footer />
           { this.props.user && this.props.user.votes.length === 1 ? (
             <NextStepIndicator action="¡Ya podes votar en la elección provincial!" destination="local" />
