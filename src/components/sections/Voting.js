@@ -104,6 +104,7 @@ class Voting extends Component {
         _this.fetchVoting(_this.state.id)
         animateScroll.scrollTo(document.getElementById(_this.props.endpoint).offsetTop, { duration: 500, smooth: true })
         window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${_this.state.name}/${candidate.party.name}/${candidate.name}` })
+        window.fbq('trackCustom', 'VoteSubmitted', { ballot: _this.state.name, party: candidate.party.name, candidate: candidate.name })
       }).catch(error => {
         console.error(error)
         window.gtag('event', 'api', { event_category: 'error', event_label: error })
