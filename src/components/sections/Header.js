@@ -164,7 +164,7 @@ class Header extends Component {
           </h1>
           <button title="Compartir" onClick={ this.handleShare }><FontAwesomeIcon icon="share-alt" /></button>
         </div>
-        <p>Sumate con { this.state.users } personas a la primera encuesta abierta, masiva y representativa de las <strong>Elecciones en Argentina 2019</strong></p>
+        <p>Ya somos { this.state.users } personas construyendo la primera encuesta abierta y representativa de las <strong>Elecciones 2019 en Argentina</strong>, ¡Sumate!</p>
         <Button onClick={ this.handleClick }>Votá</Button>
         <Link to="about" smooth={ true } duration={ 500 }>Más información</Link>
       </Container>
