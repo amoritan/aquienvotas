@@ -96,7 +96,7 @@ class Share extends Component {
 
     switch (event.target.id) {
       case 'twitter':
-        link.setAttribute('href', 'https://twitter.com/intent/tweet?text=%C2%A1Estoy%20formando%20parte%20de%20la%20estad%C3%ADstica%20transparente%20para%20las%20%23Elecciones2019%20m%C3%A1s%20grande%20de%20la%20Argentina!&url=https://www.aquienvotas.com&hashtags=AQuienVotas&related=aquienvotas')
+        link.setAttribute('href', 'https://twitter.com/intent/tweet?text=%F0%9F%97%B3%20%C2%A1Mir%C3%A1%20los%20resultados%20de%20la%20estad%C3%ADstica%20transparente%20para%20las%20%23Elecciones2019%20m%C3%A1s%20grande%20de%20la%20Argentina!&url=https://www.aquienvotas.com&hashtags=AQuienVotas&related=aquienvotas')
         event.target.appendChild(link)
         link.click()
         event.target.removeChild(link)
@@ -108,7 +108,7 @@ class Share extends Component {
         }, function(response){})
         break
       case 'whatsapp':
-        link.setAttribute('href', 'whatsapp://send?text=%C2%A1Estoy%20formando%20parte%20de%20*%23AQuienVotas*%2C%20la%20estad%C3%ADstica%20transparente%20para%20las%20elecciones%202019%20m%C3%A1s%20grande%20de%20la%20Argentina!%20https%3A%2F%2Fwww.aquienvotas.com')
+        link.setAttribute('href', 'whatsapp://send?text=%F0%9F%97%B3%20%C2%A1Mir%C3%A1%20los%20resultados%20de%20*%23AQuienVotas*%2C%20la%20estad%C3%ADstica%20transparente%20para%20las%20elecciones%202019%20m%C3%A1s%20grande%20de%20la%20Argentina!%20https%3A%2F%2Fwww.aquienvotas.com')
         event.target.appendChild(link)
         link.click()
         event.target.removeChild(link)
