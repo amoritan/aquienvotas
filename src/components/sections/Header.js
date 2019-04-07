@@ -157,7 +157,7 @@ class Header extends Component {
       <Container small={ this.state.closed }>
         { this.state.share ? <Share title="Compartir" closeHandler={ this.handleClose } /> : '' }
         <div>
-          <strong><small>¡Somos!</small><span>{ this.state.users > 1000 ? ((this.state.users / 1000).toFixed(this.state.users % 1000 !== 0) + ' K') : this.state.users }</span></strong>
+          <strong><small>Somos</small><span>{ this.state.users > 1000 ? ((this.state.users / 1000).toFixed(this.state.users % 1000 !== 0) + ' K') : this.state.users }</span></strong>
           <h1 onClick={ this.state.closed ? this.handleClick : undefined }>
             <img src="./images/icon.svg" alt="Logotipo de #AQuienVotas" width="980" height="980" />
             <span>#AQuienVotas</span>
