@@ -32,7 +32,7 @@ class Polls extends Component {
 
   render() {
     return (
-      <div>
+      <div id="polls">
         { this.state.polls.map((poll) => <Poll key={ poll.id } data={ poll } />) }
       </div>
     )

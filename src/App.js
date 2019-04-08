@@ -81,6 +81,8 @@ class App extends Component {
           ) : (
             this.props.user && this.props.user.votes.length === 2 && !this.props.user.age ? (
               <NextStepIndicator action="¡Ahora podes conocer a la comunidad de #AQuienVotas!" destination="demographics" />
+            ) : this.props.user && !this.props.user.votes.find(vote => vote.voting_type === 'Poll') ? (
+              <NextStepIndicator action="¡Nueva encuesta! ¿Quién fue el/la mejor presidente desde el regreso de la democracia?" destination="polls" />
             ) : ''
           ) }
         </MainContainer>

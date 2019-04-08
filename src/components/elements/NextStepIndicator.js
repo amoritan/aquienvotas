@@ -50,7 +50,7 @@ class NextStepIndicator extends Component {
 
   handleClick() {
     this.setState({ hidden: true })
-    animateScroll.scrollTo(document.getElementById(this.props.destination).offsetTop, { duration: 500, smooth: true })
+    animateScroll.scrollTo(document.getElementById(this.props.destination).offsetTop - 100, { duration: 500, smooth: true })
   }
 
   componentDidUpdate(prevProps) {
