@@ -48,6 +48,7 @@ const Progress = styled.i`
   font-style: normal;
   font-weight: 600;
   margin 0 0 0 .25em;
+  white-space: nowrap;
   ::before {
     content: '';
     display: block;

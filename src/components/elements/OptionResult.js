@@ -40,6 +40,7 @@ const Progress = styled.i`
   width: 100%;
   font-style: normal;
   font-weight: 600;
+  white-space: nowrap;
   ::before {
     content: '';
     display: block;

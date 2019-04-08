@@ -28,6 +28,7 @@ const Container = styled.article`
       font-weight: 600;
       position: absolute;
       bottom: -1.125em;
+      white-space: nowrap;
     }
   }
 `
