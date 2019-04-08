@@ -7,6 +7,7 @@ import Header from './components/sections/Header'
 import Voting from './components/sections/Voting'
 import Province from './components/sections/Province'
 import Demographics from './components/sections/Demographics'
+import Polls from './components/sections/Polls'
 import About from './components/sections/About'
 import FrequentlyAskedQuestions from './components/sections/FrequentlyAskedQuestions'
 import Footer from './components/sections/Footer'
@@ -71,6 +72,7 @@ class App extends Component {
             <Voting name="Gobernador/a" endpoint="local" />
           ) : <Province /> }
           <Demographics />
+          <Polls />
           <About />
           <FrequentlyAskedQuestions />
           <Footer />
