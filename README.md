@@ -4,12 +4,12 @@
 
 La versión del proyecto publicada en [www.aquienvotas.com](https://www.aquienvotas.com "AQuienVotas") tiene como objetivo representar la opinión de la población de cara a las elecciones ejecutivas del año 2019 en Argentina a través distintas encuestas sobre la intención de voto y la opinión de los visitantes frente temas de debate público en el país. 
 
-Los resultados obtenidos son ponderados y expuestos al usuarios en tiempo real. Apuntamos a colaborar, con datos de calidad, en el debate público mediante el desarrollo de esta herramienta neutral, transparente y accesible.
+Los resultados obtenidos son ponderados y expuestos en tiempo real. Apuntamos a colaborar, con datos de calidad, en el debate público mediante el desarrollo de una herramienta neutral, transparente y accesible.
 
 ### Acerca del equipo
 Somos cuatro argentinos con interés en política, estadística y tecnología. Nuestro objetivo es construir una herramienta neutral y representativa para producir un set de datos público de calidad con valores anónimos de opinión, orientación política y segmentación.
 
-- **[@andresmoritan](https://twitter.com/andresmoritan "Twitter de Andres Moritan")  (Desarrollo)**: Es desarrollador,  creó y mantiene la plataforma; Diseña e implementa la arquitectura y las interfaces.
+- **[@andresmoritan](https://twitter.com/andresmoritan "Twitter de Andres Moritan")  (Desarrollo)**: Es programador, creó y mantiene la plataforma; Diseña e implementa la arquitectura y las interfaces.
 - **[@ineslovisolo](https://twitter.com/ineslovisolo "Twitter de Ines Lovisolo") (Análisis)**: Es politóloga especialista en opinión pública, maneja los análisis políticos y asegura la validez estadística los resultados.
 - **[@andreskloster](https://twitter.com/AndresKloster "Twitter de Andres Kloster") (Difusión)**: Es especialista en posicionamiento web, se encarga de comunicar y difundir el proyecto.
 - **[@lapaulaalcala](https://twitter.com/lapaulaalcala "Twitter de Paula Alcala") (Estrategia)**: Es licenciada en ciencias de la educación, define la experiencia de la aplicación, el contenido y la estrategia del proyecto.
