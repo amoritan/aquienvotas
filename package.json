@@ -1,7 +1,11 @@
 {
   "name": "aquienvotas",
   "version": "2.1.0",
-  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "homepage": "https://www.aquienvotas.com",
+  "repository": "github:andresmoritan/aquienvotas",
+  "bugs": "https://github.com/andresmoritan/aquienvotas/issues",
+  "author": "Andres Moritan <amoritan@me.com>",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/free-brands-svg-icons": "^5.7.1",
@@ -14,7 +18,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
-    "react-scripts": "^2.1.5",
+    "react-scripts": "^2.1.8",
     "react-scroll": "^1.7.11",
     "redux": "^4.0.1",
     "styled-components": "^4.1.3"

@@ -1,44 +1,76 @@
-# Sobre AQuienVotas
+# AQuienVotas
 
-AQuienVotas es una plataforma online de encuestas **abierta, masiva y representativa con resultados en tiempo real**. 
+**AQuienVotas** es una plataforma web para generar estadísticas de intención de voto y opinión a través de encuestas transparentes y representativas.
 
-Reúne información sobre la intención de voto en elecciones ejecutivas y la opinión de la población sobre temas de debate público en Argentina. Los resultados se muestran online y están ponderados en tiempo real.
+La versión del proyecto publicada en [www.aquienvotas.com](https://www.aquienvotas.com "AQuienVotas") tiene como objetivo representar la opinión de la población de cara a las elecciones ejecutivas del año 2019 en Argentina a través distintas encuestas sobre la intención de voto y la opinión de los visitantes frente temas de debate público en el país. 
 
-El objetivo de este proyecto es representar la opinión de la población argentina y sus variaciones según provincia, género y rango etáreo. Apuntamos a colaborar al debate público mediante una herramienta **transparente, accesible y neutral**.
+Los resultados obtenidos son ponderados y expuestos al usuarios en tiempo real. Apuntamos a colaborar, con datos de calidad, en el debate público mediante el desarrollo de esta herramienta neutral, transparente y accesible.
 
-Votá en https://www.aquienvotas.com
+### Acerca del equipo
+Somos cuatro argentinos con interés en política, estadística y tecnología. Nuestro objetivo es construir una herramienta neutral y representativa para producir un set de datos público de calidad con valores anónimos de opinión, orientación política y segmentación.
 
-## QueVotas
+- **[@andresmoritan](https://twitter.com/andresmoritan "Twitter de Andres Moritan")  (Desarrollo)**: Es desarrollador,  creó y mantiene la plataforma; Diseña e implementa la arquitectura y las interfaces.
+- **[@ineslovisolo](https://twitter.com/ineslovisolo "Twitter de Ines Lovisolo") (Análisis)**: Es politóloga especialista en opinión pública, maneja los análisis políticos y asegura la validez estadística los resultados.
+- **[@andreskloster](https://twitter.com/AndresKloster "Twitter de Andres Kloster") (Difusión)**: Es especialista en posicionamiento web, se encarga de comunicar y difundir el proyecto.
+- **[@lapaulaalcala](https://twitter.com/lapaulaalcala "Twitter de Paula Alcala") (Estrategia)**: Es licenciada en ciencias de la educación, define la experiencia de la aplicación, el contenido y la estrategia del proyecto.
 
-Las opciones de voto varían según el calendario electoral y las agenda pública a nivel nacional en Argentina.
+---- 
 
-- **Elecciones presidenciales 2019**: Cualquier residente de Argentina puede seleccionar su intención de voto en las elecciones ejecutivas nacionales de 2019.
-- **Elecciones a gobernadores 2019**: Cada votante podrá seleccionar la provincia en la que vota y elegir sus preferencias para las elecciones ejecutivas provinciales de 2019.
-- **Opinión pública**: Se abrirán encuestas en torno a discusiones presentes en la agenda pública de Argentina en temas relacionados a economía, educación y salud.
+## Acerca de la tecnología
 
-> Se pedirá a los usuarios de AQuienVotas que ingresen su provincia, género y edad. Esta información se usa para ponderar los resultados y asegurar representatividad estadística. 
+**AQuienVotas** es desarrollando como **software libre** bajo la licencia _GNU Affero General Public License (AGPL)_ con el objetivo de fomentar la transparencia y la colaboración dentro del proyecto.
 
-## ComoVotas
+**Aquellos/as que tengan interés en formar parte del proyecto, son bienvenidos/as a brindar su aporte al desarrollo de esta apasionante herramienta.**
 
-La principal función de AQuienVotas es que los usuarios puedan seleccionar, entre opciones finitas, su intención de voto para las elecciones presidenciales de 2019 en Argentina. 
+Quienes residan -y voten- fuera de Argentina y tengan interés en utilizar la herramienta en su país, también son bienvenidos/as a ponerse en contacto para poder brindarles apoyo en la implementación.
 
-Luego de votar en las elecciones presidenciales, cada persona puede elegir su provincia y votar para gobernadores. También podrán elegir su opinión en temas de debate público, por ejemplo sobre la Ley de Interrupción Voluntaria del Embarazo (legalización del aborto). Para acceder a las elecciones provinciales y de debate público los usuarios deberán ingresar sus datos demográficos.
+> El presente código fuente y las instrucciones que se detallan a continuación corresponden a la _Web Application_ del proyecto. Para conocer y/o colaborar con la _Application Programming Interface (API)_ de **AQuienVotas** debes visitar [este repositorio](https://github.com/andresmoritan/aquienvotas-api "AQuienVotas (Application Programming Interface) en GitHub").
 
-> Cada usuario de aQuienVotas deberá ser validado como único. Para esto usamos Accountkit de Facebook, que envía un código por SMS o WhatsApp sin guardar los datos de los usuarios. Podés leer en detalle cómo validamos los votos [en este documento](https://github.com/andresmoritan/aquienvotas/blob/master/about/validacion-votantes.md).
+### Acerca del stack
 
-<br>
+El front-end de la plataforma se encuentra desarrollado utilizando la librería [React](https://github.com/facebook/react/ "React") _(v 16.7.0)_ junto con [Redux](https://www.github.com/reduxjs/redux "Redux") _(v 4.0.1)_ para administrar estados compartidos, [styled-components](https://github.com/styled-components/styled-components "styled-components") _(v 4.1.3)_ para generar estilos y [axios](https://github.com/axios/axios "axios") _(v 0.18.0)_ como cliente HTTP.
 
-# Sumate
+### Para colaborar
 
-Estamos creando una estadística abierta y transparente. Si te interesa el proyecto, escribinos o seguinos para enterarte las últimas actualizaciones.
+Hacer un fork del repositorio y clonarlo en tu equipo.
 
-![Mail](https://github.com/andresmoritan/aquienvotas/blob/master/about/logos/gmail.png) hola@aquienvotas.com <br>
-![Twitter](https://github.com/andresmoritan/aquienvotas/blob/master/about/logos/twitter.png) https://twitter.com/aquienvotas <br>
-![Instagram](https://github.com/andresmoritan/aquienvotas/blob/master/about/logos/instagram.png) https://www.instagram.com/aquienvotasOK/  <br>
-![Facebook](https://github.com/andresmoritan/aquienvotas/blob/master/about/logos/facebook.png) https://www.facebook.com/aquienvotascom
+```bash
+git clone https://github.com/YOUR-USER-NAME/aquienvotas.git
+cd aquienvotas
+```
 
-## Más información
+Configurar tus variables de entorno en un archivo `.env` en el directorio raíz del proyecto.
 
-- [Sobre el proyecto AQuienVotas](https://github.com/andresmoritan/aquienvotas/blob/master/about/el-proyecto.md)
-- [Cronograma de votaciones](https://github.com/andresmoritan/aquienvotas/blob/master/about/cronograma-votaciones.md)
-- [Preguntas frecuentes](https://github.com/andresmoritan/aquienvotas/blob/master/about/preguntas-frecuentes.md)
+```bash
+#.env.local
+REACT_APP_SERVER_URI='http://YOUR-IP:3000'
+REACT_APP_FB_APP_ID=YOUR_FB_APP_ID
+REACT_APP_ANALYTICS_ID=YOUR_ANALYTICS_ID
+```
+
+Instalar las dependencias. _Requiere tener instalado previamente Node (v 10.15.0)_
+
+```bash
+npm install
+```
+
+Ejecuta el cliente de forma local.
+
+```bash
+npm run start
+```
+
+A partir de aquí podrás hacer tu magia y generar un Pull Request en el repositorio principal cuando estés listo/a para hacer público tu trabajo.
+
+---- 
+
+AQuienVotas
+Copyright (C) 2015-2019 Andres Moritan
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along with this program. If not, see \<[https://www.gnu.org/licenses/](https://www.gnu.org/licenses/)\>.
+
+![AGPL Free Software](https://www.gnu.org/graphics/agplv3-155x51.png "AGPL")
