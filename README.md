@@ -44,6 +44,8 @@ Configurar tus variables de entorno en un archivo `.env` en el directorio raíz 
 ```bash
 #.env.local
 REACT_APP_SERVER_URI='http://YOUR-IP:3000'
+REACT_APP_FB_APP_ID=YOUR_FB_APP_ID
+REACT_APP_ANALYTICS_ID=YOUR_ANALYTICS_ID
 ```
 
 Instalar las dependencias. _Requiere tener instalado previamente Node (v 10.15.0)_

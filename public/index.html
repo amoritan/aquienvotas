@@ -47,7 +47,7 @@
     <meta property="og:description" content="Votá en la estadística abierta más grande de Argentina para las elecciones nacionales y provinciales de 2019." />
     <meta property="og:image" content="https://www.aquienvotas.com/images/preview.png" />
     <meta property="og:locale" content="es_LA" />
-    <meta property="fb:app_id" content="204521433832223" />
+    <meta property="fb:app_id" content="%REACT_APP_FB_APP_ID%" />
 
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="%PUBLIC_URL%/images/apple-touch-icon.png" />
     
@@ -88,13 +88,13 @@
     -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-35586377-3"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_ANALYTICS_ID%"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-35586377-3');
+      gtag('config', '%REACT_APP_ANALYTICS_ID%');
     </script>
 
     <!-- Facebook Pixel Code -->
@@ -107,11 +107,11 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '372454963307754');
+      fbq('init', '%REACT_APP_FB_PIXEL_ID%');
       fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=372454963307754&ev=PageView&noscript=1"
+      src="https://www.facebook.com/tr?id=%REACT_APP_FB_PIXEL_ID%&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Facebook Pixel Code -->
 
@@ -120,7 +120,7 @@
       window.AccountKit_OnInteractive = function(){
         window.AccountKit.init(
           {
-            appId: 204521433832223,
+            appId: %REACT_APP_FB_APP_ID%,
             state: Math.random().toString(36).substr(2, 10), 
             version: 'v1.1',
             fbAppEventsEnabled: true
@@ -132,7 +132,7 @@
     <script type="text/javascript">
       window.fbAsyncInit = function() {
         FB.init({
-          appId      : '204521433832223',
+          appId      : '%REACT_APP_FB_APP_ID%',
           xfbml      : true,
           version    : 'v3.2'
         });
