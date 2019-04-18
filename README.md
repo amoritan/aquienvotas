@@ -1,5 +1,7 @@
-# ![](https://s3-sa-east-1.amazonaws.com/assets.aquienvotas.com/icon-36.svg) AQuienVotas 
-> Web Application | [Application Programming Interface (API)](https://github.com/andresmoritan/aquienvotas-api "API de AQuienVotas en GitHub")
+![](https://s3-sa-east-1.amazonaws.com/assets.aquienvotas.com/icon-github.svg)
+
+# AQuienVotas 
+> Web Application | [Application Programming Interface (API)](https://github.com/andresmoritan/aquienvotas-api#aquienvotas "API de AQuienVotas en GitHub")
 
 ![Travis (.com)](https://img.shields.io/travis/com/andresmoritan/aquienvotas.svg) ![Website](https://img.shields.io/website/https/aquienvotas.com.svg) ![GitHub](https://img.shields.io/github/license/andresmoritan/aquienvotas.svg)
 
