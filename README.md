@@ -1,4 +1,7 @@
-# AQuienVotas
+# ![](https://s3-sa-east-1.amazonaws.com/assets.aquienvotas.com/icon-36.svg) AQuienVotas 
+> Web Application | [Application Programming Interface (API)](https://github.com/andresmoritan/aquienvotas-api "API de AQuienVotas en GitHub")
+
+![Travis (.com)](https://img.shields.io/travis/com/andresmoritan/aquienvotas.svg) ![Website](https://img.shields.io/website/https/aquienvotas.com.svg) ![GitHub](https://img.shields.io/github/license/andresmoritan/aquienvotas.svg)
 
 **AQuienVotas** es una plataforma web para generar estadísticas de intención de voto y opinión a través de encuestas transparentes y representativas.
 
@@ -71,6 +74,4 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 
-You should have received a copy of the GNU Affero General Public License along with this program. If not, see \<[https://www.gnu.org/licenses/](https://www.gnu.org/licenses/)\>.
-
-![AGPL Free Software](https://www.gnu.org/graphics/agplv3-155x51.png "AGPL")
+You should have received a copy of the GNU Affero General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
