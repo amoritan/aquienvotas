@@ -28,7 +28,7 @@ import styled, { css } from 'styled-components'
 import { transparentize } from 'polished'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faShareAlt } from '@fortawesome/pro-solid-svg-icons'
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Link } from 'react-scroll'

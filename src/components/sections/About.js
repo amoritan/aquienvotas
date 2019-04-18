@@ -24,12 +24,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faShieldCheck, faBalanceScale, faSearch } from '@fortawesome/pro-solid-svg-icons'
+import { faShieldAlt, faBalanceScale, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import SectionTitle from '../styled/SectionTitle'
 
-library.add(faShieldCheck, faBalanceScale, faSearch)
+library.add(faShieldAlt, faBalanceScale, faSearch)
 
 const Background = styled.section`
   background: #0095d5;
@@ -70,7 +70,7 @@ function About() {
         <SectionTitle>Nuestros valores</SectionTitle>
         <div>
           <article>
-            <FontAwesomeIcon icon="shield-check" />
+            <FontAwesomeIcon icon="shield-alt" />
             <h3>Confiabilidad</h3>
             <p>Encuesta segura y masiva, resultados ponderados estadísticamente.</p>
           </article>

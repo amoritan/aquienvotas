@@ -28,7 +28,7 @@ import axios from 'axios'
 import { parsePhoneNumberFromString } from 'libphonenumber-js/mobile'
 import styled from 'styled-components'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faShieldCheck, faUserSecret, faMoneyBillWave, faLock, faAd } from '@fortawesome/pro-solid-svg-icons'
+import { faShieldAlt, faUserSecret, faMoneyBillWave, faLock, faAd } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { lighten } from 'polished'
 
@@ -36,7 +36,7 @@ import { authenticate } from '../../redux/actions'
 
 import Modal from './Modal'
 
-library.add(faShieldCheck, faUserSecret, faMoneyBillWave, faLock, faAd)
+library.add(faShieldAlt, faUserSecret, faMoneyBillWave, faLock, faAd)
 
 const Container = styled.div`
   max-height: calc(100vh - 6em);
@@ -190,7 +190,7 @@ class Authentication extends Component {
     return (
       <Modal closeHandler={ this.props.closeHandler }>
         <Container>
-          <FontAwesomeIcon icon="shield-check" />
+          <FontAwesomeIcon icon="shield-alt" />
           <p>Antes de sumar tu voto tenemos que verificar que sea único enviando gratis un código a tu celular.</p>
           <form onSubmit={this.handleSubmit}>
             <div>

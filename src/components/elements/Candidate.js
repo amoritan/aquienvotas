@@ -26,7 +26,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { darken } from 'polished'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faVoteYea } from '@fortawesome/pro-solid-svg-icons'
+import { faVoteYea } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 library.add(faVoteYea)
