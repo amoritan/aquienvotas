@@ -100,7 +100,6 @@ class Poll extends Component {
         _this.fetchPoll(_this.state.id)
         animateScroll.scrollTo(document.getElementById(_this.props.data.id).offsetTop, { duration: 500, smooth: true })
         window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${_this.state.name}/${option.name}` })
-        window.fbq('trackCustom', 'VoteSubmitted', { poll: _this.state.name, option: option.name })
       }).catch(error => {
         console.error(error)
         window.gtag('event', 'api', { event_category: 'error', event_label: error })
