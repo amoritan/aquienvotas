@@ -61,8 +61,8 @@ function Footer() {
     <Container>
       <a href="mailto:hola@aquienvotas.com">hola@aquienvotas.com</a><br />
       <a href="https://twitter.com/aquienvotas" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Twitter"><FontAwesomeIcon icon={['fab', 'twitter']} /></a>
-      <a href="https://www.instagram.com/aquienvotasok/" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Instagram"><FontAwesomeIcon icon={['fab', 'instagram']} /></a>
-      <a href="https://www.facebook.com/aquienvotascom" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Facebook"><FontAwesomeIcon icon={['fab', 'facebook']} /></a>
+      <a href="https://www.instagram.com/aquienvotasok" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Instagram"><FontAwesomeIcon icon={['fab', 'instagram']} /></a>
+      <a href="https://www.facebook.com/aquienvotasok" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Facebook"><FontAwesomeIcon icon={['fab', 'facebook']} /></a>
       <a href="https://github.com/andresmoritan/aquienvotas" target="_blank" rel="noopener noreferrer" title="Repositorio de #AQuienVotas en GitHub"><FontAwesomeIcon icon={['fab', 'github']} /></a>
       <aside>
         <p>AQuienVotas. Copyright (C) 2015-2019 Andres Moritan.</p>
