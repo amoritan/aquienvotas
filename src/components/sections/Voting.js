@@ -163,12 +163,7 @@ class Voting extends Component {
   }
 
   handleChange(event) {
-    const province = this.state.provinces.find( province => province.ballot && province.ballot.id === event.target.value )
-    this.setState({
-      id: province.ballot.id,
-      name: province.ballot.name,
-      results: province.ballot.candidates_with_results
-    })
+    this.fetchVoting(event.target.value)
   }
 
   render() {
