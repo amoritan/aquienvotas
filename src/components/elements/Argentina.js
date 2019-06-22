@@ -26,28 +26,28 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { lighten } from 'polished'
 
-const Container = styled.svg`
-  g {
-    transition: all .25s;
-    cursor: pointer;
-    &#Argentina, &#Details {
-      cursor: normal;
+function Argentina(props) {
+  const Container = styled.svg`
+    g {
+      transition: all .25s;
+      cursor: pointer;
+      &#Argentina, &#Details {
+        cursor: normal;
+        &:hover {
+          fill: none;
+        }
+      }
       &:hover {
-        fill: none;
+        fill: ${lighten(.25, '#0095d5')};
       }
     }
-    &:hover {
-      fill: ${lighten(.25, '#0095d5')};
-    }
-  }
-  ${props => props.active && css`
-    g#${props.active} {
-      fill: ${lighten(.5, '#0095d5')};
-    }
-  `};
-`
+    ${props => props.active && css`
+      g#${props.active} {
+        fill: ${lighten(.5, '#0095d5')};
+      }
+    `};
+  `
 
-function Argentina(props) {
   return (
     <Container width="580px" height="950px" viewBox="0 0 580 950" active={ props.active }>
       <g id="Argentina" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

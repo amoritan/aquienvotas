@@ -28,19 +28,19 @@ import Question from '../elements/Question'
 
 import Section from '../styled/Section'
 
-const Questions = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  li {
-    h3 { box-shadow: 0 .0625em 0 #fefefe; }
-    &:last-child {
-      h3 { box-shadow: none; }
-    }
-  }
-`
-
 function FrequentlyAskedQuestions() {
+  const Questions = styled.ul`
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      h3 { box-shadow: 0 .0625em 0 #fefefe; }
+      &:last-child {
+        h3 { box-shadow: none; }
+      }
+    }
+  `
+  
   return (
     <Section id="faq">
       <Questions>

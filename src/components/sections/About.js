@@ -31,39 +31,39 @@ import SectionTitle from '../styled/SectionTitle'
 
 library.add(faShieldAlt, faBalanceScale, faSearch)
 
-const Background = styled.section`
-  background: #0095d5;
-`
-const Container = styled.div`
-  margin: 5rem auto;
-  position: relative;
-  max-width: 48em;
-  color: #fefefe;
-  padding: 1em 0 .0625em 0;
-  div {
-    @media (min-width: 48rem) {
-      display: flex;
-    }
-  }
-  article {
-    margin: 3em;
-    svg {
-      display: block;
-      font-size: 3em;
-      height: auto;
-      margin: 0 auto;
-    }
-    h3, p {
-      text-align: center;
-      margin: 0;
-    }
-    h3 {
-      margin: 1em auto .5em auto;
-    }
-  }
-`
-
 function About() {
+  const Background = styled.section`
+    background: #0095d5;
+  `
+  const Container = styled.div`
+    margin: 5rem auto;
+    position: relative;
+    max-width: 48em;
+    color: #fefefe;
+    padding: 1em 0 .0625em 0;
+    div {
+      @media (min-width: 48rem) {
+        display: flex;
+      }
+    }
+    article {
+      margin: 3em;
+      svg {
+        display: block;
+        font-size: 3em;
+        height: auto;
+        margin: 0 auto;
+      }
+      h3, p {
+        text-align: center;
+        margin: 0;
+      }
+      h3 {
+        margin: 1em auto .5em auto;
+      }
+    }
+  `
+
   return (
     <Background id="about">
       <Container>
