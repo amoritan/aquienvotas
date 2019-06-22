@@ -21,16 +21,19 @@
 
 
 
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
 import axios from 'axios'
 import { parsePhoneNumberFromString } from 'libphonenumber-js/mobile'
+
 import styled from 'styled-components'
+import { lighten } from 'polished'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faShieldAlt, faUserSecret, faMoneyBillWave, faLock, faAd } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { lighten } from 'polished'
 
 import { authenticate } from '../../redux/actions'
 
@@ -113,41 +116,34 @@ const Container = styled.div`
   }
 `
 
-class Authentication extends Component {
-  constructor(props) {
-    super(props)
+function Authentication(props) {
+  const code = '+54'
+  const [phone, setPhone] = useState('')
+  const [submitted, setSubmitted] = useState(false)
 
-    this.state = {
-      code: '+54',
-      phone: '',
-      submitted: false
-    }
+  useEffect(() => {
+    window.gtag('event', 'started', { event_category: 'authentication' })
+  }, [])
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.loginCallback = this.loginCallback.bind(this)
-  }
-
-  handleChange(event) {
+  function handleChange(event) {
     const numbers = /^[0-9\b]+$/
     if ((event.target.value === '' || numbers.test(event.target.value)) && event.target.value.length <= 12) {
-      this.setState({phone: event.target.value})
+      setPhone(event.target.value)
     }
   }
 
-  handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault()
-    const _this = this
 
-    const phoneNumber = _this.state.phone.charAt(0) === '9' ? _this.state.phone : `9${_this.state.phone}`
+    const phoneNumber = phone.charAt(0) === '9' ? phone : `9${phone}`
     const phoneNumberParse = parsePhoneNumberFromString(phoneNumber, 'AR')
 
     if (phoneNumberParse && phoneNumberParse.isValid() && phoneNumberParse.getType() === 'MOBILE') {
-      _this.setState({ submitted: true })
+      setSubmitted(true)
       window.AccountKit.login(
         'PHONE', 
-        {countryCode: _this.state.code, phoneNumber: phoneNumber},
-        _this.loginCallback
+        {countryCode: code, phoneNumber: phoneNumber},
+        loginCallback
       )
       window.gtag('event', 'submitted', { event_category: 'authentication' })
     } else {
@@ -155,58 +151,52 @@ class Authentication extends Component {
     }
   }
 
-  componentDidMount() {
-    window.gtag('event', 'started', { event_category: 'authentication' })
-  }
-
-  loginCallback(response) {
+  function loginCallback(response) {
     if (response.status === 'PARTIALLY_AUTHENTICATED') {
       axios.post('/authentication/authenticate', {
         code: response.code
       }).then(response => {
-        this.props.authenticate(response.data)
+        props.authenticate(response.data)
         window.gtag('event', 'validated', { event_category: 'authentication' })
-        this.props.successHandler()
+        props.successHandler()
       }).catch(error => {
         console.error(error)
         alert('Ha ocurrido un error al verificar tu voto. Vuelve a intentarlo en unos minutos.')
         window.gtag('event', 'api', { event_category: 'error', event_label: error })
-        this.props.closeHandler()
+        props.closeHandler()
       })
     }
     else if (response.status === 'NOT_AUTHENTICATED') {
       console.error(response)
       alert('Ha ocurrido un error al verificar tu voto. Vuelve a intentarlo en unos minutos.')
-      this.props.closeHandler()
+      props.closeHandler()
     }
     else if (response.status === 'BAD_PARAMS') {
       console.error(response)
       alert('Ha ocurrido un error al verificar tu voto. Vuelve a intentarlo en unos minutos.')
-      this.props.closeHandler()
+      props.closeHandler()
     }
   }
 
-  render() {
-    return (
-      <Modal closeHandler={ this.props.closeHandler }>
-        <Container>
-          <FontAwesomeIcon icon="shield-alt" />
-          <p>Antes de sumar tu voto tenemos que verificar que sea único enviando gratis un código a tu celular.</p>
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <input type="text" value={this.state.code} disabled required />
-              <input type="tel" value={this.state.phone} onChange={this.handleChange} placeholder="1144445555" required />
-            </div>
-            <input type="submit" value="Verificar mi voto" disabled={ this.state.submitted } />
-          </form>
-          <small>Ingresa tu número de télefono celular con código de área sin el cero y sin el quince. Tampoco tiene que tener espacios o guiones.</small>
-          <ul>
-            <li><FontAwesomeIcon icon="user-secret" /> <span><strong>No recibimos ni guardamos tu número de teléfono.</strong> Usamos el código de verificación para construir un sistema anónimo, seguro y con resultados confiables.</span></li>
-          </ul>
-        </Container>
-      </Modal>
-    )
-  }
+  return (
+    <Modal closeHandler={ props.closeHandler }>
+      <Container>
+        <FontAwesomeIcon icon="shield-alt" />
+        <p>Antes de sumar tu voto tenemos que verificar que sea único enviando gratis un código a tu celular.</p>
+        <form onSubmit={ handleSubmit }>
+          <div>
+            <input type="text" value={ code } disabled required />
+            <input type="tel" value={ phone } onChange={ handleChange } placeholder="1144445555" required />
+          </div>
+          <input type="submit" value="Verificar mi voto" disabled={ submitted } />
+        </form>
+        <small>Ingresa tu número de télefono celular con código de área sin el cero y sin el quince. Tampoco tiene que tener espacios o guiones.</small>
+        <ul>
+          <li><FontAwesomeIcon icon="user-secret" /> <span><strong>No recibimos ni guardamos tu número de teléfono.</strong> Usamos el código de verificación para construir un sistema anónimo, seguro y con resultados confiables.</span></li>
+        </ul>
+      </Container>
+    </Modal>
+  )
 }
 
 Authentication.propTypes = {
