@@ -105,10 +105,8 @@ function Province(props) {
 
   const [activeLocation, setActiveLocation] = useState(undefined)
 
-  const [userDemographics, setUserDemographics] = useState({
-    age: undefined,
-    gender: undefined
-  })
+  const [age, setAge] = useState(undefined)
+  const [gender, setGender] = useState(undefined)
 
   useEffect(() => {
     if (props.user && props.user.location && props.user.age && props.user.gender) {
@@ -163,7 +161,7 @@ function Province(props) {
         }
       ])
     }
-  }) // <--- Must fix: Not rendering properly if [props.user] is set
+  }, [props.user])
 
   function canView() {
     return props.user && props.user.location && props.user.age && props.user.gender
@@ -194,14 +192,21 @@ function Province(props) {
   }
 
   function handleChange(event) {
-    let newUserDemographics = userDemographics
-    newUserDemographics[event.target.name] = event.target.value
-    setUserDemographics(newUserDemographics)
+    switch (event.target.name) {
+      case 'age':
+        setAge(event.target.value)
+        break
+      case 'gender':
+        setGender(event.target.value)
+        break
+      default:
+        break
+    }
   }
 
   function handleSubmit(event) {
     event.preventDefault()
-    axios.put(`/users/${ props.user.id }`, userDemographics).then(response => {
+    axios.put(`/users/${ props.user.id }`, { age: age, gender: gender }).then(response => {
       window.gtag('event', 'demographics_submitted', { event_category: 'user_info' })
       props.update({ user: response.data })
     }).catch( error => {
@@ -231,9 +236,9 @@ function Province(props) {
           <BlurredQuestion>
             <h3>Contanos de vos</h3>
             <form onSubmit={ handleSubmit }>
-              <Select placeholder="Edad" options={ ageOptions } selected={ userDemographics.age } changeHandler={ handleChange } name="age" required />
-              <Select placeholder="Género" options={ genderOptions } selected={ userDemographics.gender } changeHandler={ handleChange } name="gender" required />
-              { userDemographics.age && userDemographics.gender ? <Submit title="Guardar" /> : '' }
+              <Select placeholder="Edad" options={ ageOptions } selected={ age } changeHandler={ handleChange } name="age" required />
+              <Select placeholder="Género" options={ genderOptions } selected={ gender } changeHandler={ handleChange } name="gender" required />
+              { age && gender ? <Submit title="Guardar" /> : '' }
             </form>
           </BlurredQuestion>
         ) : (
