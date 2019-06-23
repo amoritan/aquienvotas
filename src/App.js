@@ -22,7 +22,7 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import styled from 'styled-components'
 
@@ -39,9 +39,6 @@ import Footer from './components/sections/Footer'
 
 import NextStepIndicator from './components/elements/NextStepIndicator'
 
-import { authenticate } from './redux/actions'
-import { getUser } from './redux/selectors'
-
 const MainContainer = styled.main`
   @media (min-width: 64rem) {
     font-size 1.25em;
@@ -51,8 +48,11 @@ const MainContainer = styled.main`
   }
 `
 
-function App(props) {
+function App() {
   const [ready, setReady] = useState(false)
+
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     checkAuthentication()
@@ -62,7 +62,7 @@ function App(props) {
     const token = window.localStorage.getItem('authentication_token')
     if (token) {
       axios.get('/authentication/fetch', { headers: {'Authorization': `Bearer ${token}`} }).then(response => {
-        props.authenticate({ token: token, user: response.data })
+        dispatch({ type: 'AUTHENTICATE', payload: { token: token, user: response.data } })
         setReady(true)
       }).catch( error => {
         if (error.response && error.response.status === 401) {
@@ -81,9 +81,9 @@ function App(props) {
   if (ready) {
     return (
       <MainContainer>
-        <Header closed={ Boolean(props.user) }></Header>
+        <Header closed={ Boolean(user) }></Header>
         <Voting name="Presidente" endpoint="national" />
-        { props.user && props.user.location ? (
+        { user && user.location ? (
           <Voting name="Gobernador/a" endpoint="local" />
         ) : <Province /> }
         <Demographics />
@@ -91,12 +91,12 @@ function App(props) {
         <About />
         <FrequentlyAskedQuestions />
         <Footer />
-        { props.user && props.user.votes.length === 1 ? (
+        { user && user.votes.length === 1 ? (
           <NextStepIndicator action="¡Ya podes votar en la elección provincial!" destination="local" />
         ) : (
-          props.user && props.user.votes.length === 2 && !props.user.age ? (
+          user && user.votes.length === 2 && !user.age ? (
             <NextStepIndicator action="¡Ahora podes conocer a la comunidad de #AQuienVotas!" destination="demographics" />
-          ) : props.user && !props.user.votes.find(vote => vote.voting_type === 'Poll') ? (
+          ) : user && !user.votes.find(vote => vote.voting_type === 'Poll') ? (
             <NextStepIndicator action="¡Nueva encuesta! ¿Quién fue el/la mejor presidente desde el regreso de la democracia?" destination="polls" />
           ) : ''
         ) }
@@ -107,4 +107,4 @@ function App(props) {
   }
 }
 
-export default connect(state => ({ user: getUser(state) }), { authenticate })(App)
+export default App

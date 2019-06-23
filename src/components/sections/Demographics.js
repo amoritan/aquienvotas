@@ -22,15 +22,12 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import styled, { css } from 'styled-components'
 import { Link } from 'react-scroll'
 
 import axios from 'axios'
-
-import { update } from '../../redux/actions'
-import { getUser } from '../../redux/selectors'
 
 import DemographicsChart from '../elements/DemographicsChart'
 import Argentina from '../elements/Argentina'
@@ -86,7 +83,7 @@ const MapContainer = styled.div`
   }
 `
 
-function Province(props) {
+function Demographics() {
   const ageOptions = [
     { value: 'from16to24', title: 'De 16 a 24' },
     { value: 'from25to39', title: 'De 25 a 39' },
@@ -108,8 +105,11 @@ function Province(props) {
   const [age, setAge] = useState(undefined)
   const [gender, setGender] = useState(undefined)
 
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    if (props.user && props.user.location && props.user.age && props.user.gender) {
+    if (user && user.location && user.age && user.gender) {
       fetchLocations()
       fetchDemographics()
     } else {
@@ -161,10 +161,10 @@ function Province(props) {
         }
       ])
     }
-  }, [props.user])
+  }, [user])
 
   function canView() {
-    return props.user && props.user.location && props.user.age && props.user.gender
+    return user && user.location && user.age && user.gender
   }
 
   function fetchLocations() {
@@ -206,9 +206,9 @@ function Province(props) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    axios.put(`/users/${ props.user.id }`, { age: age, gender: gender }).then(response => {
+    axios.put(`/users/${ user.id }`, { age: age, gender: gender }).then(response => {
       window.gtag('event', 'demographics_submitted', { event_category: 'user_info' })
-      props.update({ user: response.data })
+      dispatch({ type: 'UPDATE', payload: { user: response.data } })
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })
@@ -232,7 +232,7 @@ function Province(props) {
         <DemographicsChart demographics={ demographics } />
       </Data>
       { !canView() ? (
-        props.user && props.user.location ? (
+        user && user.location ? (
           <BlurredQuestion>
             <h3>Contanos de vos</h3>
             <form onSubmit={ handleSubmit }>
@@ -251,4 +251,4 @@ function Province(props) {
   )
 }
 
-export default connect(state => ({ user: getUser(state) }), { update })(Province)
+export default Demographics

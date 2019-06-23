@@ -22,7 +22,7 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import axios from 'axios'
@@ -34,8 +34,6 @@ import { lighten } from 'polished'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faShieldAlt, faUserSecret, faMoneyBillWave, faLock, faAd } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { authenticate } from '../../redux/actions'
 
 import Modal from './Modal'
 
@@ -121,6 +119,8 @@ function Authentication(props) {
   const [phone, setPhone] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
     window.gtag('event', 'started', { event_category: 'authentication' })
   }, [])
@@ -156,7 +156,7 @@ function Authentication(props) {
       axios.post('/authentication/authenticate', {
         code: response.code
       }).then(response => {
-        props.authenticate(response.data)
+        dispatch({ type: 'AUTHENTICATE', payload: response.data })
         window.gtag('event', 'validated', { event_category: 'authentication' })
         props.successHandler()
       }).catch(error => {
@@ -204,4 +204,4 @@ Authentication.propTypes = {
   closeHandler: PropTypes.func.isRequired
 }
 
-export default connect(null, { authenticate })(Authentication)
+export default Authentication

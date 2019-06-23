@@ -22,16 +22,13 @@
 
 
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { useSelector, useDispatch } from 'react-redux'
 
 import styled from 'styled-components'
 import { animateScroll } from 'react-scroll'
 
 import axios from 'axios'
-
-import { update } from '../../redux/actions'
-import { getUser } from '../../redux/selectors'
 
 import Authentication from './Authentication'
 import Share from './Share'
@@ -68,6 +65,9 @@ function Poll(props) {
   const [authenticate, setAuthenticate] = useState(false)
   const [share, setShare] = useState(false)
 
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
   function fetchPoll(id) {
     axios.get(`/polls${ id ? `/${id}` : '' }`).then( response => {
       setPoll({
@@ -83,11 +83,11 @@ function Poll(props) {
   }
 
   function handleVote(option) {
-    if (props.user) {
+    if (user) {
       axios.post(`/polls/${poll.id}/vote`, { poll_option_id: option.id }).then(response => {
         setShare(true)
         setVoted(option)
-        props.update({ user: response.data })
+        dispatch({ type: 'UPDATE', payload: { user: response.data } })
         fetchPoll(poll.id)
         animateScroll.scrollTo(document.getElementById(props.data.id).offsetTop, { duration: 500, smooth: true })
         window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${poll.name}/${option.name}` })
@@ -110,7 +110,7 @@ function Poll(props) {
 
   function handleAuthenticated() {
     setAuthenticate(false)
-    if (props.user.votes.find( vote => vote.voting_id === poll.id )) {
+    if (user.votes.find( vote => vote.voting_id === poll.id )) {
       if (window.confirm('Ya habías votado en esta encuesta, ¿Te gustaria reemplazar tu voto?')) {
         handleVote(voted)
       } else {
@@ -144,4 +144,4 @@ Poll.propTypes = {
   }).isRequired
 }
 
-export default connect(state => ({ user: getUser(state) }), { update })(Poll)
+export default Poll

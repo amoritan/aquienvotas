@@ -22,17 +22,13 @@
 
 
 import React, { useState, useEffect } from 'react'
-// import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import styled from 'styled-components'
 
 import { Link } from 'react-scroll'
 
 import axios from 'axios'
-
-import { update } from '../../redux/actions'
-import { getUser } from '../../redux/selectors'
 
 import Candidate from '../elements/Candidate'
 
@@ -110,7 +106,7 @@ const Candidates = styled.div`
   margin: 0 .5rem;
 `
 
-function Province(props) {
+function Province() {
 
   const [provinces, setProvinces] = useState([])
 
@@ -119,6 +115,9 @@ function Province(props) {
 
   const [province, setProvince] = useState(undefined)
   const [location, setLocation] = useState(undefined)
+
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetchProvinces()
@@ -158,11 +157,11 @@ function Province(props) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    axios.put(`/users/${ props.user.id }`, {
+    axios.put(`/users/${ user.id }`, {
       location_id: location.id
     }).then( response => {
       window.gtag('event', 'location_submitted', { event_category: 'user_info' })
-      props.update({ user: response.data })
+      dispatch({ type: 'UPDATE', payload: { user: response.data } })
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })
@@ -173,7 +172,7 @@ function Province(props) {
     <Section id="local">
       <SectionTitle>Elección provincial</SectionTitle>
       <Candidates aria-hidden="true">{ placeholderCandidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ function() {} } />) }</Candidates>
-      { props.user ? (
+      { user ? (
         <BlurredQuestion>
           <h3>¿Dónde votas?</h3>
           <form onSubmit={ handleSubmit }>
@@ -191,4 +190,4 @@ function Province(props) {
   )
 }
 
-export default connect(state => ({ user: getUser(state) }), { update })(Province)
+export default Province
