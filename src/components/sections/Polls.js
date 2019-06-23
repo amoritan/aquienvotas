@@ -21,45 +21,34 @@
 
 
 
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
+
 import axios from 'axios'
 
 import Poll from '../elements/Poll'
 
-class Polls extends Component {
-  constructor(props) {
-    super(props)
+function Polls() {
 
-    this.state = {
-      polls: []
-    }
+  const [polls, setPolls] = useState([])
 
-    this.fetchPolls = this.fetchPolls.bind(this)
-  }
+  useEffect(() => {
+    fetchPolls()
+  }, [])
 
-  componentDidMount() {
-    this.fetchPolls()
-  }
-
-  fetchPolls(id) {
-    const _this = this
+  function fetchPolls(id) {
     axios.get('/polls').then( response => {
-      _this.setState({
-        polls: response.data
-      })
+      setPolls(response.data)
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 
-  render() {
-    return (
-      <div id="polls">
-        { this.state.polls.map((poll) => <Poll key={ poll.id } data={ poll } />) }
-      </div>
-    )
-  }
+  return (
+    <div id="polls">
+      { polls.map((poll) => <Poll key={ poll.id } data={ poll } />) }
+    </div>
+  )
 }
 
 export default Polls
