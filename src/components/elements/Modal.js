@@ -21,8 +21,9 @@
 
 
 
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+
 import styled, { keyframes } from 'styled-components'
 import { transparentize } from 'polished'
 
@@ -59,27 +60,17 @@ const Container = styled.div`
   animation: ${slideIn} 1s ease;
 `
 
-class Modal extends Component {
-  constructor(props) {
-    super(props)
+function Modal(props) {
 
-    this.handleClose = this.handleClose.bind(this)
-  }
+  return (
+    <Background>
+      <Close onClick={ props.closeHandler } />
+      <Container>
+        { props.children }
+      </Container>
+    </Background>
+  )
 
-  handleClose() {
-    this.props.closeHandler()
-  }
-
-  render() {
-    return (
-      <Background>
-        <Close onClick={ this.handleClose } />
-        <Container>
-          { this.props.children }
-        </Container>
-      </Background>
-    )
-  }
 }
 
 Modal.propTypes = {
