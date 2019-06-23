@@ -21,9 +21,11 @@
 
 
 
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+
 import styled from 'styled-components'
+
 import axios from 'axios'
 
 import Header from './components/sections/Header'
@@ -49,70 +51,59 @@ const MainContainer = styled.main`
   }
 `
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+function App(props) {
+  const [ready, setReady] = useState(false)
 
-    this.state = {
-      ready: false
-    }
+  useEffect(() => {
+    checkAuthentication()
+  }, [])
 
-    this.checkAuthentication = this.checkAuthentication.bind(this)
-  }
-
-  checkAuthentication() {
-    let _this = this
+  function checkAuthentication() {
     const token = window.localStorage.getItem('authentication_token')
     if (token) {
       axios.get('/authentication/fetch', { headers: {'Authorization': `Bearer ${token}`} }).then(response => {
-        _this.props.authenticate({ token: token, user: response.data })
-        _this.setState({ ready: true })
+        props.authenticate({ token: token, user: response.data })
+        setReady(true)
       }).catch( error => {
         if (error.response && error.response.status === 401) {
           window.localStorage.removeItem('authentication_token')
-          _this.setState({ ready: true })
+          setReady(false)
         } else {
           console.error(error)
           window.gtag('event', 'api', { event_category: 'error', event_label: error })
         }
       })
     } else {
-      _this.setState({ ready: true })
+      setReady(true)
     }
   }
 
-  componentDidMount() {
-    this.checkAuthentication()
-  }
-
-  render() {
-    if (this.state.ready) {
-      return (
-        <MainContainer>
-          <Header closed={ Boolean(this.props.user) }></Header>
-          <Voting name="Presidente" endpoint="national" />
-          { this.props.user && this.props.user.location ? (
-            <Voting name="Gobernador/a" endpoint="local" />
-          ) : <Province /> }
-          <Demographics />
-          <Polls />
-          <About />
-          <FrequentlyAskedQuestions />
-          <Footer />
-          { this.props.user && this.props.user.votes.length === 1 ? (
-            <NextStepIndicator action="¡Ya podes votar en la elección provincial!" destination="local" />
-          ) : (
-            this.props.user && this.props.user.votes.length === 2 && !this.props.user.age ? (
-              <NextStepIndicator action="¡Ahora podes conocer a la comunidad de #AQuienVotas!" destination="demographics" />
-            ) : this.props.user && !this.props.user.votes.find(vote => vote.voting_type === 'Poll') ? (
-              <NextStepIndicator action="¡Nueva encuesta! ¿Quién fue el/la mejor presidente desde el regreso de la democracia?" destination="polls" />
-            ) : ''
-          ) }
-        </MainContainer>
-      )
-    } else {
-      return ''
-    }
+  if (ready) {
+    return (
+      <MainContainer>
+        <Header closed={ Boolean(props.user) }></Header>
+        <Voting name="Presidente" endpoint="national" />
+        { props.user && props.user.location ? (
+          <Voting name="Gobernador/a" endpoint="local" />
+        ) : <Province /> }
+        <Demographics />
+        <Polls />
+        <About />
+        <FrequentlyAskedQuestions />
+        <Footer />
+        { props.user && props.user.votes.length === 1 ? (
+          <NextStepIndicator action="¡Ya podes votar en la elección provincial!" destination="local" />
+        ) : (
+          props.user && props.user.votes.length === 2 && !props.user.age ? (
+            <NextStepIndicator action="¡Ahora podes conocer a la comunidad de #AQuienVotas!" destination="demographics" />
+          ) : props.user && !props.user.votes.find(vote => vote.voting_type === 'Poll') ? (
+            <NextStepIndicator action="¡Nueva encuesta! ¿Quién fue el/la mejor presidente desde el regreso de la democracia?" destination="polls" />
+          ) : ''
+        ) }
+      </MainContainer>
+    )
+  } else {
+    return ''
   }
 }
 
