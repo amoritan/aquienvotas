@@ -21,8 +21,9 @@
 
 
 
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+
 import styled from 'styled-components'
 import { transparentize } from 'polished'
 
@@ -48,24 +49,17 @@ const Container = styled.li`
   }
 `
 
-class Option extends Component {
-  constructor(props) {
-    super(props)
+function Option(props) {
 
-    this.handleVote = this.handleVote.bind(this)
+  function handleVote() {
+    props.voteHandler(props.data)
   }
 
-  handleVote() {
-    this.props.voteHandler(this.props.data)
-  }
-
-  render() {
-    return (
-      <Container color={ `#${ this.props.data.color }` }>
-        <button onClick={ this.handleVote }>{ this.props.data.name }</button>
-      </Container>
-    )
-  }
+  return (
+    <Container color={ `#${ props.data.color }` }>
+      <button onClick={ handleVote }>{ props.data.name }</button>
+    </Container>
+  )
 }
 
 Option.propTypes = {
