@@ -30,37 +30,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 library.add(faTwitter, faFacebook, faInstagram, faGithub)
 
-function Footer() {
-  const Container = styled.footer`
-    text-align: center;
-    font-size: 1.25em;
-    margin: 2rem 0 1rem 0;
+const Container = styled.footer`
+  text-align: center;
+  font-size: 1.25em;
+  margin: 2rem 0 1rem 0;
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: #fefefe;
+    margin: .5em;
+  }
+  aside {
+    font-size: .6em;
+    text-align: left;
+    color: ${ darken(.4, '#fefefe') };
+    margin: 1rem;
+    p {
+      margin: 0;
+    }
     a {
-      display: inline-block;
-      text-decoration: none;
-      color: #fefefe;
-      margin: .5em;
-    }
-    aside {
-      font-size: .6em;
-      text-align: left;
       color: ${ darken(.4, '#fefefe') };
-      margin: 1rem;
-      p {
-        margin: 0;
-      }
-      a {
-        color: ${ darken(.4, '#fefefe') };
-        margin: 0;
-        text-decoration: underline;
-      }
-      img {
-        background: #fff;
-        margin-right: 1em;
-      }
+      margin: 0;
+      text-decoration: underline;
     }
-  `
-  
+    img {
+      background: #fff;
+      margin-right: 1em;
+    }
+  }
+`
+
+function Footer() {
   return (
     <Container>
       <a href="mailto:hola@aquienvotas.com">hola@aquienvotas.com</a><br />
