@@ -21,12 +21,15 @@
 
 
 
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect } from 'react'
 // import PropTypes from 'prop-types'
-import axios from 'axios'
+import { connect } from 'react-redux'
+
 import styled from 'styled-components'
+
 import { Link } from 'react-scroll'
+
+import axios from 'axios'
 
 import { update } from '../../redux/actions'
 import { getUser } from '../../redux/selectors'
@@ -107,106 +110,85 @@ const Candidates = styled.div`
   margin: 0 .5rem;
 `
 
-class Province extends Component {
-  constructor(props) {
-    super(props)
+function Province(props) {
 
-    this.state = {
-      provinces: [],
-      provinceOptions: [],
-      locationOptions: [],
-      province: { id: undefined },
-      location: { id: undefined }
-    }
+  const [provinces, setProvinces] = useState([])
 
-    this.fetchProvinces = this.fetchProvinces.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+  const [provinceOptions, setProvinceOptions] = useState([])
+  const [locationOptions, setLocationOptions] = useState([])
 
-  componentDidMount() {
-    this.fetchProvinces()
-  }
+  const [province, setProvince] = useState(undefined)
+  const [location, setLocation] = useState(undefined)
 
-  fetchProvinces() {
-    const _this = this
+  useEffect(() => {
+    fetchProvinces()
+  }, [])
+
+  function fetchProvinces() {
     axios.get('/provinces').then( response => {
-      _this.setState({
-        provinces: response.data,
-        provinceOptions: response.data.map((province) => { return { value: province.id, title: province.name } } )
-      })
+      setProvinces(response.data)
+      setProvinceOptions(response.data.map((province) => { return { value: province.id, title: province.name } } ))
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 
-  handleChange(event) {
+  function handleChange(event) {
     switch (event.target.name) {
       case 'province':
-        const province = this.state.provinces.find( province => province.id === event.target.value )
-        this.setState({
-          province: province
-        })
-        if (province.locations.length > 1) {
-          this.setState({
-            locationOptions: province.locations.map((location) => { return { value: location.id, title: location.name } } ),
-            location: { id: undefined }
-          })
+        const pickedProvince = provinces.find( province => province.id === event.target.value )
+        setProvince(pickedProvince)
+        if (pickedProvince.locations.length > 1) {
+          setLocationOptions(pickedProvince.locations.map((location) => { return { value: location.id, title: location.name } } ))
+          setLocation(undefined)
         } else {
-          this.setState({
-            locationOptions: [],
-            location: province.locations[0]
-          })
+          setLocationOptions([])
+          setLocation(pickedProvince.locations[0])
         }
         break
       case 'location':
-        const location = this.state.province.locations.find( location => location.id === event.target.value )
-        this.setState({
-          location: location
-        })
+        const pickedLocation = province.locations.find( location => location.id === event.target.value )
+        setLocation(pickedLocation)
         break
       default:
         break
     }
   }
 
-  handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault()
-    const _this = this
-    axios.put(`/users/${ this.props.user.id }`, {
-      location_id: _this.state.location.id
+    axios.put(`/users/${ props.user.id }`, {
+      location_id: location.id
     }).then( response => {
       window.gtag('event', 'location_submitted', { event_category: 'user_info' })
-      _this.props.update({ user: response.data })
+      props.update({ user: response.data })
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 
-  render() {
-    return (
-      <Section id="local">
-        <SectionTitle>Elección provincial</SectionTitle>
-        <Candidates aria-hidden="true">{ placeholderCandidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ function() {} } />) }</Candidates>
-        { this.props.user ? (
-          <BlurredQuestion>
-            <h3>¿Dónde votas?</h3>
-            <form onSubmit={ this.handleSubmit }>
-              <Select placeholder="Elige una provincia" options={ this.state.provinceOptions } selected={ this.state.province.id } changeHandler={ this.handleChange } name="province" required />
-              { this.state.locationOptions.length ? <Select placeholder="Elige una opción" options={ this.state.locationOptions } selected={ this.state.location.id } changeHandler={ this.handleChange } name="location" required /> : '' }
-              { this.state.location.id ? <Submit title="Guardar" /> : '' }
-            </form>
-          </BlurredQuestion>
-        ) : (
-          <BlurredQuestion>
-            <p>Para poder ver esta sección, primero tenes que votar en la <Link to="national" smooth={ true } duration={ 500 }>elección nacional</Link>.</p>
-          </BlurredQuestion>
-        ) }
-      </Section>
-    )
-  }
+  return (
+    <Section id="local">
+      <SectionTitle>Elección provincial</SectionTitle>
+      <Candidates aria-hidden="true">{ placeholderCandidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ function() {} } />) }</Candidates>
+      { props.user ? (
+        <BlurredQuestion>
+          <h3>¿Dónde votas?</h3>
+          <form onSubmit={ handleSubmit }>
+            <Select placeholder="Elige una provincia" options={ provinceOptions } selected={ province ? province.id : undefined } changeHandler={ handleChange } name="province" required />
+            { locationOptions.length ? <Select placeholder="Elige una opción" options={ locationOptions } selected={ location ? location.id : undefined } changeHandler={ handleChange } name="location" required /> : '' }
+            { location ? <Submit title="Guardar" /> : '' }
+          </form>
+        </BlurredQuestion>
+      ) : (
+        <BlurredQuestion>
+          <p>Para poder ver esta sección, primero tenes que votar en la <Link to="national" smooth={ true } duration={ 500 }>elección nacional</Link>.</p>
+        </BlurredQuestion>
+      ) }
+    </Section>
+  )
 }
 
 export default connect(state => ({ user: getUser(state) }), { update })(Province)
