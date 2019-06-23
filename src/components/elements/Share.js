@@ -21,14 +21,16 @@
 
 
 
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+
 import styled from 'styled-components'
+import { lighten } from 'polished'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHeart, faUserSecret, faLock } from '@fortawesome/free-solid-svg-icons'
 import { faTwitter, faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { lighten } from 'polished'
 
 import Modal from './Modal'
 
@@ -107,14 +109,9 @@ const Container = styled.div`
   }
 `
 
-class Share extends Component {
-  constructor(props) {
-    super(props)
-    
-    this.handleShare = this.handleShare.bind(this)
-  }
+function Share(props) {
 
-  handleShare(event) {
+  function handleShare(event) {
     const link = document.createElement('a')
 
     switch (event.target.id) {
@@ -144,26 +141,24 @@ class Share extends Component {
     
     window.gtag('event', 'share', { method: event.target.id })
 
-    this.props.closeHandler()
+    props.closeHandler()
   }
 
-  render() {
-    return (
-      <Modal closeHandler={ this.props.closeHandler }>
-        <Container>
-          <FontAwesomeIcon icon="heart" />
-          <h3>{ this.props.title }</h3>
-          <p>¡Difundí la encuesta! Ayudanos a que los resultados sean cada vez más representativos.</p>
-          
-          <button id="twitter" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'twitter']} /> Compartir en Twitter</button>
-          <button id="facebook" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'facebook']} /> Compartir en Facebook</button>
-          { /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? <button id="whatsapp" onClick={ this.handleShare }><FontAwesomeIcon icon={['fab', 'whatsapp']} /> Compartir en WhatsApp</button> : '' } 
-          <button onClick={ this.props.closeHandler }>Saltar a los resultados</button>
+  return (
+    <Modal closeHandler={ props.closeHandler }>
+      <Container>
+        <FontAwesomeIcon icon="heart" />
+        <h3>{ props.title }</h3>
+        <p>¡Difundí la encuesta! Ayudanos a que los resultados sean cada vez más representativos.</p>
+        
+        <button id="twitter" onClick={ handleShare }><FontAwesomeIcon icon={['fab', 'twitter']} /> Compartir en Twitter</button>
+        <button id="facebook" onClick={ handleShare }><FontAwesomeIcon icon={['fab', 'facebook']} /> Compartir en Facebook</button>
+        { /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? <button id="whatsapp" onClick={ handleShare }><FontAwesomeIcon icon={['fab', 'whatsapp']} /> Compartir en WhatsApp</button> : '' } 
+        <button onClick={ props.closeHandler }>Saltar a los resultados</button>
 
-        </Container>
-      </Modal>
-    )
-  }
+      </Container>
+    </Modal>
+  )
 }
 
 Share.propTypes = {
