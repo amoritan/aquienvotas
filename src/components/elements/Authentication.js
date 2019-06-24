@@ -126,6 +126,10 @@ function Authentication(props) {
     window.gtag('event', 'started', { event_category: 'authentication' })
   }, [])
 
+  useEffect(() => {
+    if (session.user) { props.successHandler() }
+  }, [session.user, props])
+
   function handleChange(event) {
     const numbers = /^[0-9\b]+$/
     if ((event.target.value === '' || numbers.test(event.target.value)) && event.target.value.length <= 12) {
@@ -161,7 +165,6 @@ function Authentication(props) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
         window.localStorage.setItem('authentication_token', response.data.token)
         window.gtag('event', 'validated', { event_category: 'authentication' })
-        props.successHandler()
       }).catch(error => {
         console.error(error)
         alert('Ha ocurrido un error al verificar tu voto. Vuelve a intentarlo en unos minutos.')
