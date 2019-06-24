@@ -22,7 +22,8 @@
 
 
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
+
 import styled from 'styled-components'
 
 const Container = styled.input`
@@ -58,6 +59,16 @@ function Submit(props) {
   return (
     <Container type="submit" value={ props.title } disabled={ props.disabled } />
   )
+}
+
+Submit.propTypes = {
+  title: PropTypes.string,
+  disabled: PropTypes.bool
+}
+
+Submit.defaultProps = {
+  title: 'Enviar',
+  disabled: false
 }
 
 export default Submit
