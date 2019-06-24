@@ -78,10 +78,11 @@ function Voting(props) {
 
   useEffect(() => {
     fetchVoting(props.endpoint)
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.endpoint])
 
   function fetchVoting(id) {
-    axios.get(`/ballots${ id ? `/${id}` : '' }`).then( response => {
+    axios.get(`/ballots/${id}`).then( response => {
       setVoting({
         id: response.data.id,
         name: response.data.name,
@@ -89,17 +90,13 @@ function Voting(props) {
         results: response.data.candidates_with_results || []
       })
       if (response.data.candidates_with_results && props.endpoint === 'local') {
-        fetchProvinces()
+        axios.get('/provinces').then( response => {
+          setProvinces(response.data)
+        }).catch( error => {
+          console.error(error)
+          window.gtag('event', 'api', { event_category: 'error', event_label: error })
+        })
       }
-    }).catch( error => {
-      console.error(error)
-      window.gtag('event', 'api', { event_category: 'error', event_label: error })
-    })
-  }
-
-  function fetchProvinces() {
-    axios.get('/provinces').then( response => {
-      setProvinces(response.data)
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })

@@ -55,10 +55,6 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    checkAuthentication()
-  }, [])
-
-  function checkAuthentication() {
     const token = window.localStorage.getItem('authentication_token')
     if (token) {
       axios.get('/authentication/fetch', { headers: {'Authorization': `Bearer ${token}`} }).then(response => {
@@ -76,7 +72,7 @@ function App() {
     } else {
       setReady(true)
     }
-  }
+  }, [dispatch])
 
   if (ready) {
     return (

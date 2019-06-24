@@ -35,7 +35,7 @@ function Polls() {
     fetchPolls()
   }, [])
 
-  function fetchPolls(id) {
+  function fetchPolls() {
     axios.get('/polls').then( response => {
       setPolls(response.data)
     }).catch( error => {
