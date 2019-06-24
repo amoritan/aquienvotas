@@ -21,8 +21,7 @@
 
 
 
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import axios from 'axios'
@@ -34,6 +33,8 @@ import { lighten } from 'polished'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faShieldAlt, faUserSecret, faMoneyBillWave, faLock, faAd } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import SessionContext from '../../SessionContext'
 
 import Modal from './Modal'
 
@@ -119,11 +120,15 @@ function Authentication(props) {
   const [phone, setPhone] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
-  const dispatch = useDispatch()
+  const session = useContext(SessionContext)
 
   useEffect(() => {
     window.gtag('event', 'started', { event_category: 'authentication' })
   }, [])
+
+  useEffect(() => {
+    if (session.user) { props.successHandler() }
+  }, [session.user, props])
 
   function handleChange(event) {
     const numbers = /^[0-9\b]+$/
@@ -156,9 +161,10 @@ function Authentication(props) {
       axios.post('/authentication/authenticate', {
         code: response.code
       }).then(response => {
-        dispatch({ type: 'AUTHENTICATE', payload: response.data })
+        session.set(response.data.user)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+        window.localStorage.setItem('authentication_token', response.data.token)
         window.gtag('event', 'validated', { event_category: 'authentication' })
-        props.successHandler()
       }).catch(error => {
         console.error(error)
         alert('Ha ocurrido un error al verificar tu voto. Vuelve a intentarlo en unos minutos.')
