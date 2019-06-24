@@ -116,11 +116,11 @@ const Progress = styled.i`
 function CandidateResult(props) {
   return (
     <Container color={ `#${ props.data.color || props.partyColor }` } percentage={ props.data.result } hasCompanion={ Boolean(props.data.companion) }>
-      <div class="image">
+      <div className="image">
         <img src={ props.data.avatar || '/images/avatar.png' } alt={ props.data.name } width="240" height="240" />
-        { props.data.companion ? <img src={ props.data.companion.avatar || '/images/avatar.png' } alt={ props.data.companion.name } width="240" height="240" class="companion" /> : '' }
+        { props.data.companion ? <img src={ props.data.companion.avatar || '/images/avatar.png' } alt={ props.data.companion.name } width="240" height="240" className="companion" /> : '' }
       </div>
-      <div class="data">
+      <div className="data">
         <h4>{ props.data.name } { props.data.companion ? <small>{ props.data.companion.name }</small> : '' }</h4>
         <Progress percentage={ props.data.result }>{ props.data.result } %</Progress>
       </div>

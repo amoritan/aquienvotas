@@ -135,7 +135,7 @@ function Candidate(props) {
       <h4>{ props.data.party.name }</h4>
       <div>
         <img src={ props.data.avatar || '/images/avatar.png' } alt={ props.data.name } width="240" height="240" />
-        { props.data.companion ? <img src={ props.data.companion.avatar || '/images/avatar.png' } alt={ props.data.companion.name } width="240" height="240" class="companion" /> : '' }
+        { props.data.companion ? <img src={ props.data.companion.avatar || '/images/avatar.png' } alt={ props.data.companion.name } width="240" height="240" className="companion" /> : '' }
       </div>
       <button onClick={ handleVote }><FontAwesomeIcon icon="vote-yea" /> Votar</button>
     </Container>
