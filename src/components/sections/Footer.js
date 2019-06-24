@@ -48,7 +48,7 @@ const Container = styled.footer`
     color: ${ darken(.4, '#fefefe') };
     margin: 1rem;
     p {
-      margin: 0;
+      margin: .5em 0;
     }
     a {
       color: ${ darken(.4, '#fefefe') };
@@ -56,8 +56,8 @@ const Container = styled.footer`
       text-decoration: underline;
     }
     img {
-      background: #fff;
-      margin-right: 1em;
+      height: 2.4em;
+      margin-right: .5em;
     }
   }
 `
@@ -70,20 +70,16 @@ function Footer() {
       <a href="https://www.instagram.com/aquienvotasok" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Instagram"><FontAwesomeIcon icon={['fab', 'instagram']} /></a>
       <a href="https://www.facebook.com/aquienvotasok" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Facebook"><FontAwesomeIcon icon={['fab', 'facebook']} /></a>
       <a href="https://github.com/andresmoritan/aquienvotas" target="_blank" rel="noopener noreferrer" title="Repositorio de #AQuienVotas en GitHub"><FontAwesomeIcon icon={['fab', 'github']} /></a>
+      
       <aside>
-        
-        <p><a xmlnsCc="http://creativecommons.org/ns#" href="https://www.aquienvotas.com" property="cc:attributionName" rel="cc:attributionURL">AQuienVotas</a> <span xmlnsDct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">Results</span> are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
-        <br />
+        <p>Los <span href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">resultados de las encuestas</span> de <a href="https://www.aquienvotas.com" property="cc:attributionName" rel="cc:attributionURL">AQuienVotas</a> se distribuyen bajo la <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer">Licencia Creative Commons Atribución 4.0 Internacional</a>.</p>
 
-        <p>AQuienVotas Program Copyright (C) 2015-2019 Andres Moritan. This program is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="license" >GNU Affero General Public License</a> as published by the Free Software Foundation, either version 3 of the License, or any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.</p>
-        <br />
+        <p>Esta aplicación web es parte de <a href="https://github.com/andresmoritan/aquienvotas" target="_blank" rel="noopener noreferrer">AQuienVotas</a>, un programa de software libre: puedes redistribuirlo y/o modificarlo bajo los términos de la <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="license noopener noreferrer">Licencia GNU Affero General Public</a> tal y como ha sido publicado por la Free Software Foundation, ya sea la versión 3 de la Licencia, o cualquier versión posterior. Este programa se distribuye con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA; ni siquiera la garantía implícita de COMERCIALIZACIÓN o ADECUACIÓN A UN PROPÓSITO PARTICULAR.</p>
 
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
-          <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
-        </a>
-        <a rel="license" href="https://www.gnu.org/licenses/agpl-3.0.html">
-          <img alt="GNU Affero General Public License" src="https://www.gnu.org/graphics/agplv3-88x31.png" />
-        </a>
+        <p>
+          <img src="./images/cc-logo.svg" alt="Creative Commons Atribución 4.0 Internacional License" />
+          <img src="./images/aglp-logo.svg" alt="GNU Affero General Public License" />
+        </p>
       </aside>
     </Container>
   )
