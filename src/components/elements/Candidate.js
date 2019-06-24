@@ -21,10 +21,12 @@
 
 
 
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+
 import styled from 'styled-components'
 import { darken } from 'polished'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faVoteYea } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -97,27 +99,20 @@ const Container = styled.article`
   }
 `
 
-class Candidate extends Component {
-  constructor(props) {
-    super(props)
+function Candidate(props) {
 
-    this.handleVote = this.handleVote.bind(this)
+  function handleVote() {
+    props.voteHandler(props.data)
   }
 
-  handleVote() {
-    this.props.voteHandler(this.props.data)
-  }
-
-  render() {
-    return (
-      <Container color={ `#${ this.props.data.color || this.props.data.party.color }` }>
-        <h3>{ this.props.data.name }</h3>
-        <h4>{ this.props.data.party.name }</h4>
-        <img src={ this.props.data.avatar || '/images/avatar.png' } alt={ this.props.data.name } width="240" height="240" />
-        <button onClick={ this.handleVote }><FontAwesomeIcon icon="vote-yea" /> Votar</button>
-      </Container>
-    )
-  }
+  return (
+    <Container color={ `#${ props.data.color || props.data.party.color }` }>
+      <h3>{ props.data.name }</h3>
+      <h4>{ props.data.party.name }</h4>
+      <img src={ props.data.avatar || '/images/avatar.png' } alt={ props.data.name } width="240" height="240" />
+      <button onClick={ handleVote }><FontAwesomeIcon icon="vote-yea" /> Votar</button>
+    </Container>
+  )
 }
 
 Candidate.propTypes = {

@@ -21,15 +21,15 @@
 
 
 
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
+
 import styled from 'styled-components'
 import { animateScroll } from 'react-scroll'
 
-import { update } from '../../redux/actions'
-import { getUser } from '../../redux/selectors'
+import axios from 'axios'
+
+import SessionContext from '../../SessionContext'
 
 import Authentication from './Authentication'
 import Share from './Share'
@@ -53,30 +53,24 @@ const Results = styled.ul`
   padding: 0 1rem;
 `
 
-class Poll extends Component {
-  constructor(props) {
-    super(props)
+function Poll(props) {
 
-    this.state = {
-      id: this.props.data.id,
-      name: this.props.data.name,
-      options: this.props.data.poll_options || [],
-      results: this.props.data.poll_options_with_results || [],
-      voted: undefined,
-      authenticate: false,
-      share: false
-    }
+  const [poll, setPoll] = useState({
+    id: props.data.id,
+    name: props.data.name,
+    options: props.data.poll_options || [],
+    results: props.data.poll_options_with_results || []
+  })
 
-    this.fetchPoll = this.fetchPoll.bind(this)
-    this.handleVote = this.handleVote.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleAuthenticated = this.handleAuthenticated.bind(this)
-  }
+  const [voted, setVoted] = useState(undefined)
+  const [authenticate, setAuthenticate] = useState(false)
+  const [share, setShare] = useState(false)
 
-  fetchPoll(id) {
-    const _this = this
+  const session = useContext(SessionContext)
+
+  function fetchPoll(id) {
     axios.get(`/polls${ id ? `/${id}` : '' }`).then( response => {
-      _this.setState({
+      setPoll({
         id: response.data.id,
         name: response.data.name,
         options: response.data.poll_options || [],
@@ -88,67 +82,57 @@ class Poll extends Component {
     })
   }
 
-  handleVote(option) {
-    if (this.props.user) {
-      const _this = this
-      axios.post(`/polls/${_this.state.id}/vote`, { poll_option_id: option.id }).then(response => {
-        _this.setState({
-          share: true,
-          voted: option
-        })
-        _this.props.update({ user: response.data })
-        _this.fetchPoll(_this.state.id)
-        animateScroll.scrollTo(document.getElementById(_this.props.data.id).offsetTop, { duration: 500, smooth: true })
-        window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${_this.state.name}/${option.name}` })
+  function handleVote(option) {
+    if (session.user) {
+      axios.post(`/polls/${poll.id}/vote`, { poll_option_id: option.id }).then(response => {
+        setShare(true)
+        setVoted(option)
+        session.set(response.data)
+        fetchPoll(poll.id)
+        animateScroll.scrollTo(document.getElementById(props.data.id).offsetTop, { duration: 500, smooth: true })
+        window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${poll.name}/${option.name}` })
       }).catch(error => {
         console.error(error)
         window.gtag('event', 'api', { event_category: 'error', event_label: error })
         alert('Ha ocurrido un error al enviar tu voto. Vuelve a intentarlo en unos minutos.')
       })
     } else {
-      this.setState({
-        authenticate: true,
-        voted: option
-      })
-      window.gtag('event', 'started', { event_category: 'voting', event_label: `${this.state.name}/${option.name}` })
+      setAuthenticate(true)
+      setVoted(option)
+      window.gtag('event', 'started', { event_category: 'voting', event_label: `${poll.name}/${option.name}` })
     }
   }
 
-  handleClose() {
-    this.setState({
-      authenticate: false,
-      share: false
-    })
+  function handleClose() {
+    setShare(false)
+    setAuthenticate(false)
   }
-  handleAuthenticated() {
-    this.setState({
-      authenticate: false
-    })
-    if (this.props.user.votes.find( vote => vote.voting_id === this.state.id )) {
+
+  function handleAuthenticated() {
+    setAuthenticate(false)
+    if (session.user.votes.find( vote => vote.voting_id === poll.id )) {
       if (window.confirm('Ya habías votado en esta encuesta, ¿Te gustaria reemplazar tu voto?')) {
-        this.handleVote(this.state.voted)
+        handleVote(voted)
       } else {
-        this.fetchPoll(this.state.id)
+        fetchPoll(poll.id)
       }
     } else {
-      this.handleVote(this.state.voted)
+      handleVote(voted)
     }
   }
 
-  render() {
-    return (
-      <Section id={ this.props.data.id }>
-        { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
-        { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
-        <SectionTitle><small>#Opinión</small> { this.state.name }</SectionTitle>
-        { this.state.results.length ? (
-          <Results>{ this.state.results.map((result) => <OptionResult key={ result.id } data={ result } />) }</Results>
-        ) : (
-          <Options>{ this.state.options.map((option) => <Option key={ option.id } data={ option } voteHandler={ this.handleVote } />) }</Options>
-        ) }
-      </Section>
-    )
-  }
+  return (
+    <Section id={ props.data.id }>
+      { authenticate ? <Authentication successHandler={ handleAuthenticated } closeHandler={ handleClose } /> : '' }
+      { share ? <Share closeHandler={ handleClose } /> : '' }
+      <SectionTitle><small>#Opinión</small> { poll.name }</SectionTitle>
+      { poll.results.length ? (
+        <Results>{ poll.results.map((result) => <OptionResult key={ result.id } data={ result } />) }</Results>
+      ) : (
+        <Options>{ poll.options.map((option) => <Option key={ option.id } data={ option } voteHandler={ handleVote } />) }</Options>
+      ) }
+    </Section>
+  )
 }
 
 Poll.propTypes = {
@@ -160,4 +144,4 @@ Poll.propTypes = {
   }).isRequired
 }
 
-export default connect(state => ({ user: getUser(state) }), { update })(Poll)
+export default Poll

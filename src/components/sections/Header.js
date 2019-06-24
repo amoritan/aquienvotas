@@ -21,7 +21,7 @@
 
 
 
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import styled, { css } from 'styled-components'
@@ -131,68 +131,55 @@ const Container = styled.header`
   `};
 `
 
-class Header extends Component {
-  constructor(props) {
-    super(props)
+function Header(props) {
 
-    this.state = {
-      closed: this.props.closed,
-      users: 0,
-      share: false
-    }
+  const [closed, setClosed] = useState(props.closed)
+  const [users, setUsers] = useState(0)
+  const [share, setShare] = useState(false)
 
-    this.fetchUsers = this.fetchUsers.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleShare = this.handleShare.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-  }
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
-  componentDidMount() {
-    this.fetchUsers()
-  }
-
-  fetchUsers() {
-    const _this = this
+  function fetchUsers() {
     axios.get('/users/amount').then( response => {
-      _this.setState({
-        users: response.data.users
-      })
+      setUsers(response.data.users)
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })
     })
   }
 
-  handleClick() {
-    this.setState((state) => { return {closed: !state.closed} })
+  function handleClick() {
+    setClosed(previousClosed => {
+      return !previousClosed
+    })
   }
 
-  handleShare() {
-    this.setState({ share: true })
+  function handleShare() {
+    setShare(true)
   }
 
-  handleClose() {
-    this.setState({ share: false })
+  function handleClose() {
+    setShare(false)
   }
 
-  render() {
-    return (
-      <Container small={ this.state.closed }>
-        { this.state.share ? <Share title="Compartir" closeHandler={ this.handleClose } /> : '' }
-        <div>
-          <strong><small>Somos</small><span>{ this.state.users > 1000 ? ((this.state.users / 1000).toFixed(this.state.users % 1000 !== 0) + ' K') : this.state.users }</span></strong>
-          <h1 onClick={ this.state.closed ? this.handleClick : undefined }>
-            <img src="./images/icon.svg" alt="Logotipo de #AQuienVotas" width="980" height="980" />
-            <span>#AQuienVotas</span>
-          </h1>
-          <button title="Compartir" onClick={ this.handleShare }><FontAwesomeIcon icon="share-alt" /></button>
-        </div>
-        <p>Ya somos { this.state.users } personas construyendo la primera encuesta abierta y representativa de las <strong>Elecciones 2019 en Argentina</strong>, ¡Sumate!</p>
-        <Button onClick={ this.handleClick }>Votá</Button>
-        <Link to="about" smooth={ true } duration={ 500 }>Más información</Link>
-      </Container>
-    )
-  }
+  return (
+    <Container small={ closed }>
+      { share ? <Share title="Compartir" closeHandler={ handleClose } /> : '' }
+      <div>
+        <strong><small>Somos</small><span>{ users > 1000 ? ((users / 1000).toFixed(users % 1000 !== 0) + ' K') : users }</span></strong>
+        <h1 onClick={ closed ? handleClick : undefined }>
+          <img src="./images/icon.svg" alt="Logotipo de #AQuienVotas" width="980" height="980" />
+          <span>#AQuienVotas</span>
+        </h1>
+        <button title="Compartir" onClick={ handleShare }><FontAwesomeIcon icon="share-alt" /></button>
+      </div>
+      <p>Ya somos { users } personas construyendo la primera encuesta abierta y representativa de las <strong>Elecciones 2019 en Argentina</strong>, ¡Sumate!</p>
+      <Button onClick={ handleClick }>Votá</Button>
+      <Link to="about" smooth={ true } duration={ 500 }>Más información</Link>
+    </Container>
+  )
 }
 
 export default Header

@@ -21,8 +21,9 @@
 
 
 
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+
 import styled, { css } from 'styled-components'
 
 const Container = styled.li`
@@ -73,32 +74,23 @@ const Container = styled.li`
   `};
 `
 
-class Question extends Component {
-  constructor(props) {
-    super(props)
+function Question(props) {
 
-    this.state = {
-      open: false
-    }
-    
-    this.handleClick = this.handleClick.bind(this)
-  }
+  const [open, setOpen] = useState(false)
 
-  handleClick() {
-    this.setState(state => {
-      return { open: !state.open }
+  function handleClick() {
+    setOpen(previous => {
+      return !previous
     })
-    window.gtag('event', 'view', { event_category: 'faq', event_label: this.props.title })
+    window.gtag('event', 'view', { event_category: 'faq', event_label: props.title })
   }
 
-  render() {
-    return (
-      <Container open={ this.state.open }>
-        <h3 onClick={ this.handleClick }>{ this.props.title }</h3>
-        <div>{ this.props.children }</div>
-      </Container>
-    )
-  }
+  return (
+    <Container open={ open }>
+      <h3 onClick={ handleClick }>{ props.title }</h3>
+      <div>{ props.children }</div>
+    </Container>
+  )
 }
 
 Question.propTypes = {

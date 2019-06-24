@@ -21,8 +21,9 @@
 
 
 
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+
 import styled, { css, keyframes } from 'styled-components'
 import { darken, transparentize } from 'polished'
 
@@ -87,7 +88,7 @@ const Row = styled.ul`
 const grow = keyframes`
   from { width: 0; }
   to { width: ${ props => props.percentage * 2 }%; }
-`;
+`
 const Block = styled.li`
   display: flex;
   align-items: center;
@@ -163,51 +164,39 @@ const GenderButton = styled.button`
   `};
 `
 
-class DemographicsChart extends Component {
-  constructor(props) {
-    super(props)
+function DemographicsChart(props) {
 
-    this.state = {
-      gender: ''
-    }
+  const [gender, setGender] = useState('')
 
-    this.pickGender = this.pickGender.bind(this)
-  }
+  const biggestGroup = props.demographics.length ? props.demographics.reduce((max, group) => group.total > max.total ? group : max ) : undefined
 
-  pickGender(event) {
-    const gender = event.currentTarget.id
-    console.log(gender)
-    this.setState((state) => {
-      return {
-        gender: state.gender === gender ? '' : gender
-      }
+  function pickGender(event) {
+    const pickedGender = event.currentTarget.id
+    setGender(previousGender => {
+      return previousGender === pickedGender ? '' : pickedGender
     })
   }
 
-  render () {
-    const biggestGroup = this.props.demographics.length ? this.props.demographics.reduce((max, group) => group.total > max.total ? group : max ) : undefined
-
-    return (
-      <Container>
-        { this.props.demographics.map((group, index) => (
-          <RowContainer key={ group.code } percentage={ group.total } max={ biggestGroup.total }>
-            <h3>{ group.code.replace('from', 'De ').replace('to', ' a ').replace('plus', 'Mayor de ') }</h3>
-            <Percentage active={ this.state.gender === '' }>{ group.total } %</Percentage>
-            <Row>
-              <Block percentage={ group.genders[0].group } female><Percentage active={ this.state.gender === 'female' }>{ group.genders[0].total } %</Percentage></Block>
-              <Block percentage={ group.genders[2].group } other><Percentage active={ this.state.gender === 'other' }>{ group.genders[2].total } %</Percentage></Block>
-              <Block percentage={ group.genders[1].group } male><Percentage active={ this.state.gender === 'male' }>{ group.genders[1].total } %</Percentage></Block>
-            </Row>
-          </RowContainer>
-        ) ) }
-        <aside>
-          <GenderButton id="female" onClick={ this.pickGender } active={ this.state.gender === 'female' || this.state.gender === '' }>Femenino</GenderButton>
-          <GenderButton id="other" onClick={ this.pickGender } active={ this.state.gender === 'other' || this.state.gender === '' }>Otro</GenderButton>
-          <GenderButton id="male" onClick={ this.pickGender } active={ this.state.gender === 'male' || this.state.gender === '' }>Masculino</GenderButton>
-        </aside>
-      </Container>
-    )
-  }
+  return (
+    <Container>
+      { props.demographics.map((group, index) => (
+        <RowContainer key={ group.code } percentage={ group.total } max={ biggestGroup.total }>
+          <h3>{ group.code.replace('from', 'De ').replace('to', ' a ').replace('plus', 'Mayor de ') }</h3>
+          <Percentage active={ gender === '' }>{ group.total } %</Percentage>
+          <Row>
+            <Block percentage={ group.genders[0].group } female><Percentage active={ gender === 'female' }>{ group.genders[0].total } %</Percentage></Block>
+            <Block percentage={ group.genders[2].group } other><Percentage active={ gender === 'other' }>{ group.genders[2].total } %</Percentage></Block>
+            <Block percentage={ group.genders[1].group } male><Percentage active={ gender === 'male' }>{ group.genders[1].total } %</Percentage></Block>
+          </Row>
+        </RowContainer>
+      ) ) }
+      <aside>
+        <GenderButton id="female" onClick={ pickGender } active={ gender === 'female' || gender === '' }>Femenino</GenderButton>
+        <GenderButton id="other" onClick={ pickGender } active={ gender === 'other' || gender === '' }>Otro</GenderButton>
+        <GenderButton id="male" onClick={ pickGender } active={ gender === 'male' || gender === '' }>Masculino</GenderButton>
+      </aside>
+    </Container>
+  )
 }
 
 DemographicsChart.propTypes = {

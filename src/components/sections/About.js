@@ -22,7 +22,9 @@
 
 
 import React from 'react'
+
 import styled from 'styled-components'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faShieldAlt, faBalanceScale, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

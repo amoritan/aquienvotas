@@ -21,10 +21,13 @@
 
 
 
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+
 import styled from 'styled-components'
+
 import axios from 'axios'
+
+import SessionContext from './SessionContext'
 
 import Header from './components/sections/Header'
 import Voting from './components/sections/Voting'
@@ -37,9 +40,6 @@ import Footer from './components/sections/Footer'
 
 import NextStepIndicator from './components/elements/NextStepIndicator'
 
-import { authenticate } from './redux/actions'
-import { getUser } from './redux/selectors'
-
 const MainContainer = styled.main`
   @media (min-width: 64rem) {
     font-size 1.25em;
@@ -49,49 +49,39 @@ const MainContainer = styled.main`
   }
 `
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+function App() {
+  const [user, setUser] = useState(undefined)
 
-    this.state = {
-      ready: false
-    }
+  const [ready, setReady] = useState(false)
 
-    this.checkAuthentication = this.checkAuthentication.bind(this)
-  }
-
-  checkAuthentication() {
-    let _this = this
+  useEffect(() => {
     const token = window.localStorage.getItem('authentication_token')
     if (token) {
       axios.get('/authentication/fetch', { headers: {'Authorization': `Bearer ${token}`} }).then(response => {
-        _this.props.authenticate({ token: token, user: response.data })
-        _this.setState({ ready: true })
+        setUser(response.data)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        setReady(true)
       }).catch( error => {
         if (error.response && error.response.status === 401) {
           window.localStorage.removeItem('authentication_token')
-          _this.setState({ ready: true })
+          setReady(false)
         } else {
           console.error(error)
           window.gtag('event', 'api', { event_category: 'error', event_label: error })
         }
       })
     } else {
-      _this.setState({ ready: true })
+      setReady(true)
     }
-  }
+  }, [])
 
-  componentDidMount() {
-    this.checkAuthentication()
-  }
-
-  render() {
-    if (this.state.ready) {
-      return (
+  if (ready) {
+    return (
+      <SessionContext.Provider value={ { user: user, set: setUser } }>
         <MainContainer>
-          <Header closed={ Boolean(this.props.user) }></Header>
+          <Header closed={ Boolean(user) }></Header>
           <Voting name="Presidente" endpoint="national" />
-          { this.props.user && this.props.user.location ? (
+          { user && user.location ? (
             <Voting name="Gobernador/a" endpoint="local" />
           ) : <Province /> }
           <Demographics />
@@ -99,21 +89,21 @@ class App extends Component {
           <About />
           <FrequentlyAskedQuestions />
           <Footer />
-          { this.props.user && this.props.user.votes.length === 1 ? (
+          { user && user.votes.length === 1 ? (
             <NextStepIndicator action="¡Ya podes votar en la elección provincial!" destination="local" />
           ) : (
-            this.props.user && this.props.user.votes.length === 2 && !this.props.user.age ? (
+            user && user.votes.length === 2 && !user.age ? (
               <NextStepIndicator action="¡Ahora podes conocer a la comunidad de #AQuienVotas!" destination="demographics" />
-            ) : this.props.user && !this.props.user.votes.find(vote => vote.voting_type === 'Poll') ? (
+            ) : user && !user.votes.find(vote => vote.voting_type === 'Poll') ? (
               <NextStepIndicator action="¡Nueva encuesta! ¿Quién fue el/la mejor presidente desde el regreso de la democracia?" destination="polls" />
             ) : ''
           ) }
         </MainContainer>
-      )
-    } else {
-      return ''
-    }
+      </SessionContext.Provider>
+    )
+  } else {
+    return ''
   }
 }
 
-export default connect(state => ({ user: getUser(state) }), { authenticate })(App)
+export default App

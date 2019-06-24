@@ -21,15 +21,16 @@
 
 
 
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
+
 import styled from 'styled-components'
+
 import { animateScroll } from 'react-scroll'
 
-import { update } from '../../redux/actions'
-import { getUser } from '../../redux/selectors'
+import axios from 'axios'
+
+import SessionContext from '../../SessionContext'
 
 import Authentication from '../elements/Authentication'
 import Share from '../elements/Share'
@@ -58,44 +59,43 @@ const Placeholder = styled.div`
   height: 12em;
 `
 
-class Voting extends Component {
-  constructor(props) {
-    super(props)
+function Voting(props) {
 
-    this.state = {
-      id: undefined,
-      name: this.props.name,
-      candidates: [],
-      results: [],
-      voted: undefined,
-      authenticate: false,
-      share: false,
-      provinces: []
-    }
+  const [voting, setVoting] = useState({
+    id: undefined,
+    name: props.name,
+    candidates: [],
+    results: []
+  })
 
-    this.fetchVoting = this.fetchVoting.bind(this)
-    this.fetchProvinces = this.fetchProvinces.bind(this)
-    this.handleVote = this.handleVote.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleAuthenticated = this.handleAuthenticated.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-  }
+  const [voted, setVoted] = useState(undefined)
+  const [authenticate, setAuthenticate] = useState(false)
+  const [share, setShare] = useState(false)
 
-  componentDidMount() {
-    this.fetchVoting(this.props.endpoint)
-  }
+  const [provinces, setProvinces] = useState([])
 
-  fetchVoting(id) {
-    const _this = this
-    axios.get(`/ballots${ id ? `/${id}` : '' }`).then( response => {
-      _this.setState({
+  const session = useContext(SessionContext)
+
+  useEffect(() => {
+    fetchVoting(props.endpoint)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.endpoint])
+
+  function fetchVoting(id) {
+    axios.get(`/ballots/${id}`).then( response => {
+      setVoting({
         id: response.data.id,
         name: response.data.name,
         candidates: response.data.candidates || [],
         results: response.data.candidates_with_results || []
       })
-      if (response.data.candidates_with_results && this.props.endpoint === 'local') {
-        _this.fetchProvinces()
+      if (response.data.candidates_with_results && props.endpoint === 'local') {
+        axios.get('/provinces').then( response => {
+          setProvinces(response.data)
+        }).catch( error => {
+          console.error(error)
+          window.gtag('event', 'api', { event_category: 'error', event_label: error })
+        })
       }
     }).catch( error => {
       console.error(error)
@@ -103,96 +103,74 @@ class Voting extends Component {
     })
   }
 
-  fetchProvinces() {
-    const _this = this
-    axios.get('/provinces').then( response => {
-      _this.setState({
-        provinces: response.data
-      })
-    }).catch( error => {
-      console.error(error)
-      window.gtag('event', 'api', { event_category: 'error', event_label: error })
-    })
-  }
-
-  handleVote(candidate) {
-    if (this.props.user) {
-      const _this = this
-      axios.post(`/ballots/${_this.state.id}/vote`, { candidate_id: candidate.id }).then(response => {
-        _this.setState({
-          share: true,
-          voted: candidate
-        })
-        _this.props.update({ user: response.data })
-        _this.fetchVoting(_this.state.id)
-        animateScroll.scrollTo(document.getElementById(_this.props.endpoint).offsetTop, { duration: 500, smooth: true })
-        window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${_this.state.name}/${candidate.party.name}/${candidate.name}` })
+  function handleVote(candidate) {
+    if (session.user) {
+      axios.post(`/ballots/${voting.id}/vote`, { candidate_id: candidate.id }).then(response => {
+        setShare(true)
+        setVoted(candidate)
+        session.set(response.data)
+        fetchVoting(voting.id)
+        animateScroll.scrollTo(document.getElementById(props.endpoint).offsetTop, { duration: 500, smooth: true })
+        window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${voting.name}/${candidate.party.name}/${candidate.name}` })
       }).catch(error => {
         console.error(error)
         window.gtag('event', 'api', { event_category: 'error', event_label: error })
         alert('Ha ocurrido un error al enviar tu voto. Vuelve a intentarlo en unos minutos.')
       })
     } else {
-      this.setState({
-        authenticate: true,
-        voted: candidate
-      })
-      window.gtag('event', 'started', { event_category: 'voting', event_label: `${this.state.name}/${candidate.party.name}/${candidate.name}` })
+      setAuthenticate(true)
+      setVoted(candidate)
+      window.gtag('event', 'started', { event_category: 'voting', event_label: `${voting.name}/${candidate.party.name}/${candidate.name}` })
     }
   }
 
-  handleClose() {
-    this.setState({
-      authenticate: false,
-      share: false
-    })
+  function handleClose() {
+    setShare(false)
+    setAuthenticate(false)
   }
-  handleAuthenticated() {
-    this.setState({
-      authenticate: false
-    })
-    if (this.props.user.votes.find( vote => vote.voting_id === this.state.id )) {
+
+  function handleAuthenticated() {
+    setAuthenticate(false)
+    if (session.user.votes.find( vote => vote.voting_id === voting.id )) {
       if (window.confirm('Ya habías votado en esta elección, ¿Te gustaria reemplazar tu voto?')) {
-        this.handleVote(this.state.voted)
+        handleVote(voted)
       } else {
-        this.fetchVoting(this.state.id)
+        fetchVoting(voting.id)
       }
     } else {
-      this.handleVote(this.state.voted)
+      handleVote(voted)
     }
   }
 
-  handleChange(event) {
-    this.fetchVoting(event.target.value)
+  function handleChange(event) {
+    fetchVoting(event.target.value)
   }
 
-  render() {
-    return (
-      <Section id={ this.props.endpoint }>
-        { this.state.authenticate ? <Authentication successHandler={ this.handleAuthenticated } closeHandler={ this.handleClose } /> : '' }
-        { this.state.share ? <Share closeHandler={ this.handleClose } /> : '' }
-        { (this.props.endpoint === 'national' || this.state.candidates.length) ? (
-          <SectionTitle>{ this.state.results.length ? `Resultados para ${this.state.name}` : `¿A quién votás para ${this.state.name}?` }</SectionTitle>
+  return (
+    <Section id={ props.endpoint }>
+      { authenticate ? <Authentication successHandler={ handleAuthenticated } closeHandler={ handleClose } /> : '' }
+      { share ? <Share closeHandler={ handleClose } /> : '' }
+      { (props.endpoint === 'national' || voting.candidates.length) ? (
+        <SectionTitle>{ voting.results.length ? `Resultados para ${voting.name}` : `¿A quién votás para ${voting.name}?` }</SectionTitle>
+      ) : (
+        <SectionTitle>{ `Resultados para ${voting.name}` }<VotingSelect selected={ voting.id } provinces={ provinces } changeHandler={ handleChange } /></SectionTitle>
+      )}
+      { voting.candidates.length ? <SectionDescription>{ props.endpoint === 'national' ? 'Elegí el espacio político que querés votar. El 12 de junio cierran las listas y vas a poder elegir el candidato.' : 'Si no ves candidatos es porque en tu provincia no se presentaron oficialmente. Mientras los candidatos se deciden, elegí el espacio político que querés votar.' }</SectionDescription> : '' }
+      { voting.results.length ? (
+        <Results>{ voting.results.map((result) => <PartyResult key={ result.id } data={ result } />) }</Results>
+      ) : (
+        voting.candidates.length ? (
+          <Candidates>{ voting.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ handleVote } />) }</Candidates>
         ) : (
-          <SectionTitle>{ `Resultados para ${this.state.name}` }<VotingSelect selected={ this.state.id } provinces={ this.state.provinces } changeHandler={ this.handleChange } /></SectionTitle>
-        )}
-        { this.state.candidates.length ? <SectionDescription>{ this.props.endpoint === 'national' ? 'Elegí el espacio político que querés votar. El 12 de junio cierran las listas y vas a poder elegir el candidato.' : 'Si no ves candidatos es porque en tu provincia no se presentaron oficialmente. Mientras los candidatos se deciden, elegí el espacio político que querés votar.' }</SectionDescription> : '' }
-        { this.state.results.length ? (
-          <Results>{ this.state.results.map((result) => <PartyResult key={ result.id } data={ result } />) }</Results>
-        ) : (
-          this.state.candidates.length ? (
-            <Candidates>{ this.state.candidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ this.handleVote } />) }</Candidates>
-          ) : (
-            <Placeholder>
-              <BlurredQuestion>
-                <p>No hay elecciones activas por el momento.</p>
-              </BlurredQuestion>
-            </Placeholder>
-          )
-        ) }
-      </Section>
-    )
-  }
+          <Placeholder>
+            <BlurredQuestion>
+              <p>No hay elecciones activas por el momento.</p>
+            </BlurredQuestion>
+          </Placeholder>
+        )
+      ) }
+    </Section>
+  )
 }
 
 Voting.propTypes = {
@@ -200,4 +178,4 @@ Voting.propTypes = {
   endpoint: PropTypes.string
 }
 
-export default connect(state => ({ user: getUser(state) }), { update })(Voting)
+export default Voting

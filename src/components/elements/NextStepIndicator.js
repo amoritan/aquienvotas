@@ -21,8 +21,9 @@
 
 
 
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+
 import styled, { css, keyframes } from 'styled-components'
 import { animateScroll } from 'react-scroll'
 
@@ -62,33 +63,25 @@ const Container = styled.button`
   `};
 `
 
-class NextStepIndicator extends Component {
-  constructor(props) {
-    super(props)
+function NextStepIndicator(props) {
 
-    this.state = { hidden: false }
+  const [hidden, setHidden] = useState(false)
 
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick() {
-    this.setState({ hidden: true })
+  function handleClick() {
+    setHidden(true)
     animateScroll.scrollTo(document.getElementById(this.props.destination).offsetTop - 100, { duration: 500, smooth: true })
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.destination !== prevProps.destination) {
-      this.setState({ hidden: false })
-    }
-  }
+  useEffect(() => {
+    setHidden(false)
+  }, [props.destination])
 
-  render() {
-    return (
-      <Container onClick={ this.handleClick } hidden={ this.state.hidden }>
-        { this.props.action }
-      </Container>
-    )
-  }
+  return (
+    <Container onClick={ handleClick } hidden={ hidden }>
+      { props.action }
+    </Container>
+  )
+
 }
 
 NextStepIndicator.propTypes = {

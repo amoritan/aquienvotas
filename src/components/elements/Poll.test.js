@@ -24,10 +24,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { Provider } from 'react-redux'
-
-import store from '../../redux/store'
-
 import Poll from './Poll'
 
 it('renders without crashing', () => {
@@ -45,6 +41,6 @@ it('renders without crashing', () => {
     ]
   }
 
-  ReactDOM.render(<Provider store={store}><Poll data={ poll } /></Provider>, div)
+  ReactDOM.render(<Poll data={ poll } />, div)
   ReactDOM.unmountComponentAtNode(div)
 })
