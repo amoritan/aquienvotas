@@ -21,15 +21,16 @@
 
 
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 
 import styled from 'styled-components'
 
 import { animateScroll } from 'react-scroll'
 
 import axios from 'axios'
+
+import SessionContext from '../../SessionContext'
 
 import Authentication from '../elements/Authentication'
 import Share from '../elements/Share'
@@ -73,8 +74,7 @@ function Voting(props) {
 
   const [provinces, setProvinces] = useState([])
 
-  const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
+  const session = useContext(SessionContext)
 
   useEffect(() => {
     fetchVoting(props.endpoint)
@@ -104,11 +104,11 @@ function Voting(props) {
   }
 
   function handleVote(candidate) {
-    if (user) {
+    if (session.user) {
       axios.post(`/ballots/${voting.id}/vote`, { candidate_id: candidate.id }).then(response => {
         setShare(true)
         setVoted(candidate)
-        dispatch({ type: 'UPDATE', payload: { user: response.data } })
+        session.set(response.data)
         fetchVoting(voting.id)
         animateScroll.scrollTo(document.getElementById(props.endpoint).offsetTop, { duration: 500, smooth: true })
         window.gtag('event', 'submitted', { event_category: 'voting', event_label: `${voting.name}/${candidate.party.name}/${candidate.name}` })
@@ -131,7 +131,7 @@ function Voting(props) {
 
   function handleAuthenticated() {
     setAuthenticate(false)
-    if (user.votes.find( vote => vote.voting_id === voting.id )) {
+    if (session.user.votes.find( vote => vote.voting_id === voting.id )) {
       if (window.confirm('Ya habías votado en esta elección, ¿Te gustaria reemplazar tu voto?')) {
         handleVote(voted)
       } else {

@@ -21,16 +21,13 @@
 
 
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import store from '../../redux/store'
-
-import Province from './Province';
+import Province from './Province'
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Provider store={store}><Province /></Provider>, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+  const div = document.createElement('div')
+  ReactDOM.render(<Province />, div)
+  ReactDOM.unmountComponentAtNode(div)
+})

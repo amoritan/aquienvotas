@@ -21,14 +21,15 @@
 
 
 
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useEffect, useContext } from 'react'
 
 import styled from 'styled-components'
 
 import { Link } from 'react-scroll'
 
 import axios from 'axios'
+
+import SessionContext from '../../SessionContext'
 
 import Candidate from '../elements/Candidate'
 
@@ -116,8 +117,7 @@ function Province() {
   const [province, setProvince] = useState(undefined)
   const [location, setLocation] = useState(undefined)
 
-  const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
+  const session = useContext(SessionContext)
 
   useEffect(() => {
     fetchProvinces()
@@ -157,11 +157,11 @@ function Province() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    axios.put(`/users/${ user.id }`, {
+    axios.put(`/users/${ session.user.id }`, {
       location_id: location.id
     }).then( response => {
       window.gtag('event', 'location_submitted', { event_category: 'user_info' })
-      dispatch({ type: 'UPDATE', payload: { user: response.data } })
+      session.set(response.data)
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })
@@ -172,7 +172,7 @@ function Province() {
     <Section id="local">
       <SectionTitle>Elección provincial</SectionTitle>
       <Candidates aria-hidden="true">{ placeholderCandidates.map((candidate) => <Candidate key={ candidate.id } data={ candidate } voteHandler={ function() {} } />) }</Candidates>
-      { user ? (
+      { session.user ? (
         <BlurredQuestion>
           <h3>¿Dónde votas?</h3>
           <form onSubmit={ handleSubmit }>

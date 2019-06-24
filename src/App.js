@@ -22,11 +22,12 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
 import styled from 'styled-components'
 
 import axios from 'axios'
+
+import SessionContext from './SessionContext'
 
 import Header from './components/sections/Header'
 import Voting from './components/sections/Voting'
@@ -49,16 +50,16 @@ const MainContainer = styled.main`
 `
 
 function App() {
-  const [ready, setReady] = useState(false)
+  const [user, setUser] = useState(undefined)
 
-  const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const token = window.localStorage.getItem('authentication_token')
     if (token) {
       axios.get('/authentication/fetch', { headers: {'Authorization': `Bearer ${token}`} }).then(response => {
-        dispatch({ type: 'AUTHENTICATE', payload: { token: token, user: response.data } })
+        setUser(response.data)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
         setReady(true)
       }).catch( error => {
         if (error.response && error.response.status === 401) {
@@ -72,31 +73,33 @@ function App() {
     } else {
       setReady(true)
     }
-  }, [dispatch])
+  }, [])
 
   if (ready) {
     return (
-      <MainContainer>
-        <Header closed={ Boolean(user) }></Header>
-        <Voting name="Presidente" endpoint="national" />
-        { user && user.location ? (
-          <Voting name="Gobernador/a" endpoint="local" />
-        ) : <Province /> }
-        <Demographics />
-        <Polls />
-        <About />
-        <FrequentlyAskedQuestions />
-        <Footer />
-        { user && user.votes.length === 1 ? (
-          <NextStepIndicator action="¡Ya podes votar en la elección provincial!" destination="local" />
-        ) : (
-          user && user.votes.length === 2 && !user.age ? (
-            <NextStepIndicator action="¡Ahora podes conocer a la comunidad de #AQuienVotas!" destination="demographics" />
-          ) : user && !user.votes.find(vote => vote.voting_type === 'Poll') ? (
-            <NextStepIndicator action="¡Nueva encuesta! ¿Quién fue el/la mejor presidente desde el regreso de la democracia?" destination="polls" />
-          ) : ''
-        ) }
-      </MainContainer>
+      <SessionContext.Provider value={ { user: user, set: setUser } }>
+        <MainContainer>
+          <Header closed={ Boolean(user) }></Header>
+          <Voting name="Presidente" endpoint="national" />
+          { user && user.location ? (
+            <Voting name="Gobernador/a" endpoint="local" />
+          ) : <Province /> }
+          <Demographics />
+          <Polls />
+          <About />
+          <FrequentlyAskedQuestions />
+          <Footer />
+          { user && user.votes.length === 1 ? (
+            <NextStepIndicator action="¡Ya podes votar en la elección provincial!" destination="local" />
+          ) : (
+            user && user.votes.length === 2 && !user.age ? (
+              <NextStepIndicator action="¡Ahora podes conocer a la comunidad de #AQuienVotas!" destination="demographics" />
+            ) : user && !user.votes.find(vote => vote.voting_type === 'Poll') ? (
+              <NextStepIndicator action="¡Nueva encuesta! ¿Quién fue el/la mejor presidente desde el regreso de la democracia?" destination="polls" />
+            ) : ''
+          ) }
+        </MainContainer>
+      </SessionContext.Provider>
     )
   } else {
     return ''

@@ -21,13 +21,14 @@
 
 
 
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useEffect, useContext } from 'react'
 
 import styled, { css } from 'styled-components'
 import { Link } from 'react-scroll'
 
 import axios from 'axios'
+
+import SessionContext from '../../SessionContext'
 
 import DemographicsChart from '../elements/DemographicsChart'
 import Argentina from '../elements/Argentina'
@@ -105,11 +106,10 @@ function Demographics() {
   const [age, setAge] = useState(undefined)
   const [gender, setGender] = useState(undefined)
 
-  const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
+  const session = useContext(SessionContext)
 
   useEffect(() => {
-    if (user && user.location && user.age && user.gender) {
+    if (session.user && session.user.location && session.user.age && session.user.gender) {
       fetchLocations()
       fetchDemographics()
     } else {
@@ -161,10 +161,10 @@ function Demographics() {
         }
       ])
     }
-  }, [user])
+  }, [session.user])
 
   function canView() {
-    return user && user.location && user.age && user.gender
+    return session.user && session.user.location && session.user.age && session.user.gender
   }
 
   function fetchLocations() {
@@ -206,9 +206,9 @@ function Demographics() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    axios.put(`/users/${ user.id }`, { age: age, gender: gender }).then(response => {
+    axios.put(`/users/${ session.user.id }`, { age: age, gender: gender }).then(response => {
       window.gtag('event', 'demographics_submitted', { event_category: 'user_info' })
-      dispatch({ type: 'UPDATE', payload: { user: response.data } })
+      session.set(response.data)
     }).catch( error => {
       console.error(error)
       window.gtag('event', 'api', { event_category: 'error', event_label: error })
@@ -232,7 +232,7 @@ function Demographics() {
         <DemographicsChart demographics={ demographics } />
       </Data>
       { !canView() ? (
-        user && user.location ? (
+        session.user && session.user.location ? (
           <BlurredQuestion>
             <h3>Contanos de vos</h3>
             <form onSubmit={ handleSubmit }>
