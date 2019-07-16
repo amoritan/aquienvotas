@@ -65,14 +65,14 @@ const Container = styled.footer`
 function Footer() {
   return (
     <Container>
-      <a href="mailto:hola@aquienvotas.com">hola@aquienvotas.com</a><br />
+      <a href="mailto:hola@aquienvotas.org">hola@aquienvotas.org</a><br />
       <a href="https://twitter.com/aquienvotas" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Twitter"><FontAwesomeIcon icon={['fab', 'twitter']} /></a>
       <a href="https://www.instagram.com/aquienvotasok" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Instagram"><FontAwesomeIcon icon={['fab', 'instagram']} /></a>
       <a href="https://www.facebook.com/aquienvotasok" target="_blank" rel="noopener noreferrer" title="#AQuienVotas en Facebook"><FontAwesomeIcon icon={['fab', 'facebook']} /></a>
       <a href="https://github.com/andresmoritan/aquienvotas" target="_blank" rel="noopener noreferrer" title="Repositorio de #AQuienVotas en GitHub"><FontAwesomeIcon icon={['fab', 'github']} /></a>
       
       <aside>
-        <p>Los <span href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">resultados de las encuestas</span> de <a href="https://www.aquienvotas.com" property="cc:attributionName" rel="cc:attributionURL">AQuienVotas</a> se distribuyen bajo la <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer">Licencia Creative Commons Atribución 4.0 Internacional</a>.</p>
+        <p>Los <span href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">resultados de las encuestas</span> de <a href="https://www.aquienvotas.org" property="cc:attributionName" rel="cc:attributionURL">AQuienVotas</a> se distribuyen bajo la <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer">Licencia Creative Commons Atribución 4.0 Internacional</a>.</p>
 
         <p>Esta aplicación web es parte de <a href="https://github.com/andresmoritan/aquienvotas" target="_blank" rel="noopener noreferrer">AQuienVotas</a>, un programa de software libre: puedes redistribuirlo y/o modificarlo bajo los términos de la <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="license noopener noreferrer">Licencia GNU Affero General Public</a> tal y como ha sido publicado por la Free Software Foundation, ya sea la versión 3 de la Licencia, o cualquier versión posterior. Este programa se distribuye con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA; ni siquiera la garantía implícita de COMERCIALIZACIÓN o ADECUACIÓN A UN PROPÓSITO PARTICULAR.</p>
 

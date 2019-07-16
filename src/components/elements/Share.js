@@ -116,21 +116,21 @@ function Share(props) {
 
     switch (event.target.id) {
       case 'twitter':
-        link.setAttribute('href', 'https://twitter.com/intent/tweet?text=%F0%9F%97%B3%20%C2%A1Mir%C3%A1%20los%20resultados%20de%20la%20encuesta%20para%20las%20%23Elecciones2019%20m%C3%A1s%20grande%20de%20la%20Argentina!&url=https://www.aquienvotas.com&hashtags=AQuienVotas&related=aquienvotas')
+        link.setAttribute('href', 'https://twitter.com/intent/tweet?text=%F0%9F%97%B3%20%C2%A1Mir%C3%A1%20los%20resultados%20de%20la%20encuesta%20para%20las%20%23Elecciones2019%20m%C3%A1s%20grande%20de%20la%20Argentina!&url=https://www.aquienvotas.org&hashtags=AQuienVotas&related=aquienvotas')
         link.setAttribute('target', '_blank')
         event.target.appendChild(link)
         link.click()
         event.target.removeChild(link)
         break
       case 'facebook':
-        link.setAttribute('href', 'https://www.facebook.com/sharer/sharer.php?u=www.aquienvotas.com')
+        link.setAttribute('href', 'https://www.facebook.com/sharer/sharer.php?u=www.aquienvotas.org')
         link.setAttribute('target', '_blank')
         event.target.appendChild(link)
         link.click()
         event.target.removeChild(link)
         break
       case 'whatsapp':
-        link.setAttribute('href', 'whatsapp://send?text=%F0%9F%97%B3%20%C2%A1Mir%C3%A1%20los%20resultados%20de%20*%23AQuienVotas*%2C%20la%20encuesta%20para%20las%20elecciones%202019%20m%C3%A1s%20grande%20de%20la%20Argentina!%20https%3A%2F%2Fwww.aquienvotas.com')
+        link.setAttribute('href', 'whatsapp://send?text=%F0%9F%97%B3%20%C2%A1Mir%C3%A1%20los%20resultados%20de%20*%23AQuienVotas*%2C%20la%20encuesta%20para%20las%20elecciones%202019%20m%C3%A1s%20grande%20de%20la%20Argentina!%20https%3A%2F%2Fwww.aquienvotas.org')
         event.target.appendChild(link)
         link.click()
         event.target.removeChild(link)

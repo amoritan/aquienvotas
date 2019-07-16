@@ -1,13 +1,13 @@
-![](https://s3-sa-east-1.amazonaws.com/assets.aquienvotas.com/icon-github.svg)
+![](https://s3-sa-east-1.amazonaws.com/assets.aquienvotas.org/icon-github.svg)
 
 # AQuienVotas 
 > Web Application | [Application Programming Interface (API)](https://github.com/andresmoritan/aquienvotas-api#aquienvotas "API de AQuienVotas en GitHub")
 
-![Travis (.com)](https://img.shields.io/travis/com/andresmoritan/aquienvotas.svg) ![Website](https://img.shields.io/website/https/aquienvotas.com.svg) ![GitHub](https://img.shields.io/github/license/andresmoritan/aquienvotas.svg)
+![Travis (.com)](https://img.shields.io/travis/com/andresmoritan/aquienvotas.svg) ![Website](https://img.shields.io/website/https/aquienvotas.org.svg) ![GitHub](https://img.shields.io/github/license/andresmoritan/aquienvotas.svg)
 
 **AQuienVotas** es una plataforma web para generar estadísticas de intención de voto y opinión a través de encuestas transparentes y representativas.
 
-La versión del proyecto publicada en [www.aquienvotas.com](https://www.aquienvotas.com "AQuienVotas") tiene como objetivo representar la opinión de la población de cara a las elecciones ejecutivas del año 2019 en Argentina a través distintas encuestas sobre la intención de voto y la opinión de los visitantes frente temas de debate público en el país. 
+La versión del proyecto publicada en [www.aquienvotas.org](https://www.aquienvotas.org "AQuienVotas") tiene como objetivo representar la opinión de la población de cara a las elecciones ejecutivas del año 2019 en Argentina a través distintas encuestas sobre la intención de voto y la opinión de los visitantes frente temas de debate público en el país. 
 
 Los resultados obtenidos son ponderados y expuestos en tiempo real. Apuntamos a colaborar, con datos de calidad, en el debate público mediante el desarrollo de una herramienta neutral, transparente y accesible.
 
