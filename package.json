@@ -11,7 +11,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "libphonenumber-js": "^1.7.20",
     "polished": "^2.3.3",
     "prop-types": "^15.7.2",
